@@ -15,9 +15,7 @@ var notif_actions = {};
 /*
  * SNOOZE alarm
  * postpones alarm for given period of time
- *
- * TODO: write concrete implementation
- *
+ * UI handles everything
  * @param {string} key - key of alarm to be snoozed
  * @returns {null}
  *
@@ -25,9 +23,8 @@ var notif_actions = {};
  */
 function snooze (key) {
 
-    chrome.extension.sendMessage({action: 'snooze', key: key}, function(response) {
-        console.log(response);
-    });
+    //popup handles UI and saving
+    chrome.extension.sendMessage({action: 'snooze', key: key});
 
 }
 

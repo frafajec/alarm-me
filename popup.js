@@ -23,8 +23,8 @@ function getCurrentTime() {
 function setDefAlarmTime() {
 	var t = getCurrentTime();
 
-	document.getElementById('na-time-h').getElementsByClassName('value')[0].value = t.h;
-	document.getElementById('na-time-m').getElementsByClassName('value')[0].value = t.m;
+	document.getElementById('na-time-h').getElementsByClassName('value')[0].value = displayTime(t.h);
+	document.getElementById('na-time-m').getElementsByClassName('value')[0].value = displayTime(t.m);
 }
 
 
@@ -39,8 +39,6 @@ function setDefAlarmTime() {
  *
  * @param {object} alarm - alarm object from (as in storage)
  * @returns {html} div - html alarm object
- *
- * TODO: parse hours and minutes if single digit!
  */
 function alarmTemplate(alarm) {
 	var div = document.createElement("div");
@@ -54,7 +52,7 @@ function alarmTemplate(alarm) {
 	var elem2 = document.createElement("input");
 	elem2.setAttribute("type", "text");
 	elem2.setAttribute("class", "al-elem-time");
-	elem2.value = displayTime(new Date(alarm.time_set).getHours()) + ":" + displayTime( new Date(alarm.time_set).getMinutes());
+	elem2.value = displayTime(new Date(alarm.time_set).getHours()) + ":" + displayTime( new Date(alarm.time_set).getMinutes() );
 
 	var elem3 = document.createElement("input");
 	elem3.setAttribute("type", "text");
@@ -142,7 +140,8 @@ function getAlarmList() {
 
 
 /*
- *
+ * Checks if given number is lesser than 10
+ * if yes add leading 0
  */
 function displayTime(t) {
 	if (t.toString().length < 2 ) { return '0' + t; }
@@ -177,21 +176,6 @@ function changeInputTime(e) {
 	}
 	
 	el.value = displayTime(val);
-}
-
-
-/*
- * Parses time in format DD.MM.YYYY hh:mm
- * to milliseconds since 01.01.1970
- *
- * TODO: NOT USED!
- */
-function stringTimeMilisec(string) {
-	var date = string.split(" ")[0],
-	    time = string.split(" ")[1];
-
-	var jstime = new Date(date.split(".")[2] + "/" + date.split(".")[1] + "/" + date.split(".")[0] + " " + time + ":00");
-	return jstime.getTime();
 }
 
 
@@ -264,7 +248,7 @@ function initNewAlarm() {
 		 * @param {int} time_created - time at which alarm was created (ms from 1970)
 		 * @param {int} time_set - time when alarm was supposed to activate (ms from 1970)
 		 * @param {int} time_span - difference between current time and time when alarm is to be activated (ms)
-		 * @param {int} time_snooze - total snoozed time (initial 0) (history purposes)
+		 * @param {int} time_snoozed - REMOVED //TODO potentially implement
 		 */
 		var alarm = {
 			key: make_key(),
@@ -272,8 +256,7 @@ function initNewAlarm() {
 			desc: document.getElementById('na-desc').value,
 			time_created: new Date().getTime(),
 			time_set: "",
-			time_span: "",
-			time_snooze: 0
+			time_span: ""
 		};
 
 
@@ -319,7 +302,7 @@ function initNewAlarm() {
 
 /*
  * UI update for alarms when called from notifications
- * Current options are to remove or snooze alarm
+ * Current options are to REMOVE or SNOOZE alarm
  *
  * 'background.js' notification/alarm activation interface has handlers for alarms/notifications
  * This function receives updates regarding UI update for popup and returns request (for easier keeping)
@@ -329,7 +312,7 @@ function initNewAlarm() {
  * @param {function} sendResponse - callback function via which response is returned
  * @returns {null}
  *
- * TODO: implement snooze
+ * TODO: implement arbitrary snooze (user options)
  */
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 		var key = request.key;
@@ -353,7 +336,54 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 		//change alarm time in UI
 		else if (request.action == "snooze") {
 
+			//@param {object} object - object containing list of all alarms
+			var storage_callback = function (object) {
+				var alarms = object.AM_alarms;
+
+				for (var i = 0; i < alarms.length; i++) {
+					if (key == alarms[i].key) {
+						var alarm = alarms[i];
+						break;
+					}
+				}
+
+				//set snoozed time, time when snooze occurred
+				//TODO take from options (currently 10 minutes)
+				var snooze_time = 10;
+				alarm.time_created = new Date().getTime();
+				alarm.time_set = new Date().getTime() + (snooze_time * 60 * 1000);
+				alarm.time_span = alarm.time_set - alarm.time_created;
+
+				//create alarm -> 1 minute = 60,000 milliseconds
+				chrome.alarms.create(alarm.key, { delayInMinutes: (alarm.time_span / 60000) });
+
+
+				//update UI
+				var list = document.getElementById('al-container').getElementsByClassName('al-elem');
+
+				for (var i = 0; i < list.length; i++) {
+
+					if (alarm.key == list[i].getAttribute('key')) {
+
+						//change time in alarm
+						var el_time = list[i].getElementsByClassName('al-elem-time')[0];
+						el_time.value = displayTime(new Date(alarm.time_set).getHours()) + ":" + displayTime( new Date(alarm.time_set).getMinutes() );
+
+						break;
+					}
+
+				}
+
+
+				//@param {object} - data to be stored
+				chrome.storage.sync.set({'AM_alarms': alarms});
+
+
+			}.bind(key); //pushing variable alarm into scope!
+			chrome.storage.sync.get('AM_alarms', storage_callback);
+
 			sendResponse(request);
+
 		}
 
 	}
