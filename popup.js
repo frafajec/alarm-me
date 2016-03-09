@@ -32,7 +32,7 @@ function setDefAlarmTime() {
  * TEMPLATE for alarm popup list
  *
  * <div class="al-elem" key="key_id">
- *	 <input type="image" src="img/cancel.png" class="cancel">
+ *	 <input type="button" class="cancel">
  *	 <input type="text" class="al-elem-time">
  *	 <input type="text" class="al-elem-name">
  * </div>
@@ -48,14 +48,13 @@ function alarmTemplate(alarm) {
 	div.setAttribute("key", alarm.key);
 
 	var elem1 = document.createElement("input");
-	elem1.setAttribute("type", "image");
-	elem1.setAttribute("src", "img/cancel.png");
+	elem1.setAttribute("type", "button");
 	elem1.setAttribute("class", "cancel");
 
 	var elem2 = document.createElement("input");
 	elem2.setAttribute("type", "text");
 	elem2.setAttribute("class", "al-elem-time");
-	elem2.value = new Date(alarm.time_set).getHours() + ":" + new Date(alarm.time_set).getMinutes();
+	elem2.value = displayTime(new Date(alarm.time_set).getHours()) + ":" + displayTime( new Date(alarm.time_set).getMinutes());
 
 	var elem3 = document.createElement("input");
 	elem3.setAttribute("type", "text");
@@ -143,6 +142,15 @@ function getAlarmList() {
 
 
 /*
+ *
+ */
+function displayTime(t) {
+	if (t.toString().length < 2 ) { return '0' + t; }
+	else { return t; }
+}
+
+
+/*
  * TODO improve!
 */
 function changeInputTime(e) {
@@ -168,7 +176,7 @@ function changeInputTime(e) {
 		console.log("Misfired increase/decrease!\n" + e);
 	}
 	
-	el.value = val;
+	el.value = displayTime(val);
 }
 
 

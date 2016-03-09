@@ -9,14 +9,28 @@ h4 {
     margin-bottom: 10px;
 }
 input#na-reset,
-input#na-set,
-input#na-cancel {
+input#na-set {
 	display: inline-block;
 	vertical-align: middle;
 	height: 25px;
 	width: 25px;
 	border: 0;
 	border-radius: 12px;
+	cursor: pointer;
+
+	transition: all 0.1s ease-in-out;
+}
+input#na-set {
+	 background: url(img/ok.png);
+	 background-size: contain;
+ }
+input#na-set:hover {
+	background: url(img/ok_hover.png);
+	background-size: contain;
+}
+input#na-reset {
+	background: url(img/reset.png);
+	background-size: contain;
 }
 /* GLOBAL:end */
 
@@ -84,6 +98,12 @@ input#na-cancel {
 	border: 0;
 	border-radius: 12px;
 	margin-right: 5px;
+	background: url(img/cancel.png);
+	background-size: contain;
+}
+#alarm-list .al-elem .cancel:hover {
+	background: url(img/cancel_hover.png);
+	background-size: contain;
 }
 #alarm-list .al-elem .al-elem-time {
 	display: inline-block;
