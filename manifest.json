@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_extName__",
+  "version": "1.0",
+  "author": "Filip Rafajec",
+
+  "default_locale": "en",
+  "description": "Extension that will notify you on a set time.",
+  "icons": {
+      "16": "img/icon16.png",
+      "19": "img/icon19.png",
+      "48": "img/icon48.png",
+  	  "128": "img/icon128.png",
+  	  "512": "img/icon512.png"
+  },
+
+  "browser_action": {
+      "default_title": "Alarm manager",
+      "default_popup": "popup.html"
+  },
+
+  "permissions": [ "alarms", "storage", "notifications", "*://*/*"],
+  
+  "background": {
+      "scripts": ["background.js"],
+      "persistent": true
+  },
+  
+  "options_page": "options.html"
+  
+}

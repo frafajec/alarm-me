@@ -1,0 +1,119 @@
+/* GLOBAL:start */
+body {
+	font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+	font-size: 100%;
+	width: 250px;
+}
+h4 {
+	margin-top: 0;
+    margin-bottom: 10px;
+}
+input#na-reset,
+input#na-set,
+input#na-cancel {
+	display: inline-block;
+	vertical-align: middle;
+	height: 25px;
+	width: 25px;
+	border: 0;
+	border-radius: 12px;
+}
+/* GLOBAL:end */
+
+
+/* NEW-ALARM:start */
+#new-alarm {
+	width: 100%;
+}
+#new-alarm #na-container {
+	width: 100%;
+}
+#new-alarm p {
+	font-style: italic;
+	font-size: 75%;
+	color: grey;
+	margin: 0;
+}
+#new-alarm #na-time {
+	display: inline-block;
+}
+#new-alarm #na-time input {
+	width: 25px;
+    text-align: center;
+    font-weight: bold;
+	display: block;
+}
+#new-alarm #na-time-h,
+#new-alarm #na-time-m {
+	display: inline-block;
+}
+#new-alarm .increase,
+#new-alarm .decrease {
+	width: 29px !important;
+}
+#new-alarm #na-name {
+	display: inline-block;
+    width: 120px;
+}
+#new-alarm #na-desc {
+	width: 245px;
+    max-width: 245px;
+}
+/* NEW-ALARM:end */
+
+
+/* ALARM LIST:start */
+#alarm-list {
+	margin-top: 10px;
+}
+#alarm-list p {
+	font-style: italic;
+	font-size: 75%;
+	color: grey;
+	margin: 0;
+}
+#alarm-list .al-elem {
+	padding: 5px;
+	margin-bottom: 5px;
+}
+#alarm-list .al-elem .cancel {
+	display: inline-block;
+	vertical-align: middle;
+	height: 25px;
+	width: 25px;
+	border: 0;
+	border-radius: 12px;
+	margin-right: 5px;
+}
+#alarm-list .al-elem .al-elem-time {
+	display: inline-block;
+	width: 50px;
+	font-weight: bold;
+	text-align: center;
+	height: 20px;
+	font-size: 16px;
+	font-family: monospace;
+	border-radius: 5px;
+	margin-right: 5px;
+}
+#alarm-list .al-elem .al-elem-name {
+	display: inline-block;
+	width: 150px;
+	text-align: left;
+	height: 20px;
+	border: 0;
+	background-color: white;
+}
+
+
+
+/* ALARM LIST:end */
+
+
+
+
+
+
+
+
+

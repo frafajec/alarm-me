@@ -1,0 +1,58 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>Alarm manager</title>
+	<link rel="stylesheet" href="popup.css">
+	<link rel="stylesheet" href="libs/sweetalert.css">
+  </head>
+  
+  <body>
+	<h4> Alarm Me! (beta)</h4>
+	
+    <div id="new-alarm">
+		<p>Add new alarm</p>
+		
+		<div id="na-container">
+			<input type="image" src="img/reset.png" id="na-reset">
+			<div id="na-time">
+				<div id="na-time-h">
+					<input type="image" src="img/increase.png" class="increase">
+					<input type="text" class="value" unit="h">
+					<input type="image" src="img/decrease.png" class="decrease">
+				</div>
+				<div id="na-time-m">
+					<input type="image" src="img/increase.png" class="increase">
+					<input type="text" class="value" unit="m">
+					<input type="image" src="img/decrease.png" class="decrease">
+				</div>
+			</div>
+			<input type="text" id="na-name" placeholder="Alarm name">
+			<input type="image" src="img/ok.png" id="na-set">
+			
+			<textarea id="na-desc" placeholder="Alarm description"></textarea>
+		</div>
+	
+	</div>
+
+    <div id="alarm-list">
+		<p>Alarm list</p>
+		
+		<div id="al-container">
+
+			<!-- TEMPLATE inject-->
+
+		</div>
+	</div>
+
+	<script src="popup.js"></script>
+	<script src="libs/sweetalert.min.js"></script>
+
+  </body>
+  
+</html>
+
