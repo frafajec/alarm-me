@@ -98,7 +98,7 @@ function raise_notification (key) {
         //@param {object} notification properties
         //@param {function} callback
         chrome.notifications.create(alarm.key, {
-            iconUrl: chrome.runtime.getURL('img/icon512.png'),
+            iconUrl: chrome.runtime.getURL('img/icon/icon512.png'),
             title: alarm.name,
             type: 'basic',
             message: alarm.desc,

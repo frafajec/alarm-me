@@ -7,11 +7,11 @@
   "default_locale": "en",
   "description": "Extension that will notify you on a set time.",
   "icons": {
-      "16": "img/icon16.png",
-      "19": "img/icon19.png",
-      "48": "img/icon48.png",
-  	  "128": "img/icon128.png",
-  	  "512": "img/icon512.png"
+      "16": "img/icon/icon16.png",
+      "19": "img/icon/icon19.png",
+      "48": "img/icon/icon48.png",
+  	  "128": "img/icon/icon128.png",
+  	  "512": "img/icon/icon512.png"
   },
 
   "browser_action": {
@@ -26,6 +26,6 @@
       "persistent": true
   },
   
-  "options_page": "options.html"
+  "options_page": "options/options.html"
   
 }

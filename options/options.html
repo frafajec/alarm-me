@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Alarm Me! Options</title>
+        <link rel="stylesheet" href="css/options.css">
+
+        <!-- dropdown menu -->
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/cs-select.css">
+        <script src="js/classie.js"></script>
+        <script src="js/selectFx.js"></script>
+
+
+        <script src="js/options.js"></script>
+
+    </head>
+    <body>
+
+        <div class="container">
+
+            <!-- NAVIGATION:start -->
+            <div id='nav'>
+                <ul>
+                    <li id="logo" link="options">
+                        <a href='#options'>
+                            <img src="../img/icon/AlarmMe_logo.png" alt="Alarm Me!" >
+                        </a>
+                    </li>
+                    <li class='active' link="options">
+                        <a href='#options'>Options</a>
+                    </li>
+                    <li link="about">
+                        <a href='#about'>About</a>
+                    </li>
+                    <li link="support">
+                        <a href='#support'>Support</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- NAVIGATION:end -->
+
+
+            <!-- OPTIONS:start -->
+            <div id="options" class="page">
+
+                <div class="box">
+
+                    <div class="box-line">
+                        <p> Snooze length </p>
+                        <input type="text" id="alarm-snooze">
+                        <div class="help">
+                            <p>Minutes</p>
+                        </div>
+                    </div>
+
+                    <div class="box-line">
+                        <p> Alarm stop after </p>
+                        <input type="text" id="alarm-stop">
+                        <div class="help">
+                            <p>Minutes</p>
+                        </div>
+                    </div>
+
+                    <div class="box-line" id="song-list">
+                        <p> Alarm song </p>
+
+                        <select class="cs-select cs-skin-rotate" id="alarm-sound">
+                            <option value="" disabled selected>Choose your alarm</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+
+                    </div>
+
+                    <div class="box-line">
+                        <p> Alarm volume </p>
+                        <input type="text" placeholder="0 - 100 %" id="alarm-volume">
+                        <div class="help">
+                            <input type="button" class="toggle-sound" state="stop">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- OPTIONS:end -->
+
+
+            <!-- ABOUT:start -->
+            <div id="about" class="page">
+
+                <div class="box">
+
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet mi odio. Suspendisse elementum justo id aliquet convallis. Nulla ac eleifend orci.
+                        Sed semper sem ac mauris tincidunt accumsan. Vivamus ullamcorper dolor at ligula porttitor congue. Nullam arcu felis, congue sed egestas at, rutrum ac ex.
+                        Vivamus efficitur, enim molestie vulputate malesuada, augue sapien lobortis tellus, placerat lobortis ligula felis porttitor eros. Ut vulputate justo dui, id ultrices risus
+                        ultricies eget. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris diam ipsum, aliquam eu felis ullamcorper, tempus congue massa.
+                    </p>
+                    <p>
+                        Vivamus efficitur lectus nec velit pretium, a aliquet diam auctor. Fusce laoreet eros sed turpis pharetra eleifend. Etiam mattis lacus et vulputate aliquam. Proin hendrerit eget
+                        nulla vel posuere. Vivamus sem arcu, aliquam eget semper eget, interdum a nibh. Ut et placerat sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer sodales
+                        laoreet ipsum vel tincidunt. Quisque ac magna a elit sagittis gravida ut nec orci. Nunc lobortis dapibus velit, in aliquam lorem. Aenean sed nisi augue. Suspendisse bibendum
+                        justo ut turpis aliquam imperdiet. Aliquam a imperdiet sem, quis ullamcorper sapien.
+                    </p>
+                    <p>
+                        Nullam non tempus lectus. Fusce congue porttitor dui sit amet bibendum. Phasellus molestie vulputate massa, quis interdum libero venenatis eu. Nam leo neque, posuere quis
+                        nunc vitae, tempus bibendum tortor. Mauris commodo, nulla in iaculis porta, urna risus faucibus nulla, at placerat mauris libero posuere diam. Nam malesuada molestie augue,
+                        non gravida nulla maximus non. In pellentesque nisi at ante fermentum ullamcorper. Integer tincidunt, leo nec euismod maximus, velit risus pellentesque nibh, vel maximus erat
+                        nisi eu quam. Donec justo tellus, tristique in diam at, ultrices condimentum diam. Nulla nec finibus sem, nec pharetra massa.
+                    </p>
+
+                </div>
+
+            </div>
+            <!-- ABOUT:end -->
+
+
+            <!-- SUPPORT:start -->
+            <div id="support" class="page">
+
+            </div>
+            <!-- SUPPORT:end -->
+
+        </div>
+
+    </body>
+</html>
