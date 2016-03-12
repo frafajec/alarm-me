@@ -11,7 +11,6 @@
         <script src="js/classie.js"></script>
         <script src="js/selectFx.js"></script>
 
-
         <script src="js/options.js"></script>
 
     </head>
@@ -27,11 +26,11 @@
                             <img src="../img/icon/AlarmMe_logo.png" alt="Alarm Me!" >
                         </a>
                     </li>
-                    <li class='active' link="options">
-                        <a href='#options'>Options</a>
+                    <li link="instructions">
+                        <a href='#instructions'>Instructions</a>
                     </li>
-                    <li link="about">
-                        <a href='#about'>About</a>
+                    <li link="options">
+                        <a href='#options'>Options</a>
                     </li>
                     <li link="support">
                         <a href='#support'>Support</a>
@@ -41,55 +40,8 @@
             <!-- NAVIGATION:end -->
 
 
-            <!-- OPTIONS:start -->
-            <div id="options" class="page">
-
-                <div class="box">
-
-                    <div class="box-line">
-                        <p> Snooze length </p>
-                        <input type="text" id="alarm-snooze">
-                        <div class="help">
-                            <p>Minutes</p>
-                        </div>
-                    </div>
-
-                    <div class="box-line">
-                        <p> Alarm stop after </p>
-                        <input type="text" id="alarm-stop">
-                        <div class="help">
-                            <p>Minutes</p>
-                        </div>
-                    </div>
-
-                    <div class="box-line" id="song-list">
-                        <p> Alarm song </p>
-
-                        <select class="cs-select cs-skin-rotate" id="alarm-sound">
-                            <option value="" disabled selected>Choose your alarm</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                        </select>
-
-                    </div>
-
-                    <div class="box-line">
-                        <p> Alarm volume </p>
-                        <input type="text" placeholder="0 - 100 %" id="alarm-volume">
-                        <div class="help">
-                            <input type="button" class="toggle-sound" state="stop">
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-            <!-- OPTIONS:end -->
-
-
-            <!-- ABOUT:start -->
-            <div id="about" class="page">
+            <!-- INSTRUCTIONS:start -->
+            <div id="instructions" class="page">
 
                 <div class="box">
 
@@ -115,11 +67,101 @@
                 </div>
 
             </div>
-            <!-- ABOUT:end -->
+            <!-- INSTRUCTIONS:end -->
+
+
+            <!-- OPTIONS:start -->
+            <div id="options" class="page">
+
+                <div class="box">
+
+                    <div class="box-line">
+                        <label for="alarm-snooze"> Snooze length </label>
+                        <div class="box-input">
+                            <input type="text" id="alarm-snooze">
+                            <span class="tooltip">* 0 = snooze is disabled</span>
+                        </div>
+
+                        <div class="help">
+                            <p>Minutes</p>
+                        </div>
+
+                    </div>
+
+                    <div class="box-line">
+                        <label for="alarm-stop"> Alarm stop after </label>
+                        <div class="box-input">
+                            <input type="text" id="alarm-stop">
+                            <span class="tooltip">* 0 = alarm lasts until user action</span>
+                        </div>
+                        <div class="help">
+                            <p>Minutes</p>
+                        </div>
+                    </div>
+
+                    <div class="box-line" id="song-list">
+                        <label for="alarm-tone"> Alarm tone </label>
+
+                        <select class="cs-select cs-skin-rotate" id="alarm-tone">
+                            <option value="" disabled selected>Choose your alarm tone</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+
+                    </div>
+
+                    <div class="box-line">
+                        <label for="alarm-volume"> Alarm volume </label>
+                        <div class="box-input">
+                            <input type="text" placeholder="0 - 100 %" id="alarm-volume">
+                            <span class="tooltip">* percentage (%)</span>
+                        </div>
+                        <div class="help">
+                            <input type="button" class="toggle-sound" state="stop">
+                        </div>
+                    </div>
+
+
+                    <div class="box-footer">
+                        <div class="footer-hints">
+                            <p>* options are saved as soon as they are changed</p>
+                            <p>* you can always press play and listen to selected tone with selected volume</p>
+                        </div>
+                        <div class="footer-actions">
+                            <input type="button" id="options-reset" value="Reset">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- OPTIONS:end -->
 
 
             <!-- SUPPORT:start -->
             <div id="support" class="page">
+
+                <div class="box">
+
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet mi odio. Suspendisse elementum justo id aliquet convallis. Nulla ac eleifend orci.
+                        Sed semper sem ac mauris tincidunt accumsan. Vivamus ullamcorper dolor at ligula porttitor congue. Nullam arcu felis, congue sed egestas at, rutrum ac ex.
+                        Vivamus efficitur, enim molestie vulputate malesuada, augue sapien lobortis tellus, placerat lobortis ligula felis porttitor eros. Ut vulputate justo dui, id ultrices risus
+                        ultricies eget. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris diam ipsum, aliquam eu felis ullamcorper, tempus congue massa.
+                    </p>
+                    <p>
+                        Vivamus efficitur lectus nec velit pretium, a aliquet diam auctor. Fusce laoreet eros sed turpis pharetra eleifend. Etiam mattis lacus et vulputate aliquam. Proin hendrerit eget
+                        nulla vel posuere. Vivamus sem arcu, aliquam eget semper eget, interdum a nibh. Ut et placerat sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer sodales
+                        laoreet ipsum vel tincidunt. Quisque ac magna a elit sagittis gravida ut nec orci. Nunc lobortis dapibus velit, in aliquam lorem. Aenean sed nisi augue. Suspendisse bibendum
+                        justo ut turpis aliquam imperdiet. Aliquam a imperdiet sem, quis ullamcorper sapien.
+                    </p>
+                    <div id="support-links">
+                        <input type="button" id="link-mail" >
+                        <input type="button" id="link-linked" >
+                        <input type="button" id="link-git" >
+                    </div>
+
+                </div>
 
             </div>
             <!-- SUPPORT:end -->

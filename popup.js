@@ -403,6 +403,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	
 	//event handlers
 	initNewAlarm();
+
+
+	function open_options () {
+
+		chrome.tabs.create({ 'url': 'chrome-extension://' + chrome.runtime.id + '/options/options.html#instructions' });
+	}
+
+	document.getElementById('options-page').addEventListener('click', open_options);
 });
 
 

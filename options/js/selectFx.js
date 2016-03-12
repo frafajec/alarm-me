@@ -262,7 +262,7 @@
 	/**
 	 * change option - the new value is set
 	 */
-	SelectFx.prototype._changeOption = function() {
+	SelectFx.prototype._changeOption = function(optIdx) {
 		// if pre selected current (if we navigate with the keyboard)...
 		if( typeof this.preSelCurrent != 'undefined' && this.preSelCurrent !== -1 ) {
 			this.current = this.preSelCurrent;
@@ -270,7 +270,7 @@
 		}
 
 		// current option
-		var opt = this.selOpts[ this.current ];
+		var opt = this.selOpts[ (optIdx >= 0 ? optIdx : this.current) ];
 
 		// update current selected value
 		this.selPlaceholder.textContent = opt.textContent;

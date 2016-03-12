@@ -75,7 +75,6 @@ html,body {
     color: #444444;
     -webkit-transition: all .2s ease;
     -moz-transition: all .2s ease;
-    -ms-transition: all .2s ease;
     -o-transition: all .2s ease;
     transition: all .2s ease;
     margin-right: -4px;
@@ -151,16 +150,19 @@ html,body {
 .box-line > * {
     display: inline-block;
 }
-.box-line p {
+.box-line label {
     width: 150px;
-    margin-left: 20%;
     font-size: 18px;
     vertical-align: middle;
+    margin: 18px 0 18px 20%;
 }
 .box-line input {
     font-size: 18px;
     text-align: right;
     vertical-align: middle;
+    float: left;
+    padding-right: 5px;
+    width: 195px;
 }
 .box-line .cs-select {
     width: 200px;
@@ -168,11 +170,15 @@ html,body {
     height: 30px;
     line-height: 6px;
 }
+.box-line .help {
+    vertical-align: middle;
+}
 .box-line .help p {
     padding: 0;
     margin: 0 0 0 5px;
     font-style: italic;
     color: gray;
+    font-size: 18px;
 }
 .box-line .help input.toggle-sound {
     width: 30px;
@@ -182,15 +188,117 @@ html,body {
     background-size: contain;
     border: 0;
     margin-left: 5px;
+    outline: 0;
+    float: none;
+    /*transition: all 0.1s ease-in-out;*/
 }
 .box-line .help input.toggle-sound:hover {
     background-color: #47c9af !important;
     border-radius: 20px;
 }
+.box-line .box-input {
+    width: 200px;
+    clear: both;
+    vertical-align: bottom;
+}
+.box span.tooltip {
+    font-style: italic;
+    color: grey;
+    float: left;
+}
+.box-footer {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+.box-footer p {
+    text-align: left;
+    margin: 0;
+}
+.box-footer .footer-hints {
+    width: 75%;
+    display: inline-block;
+}
+.box-footer .footer-actions {
+    width: 24%;
+    display: inline-block;
+    text-align: right;
+}
+.box-footer .footer-actions #options-reset {
+    border: 1px solid #47c9af;
+    background: #F7F7F7;
+    padding: 7px 13px;
+    border-radius: 7px;
+    color: #000000;
+    font-size: 13px;
+    text-decoration: none;
+    vertical-align: bottom;
+    outline: 0;
+}
+.box-footer .footer-actions #options-reset:hover {
+    background: #47c9af;
+    color: #ffffff;
+}
+.box-footer .footer-actions #options-reset:active {
+    background: #489b81;
+}
 
-/* FIX for dropdown */
+
+
+/* SUPPORT */
+#support-links {
+    margin-bottom: 10px;
+}
+#support-links #link-mail,
+#support-links #link-linked,
+#support-links #link-git {
+    width: 50px;
+    height: 50px;
+
+    vertical-align: middle;
+    border: 0;
+    outline: 0;
+    float: none;
+
+    /*transition: background-color 0.1s ease-in-out;*/
+}
+#support-links #link-mail:hover,
+#support-links #link-linked:hover,
+#support-links #link-git:hover {
+    background-color: #47c9af !important;
+    border-radius: 25px;
+}
+#support-links #link-mail:active,
+#support-links #link-linked:active,
+#support-links #link-git:active {
+    background-color: #489b81 !important;
+    border-radius: 25px;
+}
+#support-links #link-mail {
+    background: url(../img/mail256.png);
+    background-size: contain;
+    margin-right: 30px;
+}
+#support-links #link-linked {
+    background: url(../img/linkedin256.png);
+    background-size: contain;
+    margin-right: 30px;
+}
+#support-links #link-git {
+    background: url(../img/github256.png);
+    background-size: contain;
+}
+
+
+
+
+/* FIX for drop-down */
 .cs-select ul {
-    background-color: #F3F3F3;
+    background-color: #F7F7F7;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.cs-select li:not(:last-child) {
+    border-bottom: 1px solid #e6e8ea;
 }
 .cs-select ul li:hover {
     vertical-align: middle;
@@ -212,9 +320,8 @@ html,body {
 
 .error {
     box-shadow: 0 0 5px rgb(238, 81, 81);
-    padding: 3px 0px 3px 3px;
-    margin: 5px 1px 3px 0px;
     border: 1px solid rgba(238, 81, 81, 1);
+    outline-color: rgba(238, 81, 81, 1);
 }
 /*  PAGES:end */
 
