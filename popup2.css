@@ -1,0 +1,394 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway);
+/*  GLOBAL:start  */
+body {
+    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+    font-size: 100%;
+    width: 280px;
+    height: 100%;
+}
+#app-container {
+    width: 100%;
+    height: 100%;
+}
+
+/*  GLOBAL:end  */
+
+
+
+/*  HEADER:start  */
+#header {
+    width: 100%;
+
+}
+#header #logo {
+    height: 40px;
+    display: inline-block;
+    vertical-align: bottom;
+}
+#header #datetime {
+    display: inline-block;
+    vertical-align: bottom;
+    margin-bottom: -2px;
+    margin-left: 25px;
+    padding: 5px;
+    border: 1px solid #47c9af;
+    border-radius: 5px;
+}
+#header #datetime p {
+    margin: 0;
+    text-align: center;
+    font-family: monospace;
+}
+#header #datetime #time {
+    font-size: 18px;
+    font-weight: bold;
+}
+#header #datetime #date {
+    font-size: 14px;
+    margin-top: -2px;
+}
+/*  HEADER:end  */
+
+
+
+/*  ALARM-NEW:start  */
+#alarm-new {
+    border-top: 1px solid #47c9af;
+    margin-top: 10px;
+}
+#alarm-new #toggle-new-alarm {
+    color: #44af95;
+    margin: 5px;
+    cursor: pointer;
+}
+#alarm-new #toggle-new-alarm:hover {
+    color: #3c876e;
+}
+
+
+/*#alarm-new-container .btn-increase,*/
+/*#alarm-new-container .btn-decrease {*/
+    /*height: 24px;*/
+    /*width: 40px;*/
+    /*vertical-align: middle;*/
+    /*border: 0;*/
+    /*outline: 0;*/
+    /*float: none;*/
+    /*background-size: contain;*/
+    /*cursor: pointer;*/
+/*}*/
+/*#alarm-new-container .btn-increase {*/
+    /*background: url(img/increase.png);*/
+    /*background-size: contain;*/
+/*}*/
+/*#alarm-new-container .btn-decrease {*/
+    /*background: url(img/decrease.png);*/
+    /*background-size: contain;*/
+    /*margin-top: -2px;*/
+/*}*/
+
+
+
+/*#alarm-new-container #new-time {*/
+    /*width: 85px;*/
+    /*display: inline-block;*/
+/*}*/
+/*#alarm-new-container #new-time #new-time-h,*/
+/*#alarm-new-container #new-time #new-time-m {*/
+    /*display: inline-block;*/
+    /*width: 40px;*/
+    /*text-align: center;*/
+/*}*/
+
+/*#alarm-new-container #new-time .value {*/
+    /*width: 36px;*/
+    /*height: 20px;*/
+/*}*/
+
+
+
+/*#alarm-new-container #new-date {*/
+    /*width: 130px;*/
+    /*display: inline-block;*/
+    /*margin-left: 15px;*/
+/*}*/
+/*#alarm-new-container #new-date #new-date-d,*/
+/*#alarm-new-container #new-date #new-date-m,*/
+/*#alarm-new-container #new-date #new-date-y {*/
+    /*display: inline-block;*/
+    /*width: 40px;*/
+    /*text-align: center;*/
+/*}*/
+
+/*#alarm-new-container #new-date .value {*/
+    /*width: 36px;*/
+    /*height: 20px;*/
+/*}*/
+
+/* flatpikr */
+#alarm-new #alarm-new-left {
+    width: 90px;
+    float: left;
+}
+#alarm-new #alarm-new-right {
+    width: 190px;
+    float: right;
+}
+
+#alarm-new #new-time {
+    width: 85px;
+    display: inline-block;
+    vertical-align: middle;
+}
+#alarm-new #new-time #new-time-input {
+    display: none;
+}
+#alarm-new #new-time .flatpickr-hour,
+#alarm-new #new-time .flatpickr-time-separator,
+#alarm-new #new-time .flatpickr-minute {
+    font-size: 25px;
+}
+
+#alarm-new #new-date {
+    width: 190px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: -3px;
+}
+#alarm-new #new-date #new-date-input {
+    background: #fff;
+    color: #484848;
+    border: 1px solid #ddd;
+    font-size: 13px;
+    border-radius: 4px;
+    padding: 2px;
+    width: 80px;
+    text-align: center;
+}
+#alarm-new #new-name-input {
+    border: 1px solid #47c9af;
+    border-radius: 10px;
+    margin: 4px 0;
+    padding: 5px;
+    font-size: 17px;
+    width: 95%;
+    outline: none;
+    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+}
+#alarm-new #new-name-input::-webkit-input-placeholder {
+    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+    font-size: 14px;
+}
+#alarm-new #new-name-input:focus {
+    box-shadow: 0 0 3px #47c9af;
+}
+
+#alarm-new #new-desc-input {
+    position: relative;
+    padding: 5px;
+    width: 95%;
+    outline: none;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+}
+#alarm-new #new-desc-input::-webkit-input-placeholder {
+    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+}
+#alarm-new #new-desc-input:focus {
+    box-shadow: 0 0 3px #47c9af;
+}
+
+#alarm-new #new-actions {
+    clear: both;
+    text-align: center;
+    width: 95%;
+    padding-top: 10px;
+}
+#alarm-new #new-actions input {
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
+    border: 0;
+    outline: 0;
+    float: none;
+    cursor: pointer;
+}
+#alarm-new #new-actions #alarm-set:hover {
+    background-color: #00cd00 !important;
+    border-radius: 20px;
+}
+#alarm-new #new-actions #alarm-reset:hover {
+    background-color: #ffff00 !important;
+    border-radius: 20px;
+}
+#alarm-new #new-actions #alarm-reset:active {
+    background-color: #cdcd00 !important;
+    border-radius: 20px;
+}
+#alarm-new #new-actions #alarm-set:active {
+    background-color: #009b00 !important;
+    border-radius: 20px;
+}
+#alarm-new #new-actions #alarm-reset {
+    background: url("img/reset.png");
+    background-size: contain;
+}
+#alarm-new #new-actions #alarm-set {
+    background: url("img/ok.png");
+    background-size: contain;
+}
+
+
+/* TOOLTIPS */
+#alarm-new #alarm-reset-tooltip,
+#alarm-new #alarm-set-tooltip {
+    display: none;
+}
+#alarm-reset:hover + #alarm-reset-tooltip,
+#alarm-reset:hover + #alarm-reset-tooltip {
+    display: block;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.85);
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 2px;
+    margin-left: -15px;
+    margin-top: -15px;
+    z-index: 10;
+    opacity: 0.95;
+    color: white;
+    font-size: 12px;
+}
+
+
+/* FLATPICKR FIX*/
+.flatpickr-wrapper .flatpickr-calendar table td .flatpickr-day {
+    line-height: 15px;
+}
+
+
+.clear {
+    clear: both;
+    width: 100%;
+    height: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/*  ALARM-NEW:end  */
+
+
+
+/*  ALARM-LIST:start  */
+#alarm-list {
+    clear: both;
+    border-top: 1px solid #47c9af;
+    margin-top: 5px;
+}
+
+.alarm {
+    width: 100%;
+    height: 45px;
+}
+.alarm .alarm-actions {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 8px;
+    margin-left: 4px;
+}
+.alarm .alarm-actions input {
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
+    background: url(img/cancel.png);
+    background-size: contain;
+    border: 0;
+    outline: 0;
+    float: none;
+    cursor: pointer;
+}
+.alarm .alarm-actions input:hover {
+    background-color: #cd0000 !important;
+    border-radius: 20px;
+}
+.alarm .alarm-actions input:active {
+    background-color: #9b0000 !important;
+    border-radius: 20px;
+}
+
+
+.alarm .alarm-container {
+    border: 1px solid #47c9af;
+    border-radius: 10px;
+    margin: 2px 0;
+    padding: 2px;
+    display: inline-block;
+    width: 85%;
+    float: right;
+
+    /* JS CHANGE */
+    height: 35px;
+    overflow: hidden;
+}
+
+
+.alarm .alarm-head .datetime,
+.alarm .alarm-head .alarm-name {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    height: 35px;
+}
+.alarm .alarm-head .datetime {
+    width: 25%;
+}
+.alarm .alarm-head .alarm-name {
+    width: 70%;
+    border-left: 1px solid #47c9af;
+    padding-left: 5px;
+}
+.alarm .alarm-head .datetime p,
+.alarm .alarm-head .alarm-name p {
+    margin: 0;
+}
+
+.alarm .alarm-head .alarm-name p {
+    padding-top: 5px;
+    text-align: left;
+}
+
+.alarm .alarm-head .datetime .time {
+    font-size: 14px;
+    font-weight: bold;
+}
+.alarm .alarm-head .datetime .date {
+    font-size: 12px;
+}
+/*  ALARM-LIST:end  */
+
+
+
+/*  FOOTER:start  */
+#footer {
+    border-top: 1px solid #47c9af;
+    clear: both;
+}
+#footer #copyright,
+#footer #link-options {
+    color: #47c9af;
+    text-decoration: none;
+    font-size: 12px;
+}
+#footer #copyright:hover,
+#footer #link-options:hover {
+    color: #3c876e;
+}
+#footer #copyright {
+    float: left;
+}
+#footer #link-options {
+    float: right;
+}
+/*  FOOTER:end  */

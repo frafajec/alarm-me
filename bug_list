@@ -1,0 +1,1 @@
+1. when opening options, options section button "play/stop" for some reason duplicates. After "page" change and F5 button normalises... (ONLY occurred when in manifest "chrome style" is set to true!)

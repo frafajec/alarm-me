@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Alarm manager</title>
+
+        <!-- -->
+        <link rel="stylesheet" href="libs/flatpickr.min.css">
+        <script src="libs/flatpickr.min.js"></script>
+
+        <link rel="stylesheet" href="popup2.css">
+        <script src="popup.js"></script>
+    </head>
+
+    <body>
+
+        <div id="app-container">
+
+            <div id="header">
+
+                <img id="logo" src="img/icon/AlarmMe_logoV2_256.png" alt="Alarm Me!" >
+
+                <div id="datetime">
+                    <p id="time"></p>
+                    <p id="date"></p>
+                </div>
+
+            </div>
+
+
+
+            <div id="alarm-new">
+                <p id="toggle-new-alarm">New alarm</p>
+
+                <div id="alarm-new-container">
+
+
+                    <div id="alarm-new-left">
+
+                        <div id="new-time">
+                            <input id="new-time-input" class="flatpickr" data-enabletime="true" data-time_24hr="true" data-nocalendar="true" data-inline="true">
+                        </div>
+                        <div id="new-date">
+                            <input id="new-date-input" class="flatpickr">
+                        </div>
+
+                        <div id="new-actions">
+                            <input type="button" id="alarm-reset">
+                            <span id="alarm-reset-tooltip">Reset</span>
+                            <input type="button" id="alarm-set">
+                            <span id="alarm-set-tooltip">Confirm</span>
+                        </div>
+
+
+                    </div>
+
+                    <div id="alarm-new-right">
+
+                        <div id="new-name">
+                            <input id="new-name-input" type="text" maxlength="20" placeholder="Alarm name">
+                        </div>
+                        <div id="new-desc">
+                            <textarea id="new-desc-input" placeholder="Alarm description" rows="4"></textarea>
+                        </div>
+
+                    </div>
+
+                    <div class="clear">&nbsp;</div>
+
+                </div>
+
+            </div>
+
+
+
+            <div id="alarm-list">
+
+                <div class="alarm">
+
+                    <div class="alarm-actions">
+                        <input type="button" class="alarm-remove">
+                    </div>
+
+                    <div class="alarm-container">
+                        <div class="alarm-head">
+                            <div class="datetime">
+                                <p class="time">06:12</p>
+                                <p class="date">22.07.2016</p>
+                            </div>
+                            <div class="alarm-name">
+                                <p>IMPORTANT!</p>
+                            </div>
+                        </div>
+                        <div class="alarm-body">
+                            <div class="alarm-desc">
+                                <p>THIS IS TEST ALARM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="alarm">
+
+                    <div class="alarm-actions">
+                        <input type="button" class="alarm-remove">
+                    </div>
+
+                    <div class="alarm-container">
+                        <div class="alarm-head">
+                            <div class="datetime">
+                                <p class="time">12:45</p>
+                                <p class="date">25.07.2016</p>
+                            </div>
+                            <div class="alarm-name">
+                                <p>ONE MORE TESt!</p>
+                            </div>
+                        </div>
+                        <div class="alarm-body">
+                            <div class="alarm-desc">
+                                <p>THIS IS TEST ALARM</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div id="footer">
+                <a id="copyright" href="https://www.linkedin.com/in/frafajec" target="_blank">&copy; Filip Rafajec</a>
+                <a id="link-options" href="#">Options</a>
+            </div>
+
+        </div>
+
+
+    </body>
+</html>

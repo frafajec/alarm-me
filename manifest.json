@@ -16,7 +16,7 @@
 
   "browser_action": {
       "default_title": "Alarm manager",
-      "default_popup": "popup.html"
+      "default_popup": "popup2.html"
   },
 
   "permissions": [ "alarms", "storage", "notifications", "*://*/*"],
@@ -26,6 +26,12 @@
       "persistent": true
   },
   
-  "options_page": "options/options.html"
+  "options_page": "options/options.html",
+
+  "options_ui": {
+    "page": "options/options.html",
+    "chrome_style": false,
+    "open_in_tab": true
+  }
   
 }

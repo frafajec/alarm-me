@@ -96,7 +96,8 @@ function defaultOptions (save, change) {
         snooze: 10,
         stop_after: 0,
         tone: 0,
-        volume: 100
+        volume: 100,
+        date_format: 0
     };
 
     if (save) {
@@ -108,6 +109,7 @@ function defaultOptions (save, change) {
         document.getElementById('alarm-stop').value = options.stop_after;
         document.getElementById('alarm-volume').value = options.volume;
         window.toneSelect._changeOption(options.tone);
+        window.toneSelect._changeOption(options.date_format);
     }
 
     return options;
@@ -182,8 +184,11 @@ function save_options () {
     options.type = 'custom';
     options.snooze = document.getElementById('alarm-snooze').value;
     options.stop_after = document.getElementById('alarm-stop').value;
-    options.tone = document.getElementsByClassName('cs-select')[1].selectedIndex;
+    options.tone = document.getElementById('song-list').getElementsByClassName('cs-select')[1].selectedIndex - 1;
+    options.date_format = document.getElementById('date-list').getElementsByClassName('cs-select')[1].selectedIndex - 1;
     options.volume = document.getElementById('alarm-volume').value;
+
+    console.log("options", options);
 
     chrome.storage.sync.set({'AM_options': options});
 }
@@ -223,6 +228,7 @@ function toggle_sound () {
  * GLOBAL components
  */
 var toneSelect;
+var dateSelect;
 
 
 /*
@@ -233,9 +239,14 @@ document.addEventListener("DOMContentLoaded", function() {
     initializePages();
 
     //add select drop-down
-    var el = document.getElementById('song-list').getElementsByTagName('select')[0];
-    toneSelect = new SelectFx(el);
+    var songList = document.getElementById('song-list').getElementsByTagName('select')[0];
+    toneSelect = new SelectFx(songList, { onChange: save_options });
     window.toneSelect = toneSelect;
+
+    var dateList = document.getElementById('date-list').getElementsByTagName('select')[0];
+    dateSelect = new SelectFx(dateList, { onChange: save_options });
+    window.dateSelect = dateSelect;
+
 
     //LOAD and SET options
     //TODO: add reset button
@@ -249,6 +260,7 @@ document.addEventListener("DOMContentLoaded", function() {
          * @param {int} stop_after - after what time should alarm (notification) stop re-appearing
          * @param {int} tone - tone of alarm that will be played when notification arises
          * @param {int} volume - loudness of alarm (%)
+         * @param {string} date_format - date format that will be used in app
          */
         if (!options) {
             options = defaultOptions(true, false);
@@ -259,11 +271,13 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('alarm-stop').value = options.stop_after;
         document.getElementById('alarm-volume').value = options.volume;
         window.toneSelect._changeOption(options.tone);
+        window.dateSelect._changeOption(options.date_format);
 
     });
 
 
     //EVENTS
+    //drop-down events added on initialisation
     document.getElementById('alarm-snooze').addEventListener('input', input_change);
     document.getElementById('alarm-stop').addEventListener('input', input_change);
     document.getElementById('alarm-volume').addEventListener('input', volume_change);
