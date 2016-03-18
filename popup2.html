@@ -33,7 +33,7 @@
             <div id="alarm-new">
                 <p id="toggle-new-alarm">New alarm</p>
 
-                <div id="alarm-new-container">
+                <div id="alarm-new-container" class="hidden">
 
 
                     <div id="alarm-new-left">
@@ -47,9 +47,9 @@
 
                         <div id="new-actions">
                             <input type="button" id="alarm-reset">
-                            <span id="alarm-reset-tooltip">Reset</span>
+                            <!--<span id="alarm-reset-tooltip">Reset</span>-->
                             <input type="button" id="alarm-set">
-                            <span id="alarm-set-tooltip">Confirm</span>
+                            <!--<span id="alarm-set-tooltip">Confirm</span>-->
                         </div>
 
 
@@ -74,59 +74,7 @@
 
 
 
-            <div id="alarm-list">
-
-                <div class="alarm">
-
-                    <div class="alarm-actions">
-                        <input type="button" class="alarm-remove">
-                    </div>
-
-                    <div class="alarm-container">
-                        <div class="alarm-head">
-                            <div class="datetime">
-                                <p class="time">06:12</p>
-                                <p class="date">22.07.2016</p>
-                            </div>
-                            <div class="alarm-name">
-                                <p>IMPORTANT!</p>
-                            </div>
-                        </div>
-                        <div class="alarm-body">
-                            <div class="alarm-desc">
-                                <p>THIS IS TEST ALARM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="alarm">
-
-                    <div class="alarm-actions">
-                        <input type="button" class="alarm-remove">
-                    </div>
-
-                    <div class="alarm-container">
-                        <div class="alarm-head">
-                            <div class="datetime">
-                                <p class="time">12:45</p>
-                                <p class="date">25.07.2016</p>
-                            </div>
-                            <div class="alarm-name">
-                                <p>ONE MORE TESt!</p>
-                            </div>
-                        </div>
-                        <div class="alarm-body">
-                            <div class="alarm-desc">
-                                <p>THIS IS TEST ALARM</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
+            <div id="alarm-list"></div>
 
 
 

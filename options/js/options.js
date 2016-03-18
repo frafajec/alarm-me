@@ -94,7 +94,7 @@ function defaultOptions (save, change) {
     var options = {
         type: 'default',
         snooze: 10,
-        stop_after: 0,
+        stop_after: 10,
         tone: 0,
         volume: 100,
         date_format: 0

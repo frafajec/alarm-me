@@ -60,11 +60,21 @@ body {
     color: #44af95;
     margin: 5px;
     cursor: pointer;
+    float: left;
 }
 #alarm-new #toggle-new-alarm:hover {
     color: #3c876e;
 }
 
+#alarm-new-container {
+    clear: both;
+    -webkit-transition: all, 3s linear;
+}
+
+.hidden {
+    height: 0;
+    overflow: hidden;
+}
 
 /*#alarm-new-container .btn-increase,*/
 /*#alarm-new-container .btn-decrease {*/
@@ -233,11 +243,11 @@ body {
 }
 #alarm-new #new-actions #alarm-reset {
     background: url("img/reset.png");
-    background-size: contain;
+    background-size: 32px 32px;
 }
 #alarm-new #new-actions #alarm-set {
     background: url("img/ok.png");
-    background-size: contain;
+    background-size: 32px 32px;
 }
 
 
@@ -264,6 +274,12 @@ body {
 
 
 /* FLATPICKR FIX*/
+#new-date .flatpickr-wrapper .flatpickr-calendar {
+    display: none;
+}
+#new-date .flatpickr-wrapper.open .flatpickr-calendar {
+    display: block;
+}
 .flatpickr-wrapper .flatpickr-calendar table td .flatpickr-day {
     line-height: 15px;
 }

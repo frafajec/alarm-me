@@ -1,15 +1,67 @@
 /*
- * SONG that is played when notification is raised as "alarm" to user
- * TODO: implement options where user can choose multiple alarm songs
- */
-var notif_audio = new Audio("alarm.mp3");
+ * GLOBALS
+*/
+var toneList = [
+    new Audio("tones/alarm.mp3")
+];
+var alarmTone;
+//currently processed notification, HAX in order to persist notifications
+var notif_actions = {};
+var notif_timeouts = {};
 
 /*
- * GLOBAL variable used to store currently processed notification
- * HAX in order to persist notifications
- * TODO: check listeners for notification - improve
+ * LOAD options
+ *
+ * date-time pickers can cause problems when not loaded after options
+ * however, there is a chance that options will be loaded before DOM, then simply move load options into DOMContentLoaded
  */
-var notif_actions = {};
+function loadOptions () {
+    chrome.storage.sync.get('AM_options', function (object) {
+
+        options = object.AM_options;
+
+        //override index value with real value
+        options.tone = toneList[options.tone];
+
+        alarmTone = options.tone;
+        alarmTone.loop = true;
+        alarmTone.volume = options.volume / 100;
+
+    });
+}
+loadOptions();
+
+
+/*
+ * Updates chrome badge icon
+ * triggered on any storage change
+ */
+function updateBadge(changes, area) {
+
+    if (area === "sync" && changes.AM_alarms) {
+        var nbr = changes.AM_alarms.newValue.length,
+            text = nbr > 0 ? nbr.toString() : "";
+
+        chrome.browserAction.setBadgeBackgroundColor({color: "#000"});
+        chrome.browserAction.setBadgeText({text: text });
+    }
+
+}
+chrome.storage.onChanged.addListener(updateBadge);
+
+
+/*
+ * PLAY selected tune from options
+ */
+function alarm_sound (play) {
+
+    if (play) {
+        alarmTone.play();
+    }
+    else {
+        alarmTone.pause();
+    }
+}
 
 
 /*
@@ -18,23 +70,58 @@ var notif_actions = {};
  * UI handles everything
  * @param {string} key - key of alarm to be snoozed
  * @returns {null}
- *
- * TODO: add to options duration of snooze to be set by user
  */
 function snooze (key) {
 
-    //popup handles UI and saving
-    chrome.extension.sendMessage({action: 'snooze', key: key});
+    //@param {object} object - object containing list of all alarms
+    var storage_callback = function (object) {
+        var alarms = object.AM_alarms;
+
+        for (var i = 0; i < alarms.length; i++) {
+            if (key == alarms[i].key) {
+                var alarm = alarms[i];
+                alarms.splice(i, 1);
+                break;
+            }
+        }
+
+        //set snoozed time, time when snooze occurred
+        var snooze_time = parseInt(options.snooze);
+        alarm.time_created = new Date().getTime();
+        alarm.time_set = new Date().getTime() + (snooze_time * 60 * 1000);
+        alarm.time_span = alarm.time_set - alarm.time_created;
+
+        //create alarm -> 1 minute = 60,000 milliseconds
+        chrome.alarms.create(alarm.key, { delayInMinutes: (alarm.time_span / 60000) });
+
+        //add to alarm list
+        alarms.push(alarm);
+
+        //@param {object} - data to be stored
+        chrome.storage.sync.set({'AM_alarms': alarms});
+
+        //popup handles UI and saving
+        chrome.extension.sendMessage({action: 'snooze', key: key, alarm: alarm});
+
+
+    }.bind(key);
+    chrome.storage.sync.get('AM_alarms', storage_callback);
+
+
+
+
+
+
+
 
 }
 
 
 /*
  * REMOVES alarm from storage
- * calls UI to remove from popup and in callback removes it from storage
+ * calls UI to remove from popup
  *
  * this is called only when alarm is already activated -> alarm itself called for this
- * UI alarm removal handles deletion of alarm
  *
  * @param {string} key - alarm key
  * @returns {null}
@@ -42,30 +129,26 @@ function snooze (key) {
 function remove_alarm (key) {
 
     //calls popup where listener is set to receive action
+    //only to remove UI >>IF<< popup is raised during call
     //@param {object} - data to be transferred
-    //@param {function} callback - receive response from other side
-    chrome.extension.sendMessage({action: 'remove', key: key}, function(response) {
-        var key = response.key;
+    chrome.extension.sendMessage({action: 'remove', key: key});
 
-        //@param {object} object - object containing list of all alarms
-        var storage_callback = function (object) {
-            var alarms = object.AM_alarms;
 
-            for (var i = 0; i < alarms.length; i++) {
-                if (key == alarms[i].key) {
-                    alarms.splice(i, 1);
-                    break;
-                }
+    var storage_callback = function (object) {
+        var alarms = object.AM_alarms;
+
+        for (var i = 0; i < alarms.length; i++) {
+            if (key == alarms[i].key) {
+                alarms.splice(i, 1);
+                break;
             }
+        }
 
-            //@param {object} - data to be stored
-            chrome.storage.sync.set({'AM_alarms': alarms});
+        //@param {object} - data to be stored
+        chrome.storage.sync.set({'AM_alarms': alarms});
 
-        }.bind(key); //pushing variable alarm into scope!
-
-        chrome.storage.sync.get('AM_alarms', storage_callback);
-
-    });
+    }.bind(key); //pushing variable alarm into scope!
+    chrome.storage.sync.get('AM_alarms', storage_callback);
 
 }
 
@@ -103,7 +186,7 @@ function raise_notification (key) {
             type: 'basic',
             message: alarm.desc,
             buttons: [
-                { title: 'Snooze (10 minutes)', iconUrl: "img/snooze.png" },
+                { title: 'Snooze (' + (options.snooze).toString() + ' minutes)', iconUrl: "img/snooze.png" },
                 { title: 'Cancel (delete alarm)', iconUrl: "img/remove_alarm.png" }
             ],
             isClickable: false,
@@ -111,6 +194,8 @@ function raise_notification (key) {
         }, function() {});
 
     }.bind(key); //key pushed into scope
+
+    alarm_sound(true);
 
     //get list of alarms to raise notification
     chrome.storage.sync.get('AM_alarms', storage_callback);
@@ -132,6 +217,8 @@ chrome.alarms.onAlarm.addListener(function( alarm_event ) {
 
     //@param {string} key - alarm_event.name is key of alarm
     raise_notification(alarm_event.name);
+    //put alarm into currently active ones and set its creation time
+    notif_timeouts[alarm_event.name] = new Date().getTime();
 
 });
 
@@ -171,29 +258,43 @@ chrome.notifications.onButtonClicked.addListener(function(key, btnIdx) {
  * Closing of notification by non-default action
  * Notification length is 8 seconds!
  *
- * the small 'x' on the top right corner - user action
+ * the small 'x' on the top right corner - x_close
  * buttons action on notification - special closure
  * timeout period of notification - auto closure
  *
  * @param {string} key - notification key
- * @param {boolean} user_action - control weather user closed or timeout
+ * @param {boolean} x_close - control weather user closed or timeout
  * @returns {null}
  * TODO: find better solution for re-raising notification....
 */
-chrome.notifications.onClosed.addListener(function(key, user_action) {
+chrome.notifications.onClosed.addListener(function(key, x_close) {
 
     //user closed notification
-    if (user_action) {
+    if (x_close) {
+        alarm_sound(false);
         remove_alarm(key);
         chrome.notifications.clear(key);
+        delete notif_actions[key];
     }
     //if key in notification actions, remove it and consider handled
     else if (notif_actions[key]) {
+        alarm_sound(false);
         delete notif_actions[key];
     }
     //auto closure, re-raise notification
+    //if length of notification is exceeded by one in settings stop alarm
     else {
-        raise_notification(key);
+        var notif_alive = new Date().getTime() - notif_timeouts[key];
+
+        if (options.stop_after > 0 && (options.stop_after * 60000) > notif_alive ) {
+            raise_notification(key);
+        } else {
+            alarm_sound(false);
+            snooze(key);
+            chrome.notifications.clear(key);
+            delete notif_actions[key];
+        }
+
     }
 
 });
