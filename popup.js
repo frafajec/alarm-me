@@ -36,7 +36,7 @@ function initTimePickers () {
         dateFormat: pickrDateFormat()
     });
     datePicker.set("onChange", function(d){
-        datePicker.set( "minDate" , d );
+
     });
 
 }
@@ -95,6 +95,58 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+/*
+ * Creates tooltip/notify element and inserts it into element for display
+ * WARNING: can only be called on container, not individual element!
+ *
+ * @param {html} element - html object of element where tooltip will be inserted
+ * @param {string} title - text that will be displayed in title (short)
+ * @param {string} content - text that will be inserted into body of tooltip
+ */
+function initNotify () {
+
+    Element.prototype.notify = function(title, content) {
+        var el = this;
+
+        var ntf = document.createElement("span");
+        ntf.setAttribute("class", "tooltip-notification");
+        var ntf_title = document.createElement("h6");
+        ntf_title.innerHTML = title.toUpperCase();
+        ntf.appendChild( ntf_title );
+        var ntf_body = document.createElement("p");
+        ntf_body.innerHTML = content;
+        ntf.appendChild( ntf_body );
+
+        var ntfSelfRemove = function () {
+            var ttps = el.getElementsByClassName("tooltip-notification");
+            for (var i = 0; i < ttps.length; i++) {
+                ttps[i].remove();
+            }
+        }.bind(el);
+
+        ntf.addEventListener("click", ntfSelfRemove);
+        this.insertBefore(ntf, this.firstChild);
+        setTimeout(ntfSelfRemove, 5000);
+
+    };
+
+}
+initNotify();
+
+
+/*
+ * Removes all tooltips from popup
+ * Takes care of situation when new alarm is closed etc
+ *
+ * @returns {null}
+ */
+function removeTooltips() {
+    var ttps = document.getElementsByClassName("tooltip-notification");
+    for (var i = 0; i < ttps.length; i++) {
+        ttps[i].remove();
+    }
+}
+
 
 /*
  * Prepares date-time object to be displayed in DOM
@@ -134,6 +186,39 @@ function displayTime (ex) {
         time: time,
         date: date
     }
+}
+
+
+/*
+ * Reverts date format from user-display to universal
+ *
+ * @param {string} date - date in current display format
+ * @param {string} time - time in hh:mm format (default 00:00:00)
+ */
+function revertTime (date, time) {
+    time = time || "00:00:00";
+    var revert, s;
+
+    switch(options.date_format) {
+        case "DD.MM.YY":
+            s = date.split(".");
+            revert = new Date ( "20" + s[2] + "/" + s[1] + "/" + s[0] + " " + time );
+            break;
+        case "DD/MM/YYYY":
+            s = date.split("/");
+            revert = new Date ( s[2] + "/" + s[1] + "/" + s[0] + " " + time );
+            break;
+        case "MM.DD.YYYY":
+            s = date.split(".");
+            revert = new Date ( s[2] + "/" + s[0] + "/" + s[1] + " " + time );
+            break;
+        default:
+            //case "DD.MM.YYYY":
+            s = date.split(".");
+            revert = new Date ( s[2] + "/" + s[1] + "/" + s[0] + " " + time );
+    }
+
+    return revert;
 }
 
 
@@ -293,9 +378,43 @@ function toggleNewAlarm () {
 
     if (!hidden) {
         document.getElementById("alarm-new-container").className = "hidden";
+        document.getElementById("toggle-new-alarm").value = "New alarm";
     } else {
         document.getElementById("alarm-new-container").className = "";
+        document.getElementById("toggle-new-alarm").value = "Cancel alarm";
     }
+
+    removeTooltips();
+}
+
+
+/*
+ * CONSTRAINTS when creating new alarm
+ *
+ * TODO
+ */
+function checkConstraints () {
+    var fail = false;
+
+    // CONSTRAINT 1 - alarm in past
+    // TODO create tooltip with saying about that
+    var input_date = document.getElementById("new-date-input").value,
+        input_h = document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value,
+        input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value;
+
+    var alarm_time = revertTime(input_date, input_h + ":" + input_min + ":00"),
+        now = new Date();
+
+    if (alarm_time.getTime() <= now.getTime()) {
+        document.getElementById("new-time").notify("warning", 'Alarm time is set in history!</br>Maybe change date?');
+
+        //TODO: error class!
+
+        fail = true;
+    }
+
+
+    return fail;
 }
 
 
@@ -317,10 +436,18 @@ function initNewAlarm() {
      * Resets data in new alarm section
      */
     function resetNA() {
-        //TODO: reset timePicker and datePicker to default!
 
         document.getElementById('new-name-input').value = '';
         document.getElementById('new-desc-input').value = '';
+
+        //create time one minute ahead of now
+        var t = new Date( new Date().getTime() + 60000 );
+        document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value = t.getHours();
+        document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value = t.getMinutes();
+
+        document.getElementById("new-date-input").value = displayTime(t).date;
+        datePicker.setDate(t);
+
     }
     document.getElementById('alarm-reset').addEventListener('click', resetNA);
 
@@ -333,21 +460,33 @@ function initNewAlarm() {
      * resets new alarm fields
      *
      * Most delicate part is calculation of alarm
-     * TODO: here maybe should be restrictions on alarms in past?
      * TODO WARNING: if this section grows any bigger, be careful on performance!
      *
      * @returns {null}
      */
     function setNA() {
 
-        //TODO: constraint if date is wrong!
-
+        //constraints before creating new alarm
+        var fail = checkConstraints();
+        if (fail) {
+            return false;
+        }
 
 
         //random key generator
         //6 character alphanumeric string
         function make_key() {
             return Math.random().toString(36).substring(2,8);
+        }
+
+        //calculates how much time is till alarm
+        function timeToAlarm (t) {
+            var s = parseInt(t / 1000); //ignore milliseconds, round seconds
+            var d = parseInt(s / 86400);
+            var h = parseInt((s / 3600) % 24);
+            var m = parseInt((s / 60) % 60);
+
+            return (d > 0 ? d + " day(s) " : "") + (h > 0 ? h + " hour(s) " : "") + m + " minute(s)!" ;
         }
 
 
@@ -371,7 +510,11 @@ function initNewAlarm() {
 
         //time is taken from picker that has date object
         //when seconds set to something, picker will change date object but action itself returns time in milliseconds
-        alarm.time_set = timePicker.selectedDateObj.setSeconds(0);
+        var input_date = document.getElementById("new-date-input").value,
+            input_h = document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value,
+            input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value;
+
+        alarm.time_set = revertTime(input_date, input_h + ":" + input_min + ":00").getTime();
         alarm.time_span = alarm.time_set - alarm.time_created;
 
 
@@ -389,6 +532,15 @@ function initNewAlarm() {
             alarm_el.getElementsByClassName('alarm-remove')[0].addEventListener('click', removeAlarm);
             document.getElementById('alarm-list').appendChild(alarm_el);
 
+
+            //notify user that alarm is created and will be processed in X minutes
+            var alarm_list = document.getElementById("alarm-list").getElementsByClassName("alarm");
+            for (var i = 0; i < alarm_list.length; i++) {
+                if (alarm_list[i].getAttribute("key") === alarm.key) {
+                    alarm_list[i].notify("alarm created", "Alarm will ring in</br> " + timeToAlarm(alarm.time_span));
+                }
+            }
+
         }.bind(alarm); //pushing variable alarm into scope!
         chrome.storage.sync.get('AM_alarms', storage_callback);
 
@@ -396,8 +548,8 @@ function initNewAlarm() {
         //create alarm -> 1 minute = 60,000 milliseconds
         chrome.alarms.create(alarm.key, { delayInMinutes: (alarm.time_span / 60000) });
 
-
         resetNA();
+        toggleNewAlarm();
     }
     document.getElementById('alarm-set').addEventListener('click', setNA);
 
@@ -471,12 +623,10 @@ function getAlarmList() {
             alarm.getElementsByClassName('alarm-remove')[0].addEventListener('click', removeAlarm);
             //add alarm to DOM
             list.appendChild( alarm );
-            //add number of alarms ++
-            alarms_nbr++;
         }
 
-        if (alarms_nbr == 0) {
-            document.getElementById("alarm-new-container").className = "";
+        if (alarms.length == 0) {
+            toggleNewAlarm();
         }
 
     });

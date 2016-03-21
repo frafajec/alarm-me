@@ -16,7 +16,7 @@
 
   "browser_action": {
       "default_title": "Alarm manager",
-      "default_popup": "popup2.html"
+      "default_popup": "popup.html"
   },
 
   "permissions": [ "alarms", "storage", "notifications", "*://*/*"],

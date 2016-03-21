@@ -188,9 +188,10 @@ function save_options () {
     options.date_format = document.getElementById('date-list').getElementsByClassName('cs-select')[1].selectedIndex - 1;
     options.volume = document.getElementById('alarm-volume').value;
 
-    console.log("options", options);
-
+    //persist options to storage
     chrome.storage.sync.set({'AM_options': options});
+    //notify background to change options
+    chrome.extension.sendMessage({action: 'change', type: 'reload-options'});
 }
 
 

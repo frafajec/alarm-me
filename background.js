@@ -31,6 +31,17 @@ function loadOptions () {
 }
 loadOptions();
 
+/*
+ * When options changed in options menu, reload it here
+ */
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+
+    if (request.action == "change" && request.type == "reload-options") {
+        loadOptions();
+    }
+
+});
+
 
 /*
  * Updates chrome badge icon
@@ -270,16 +281,13 @@ chrome.notifications.onButtonClicked.addListener(function(key, btnIdx) {
 chrome.notifications.onClosed.addListener(function(key, x_close) {
 
     //user closed notification
-    if (x_close) {
+    //if key in notification actions, remove it and consider handled
+    if (notif_actions[key] || x_close) {
         alarm_sound(false);
         remove_alarm(key);
         chrome.notifications.clear(key);
         delete notif_actions[key];
-    }
-    //if key in notification actions, remove it and consider handled
-    else if (notif_actions[key]) {
-        alarm_sound(false);
-        delete notif_actions[key];
+        delete notif_timeouts[key];
     }
     //auto closure, re-raise notification
     //if length of notification is exceeded by one in settings stop alarm
@@ -293,6 +301,7 @@ chrome.notifications.onClosed.addListener(function(key, x_close) {
             snooze(key);
             chrome.notifications.clear(key);
             delete notif_actions[key];
+            delete notif_timeouts[key];
         }
 
     }
