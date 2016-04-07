@@ -2,7 +2,9 @@
  * GLOBALS
 */
 var toneList = [
-    new Audio("tones/alarm.mp3")
+    new Audio("tones/light.mp3"),
+    new Audio("tones/notification.mp3"),
+    new Audio("tones/one_alarm.mp3")
 ];
 var alarmTone;
 //currently processed notification, HAX in order to persist notifications
@@ -14,6 +16,8 @@ var notif_timeouts = {};
  *
  * date-time pickers can cause problems when not loaded after options
  * however, there is a chance that options will be loaded before DOM, then simply move load options into DOMContentLoaded
+ *
+ * @returns {null}
  */
 function loadOptions () {
     chrome.storage.sync.get('AM_options', function (object) {
@@ -33,6 +37,7 @@ loadOptions();
 
 /*
  * When options changed in options menu, reload it here
+ * Listener that waits for specific set of instructions
  */
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 
@@ -46,6 +51,10 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 /*
  * Updates chrome badge icon
  * triggered on any storage change
+ *
+ * @param {json} changes - contains object with previous and current state of changed object
+ * @param {string} area - type of storage changed
+ * @returns {null}
  */
 function updateBadge(changes, area) {
 
@@ -63,6 +72,9 @@ chrome.storage.onChanged.addListener(updateBadge);
 
 /*
  * PLAY selected tune from options
+ *
+ * @param {boolean} play - parameter for notification sound
+ * @return {null}
  */
 function alarm_sound (play) {
 
@@ -276,7 +288,6 @@ chrome.notifications.onButtonClicked.addListener(function(key, btnIdx) {
  * @param {string} key - notification key
  * @param {boolean} x_close - control weather user closed or timeout
  * @returns {null}
- * TODO: find better solution for re-raising notification....
 */
 chrome.notifications.onClosed.addListener(function(key, x_close) {
 

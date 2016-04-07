@@ -2,7 +2,7 @@
 <html>
     <head>
 
-        <title>Alarm Me! Options</title>
+        <title> __MSG_optionsExt__ </title>
         <link rel="stylesheet" href="css/options.css">
 
         <!-- dropdown menu -->
@@ -27,13 +27,13 @@
                         </a>
                     </li>
                     <li link="instructions">
-                        <a href='#instructions'>Instructions</a>
+                        <a href='#instructions'>__MSG_optInstructions__</a>
                     </li>
                     <li link="options">
-                        <a href='#options'>Options</a>
+                        <a href='#options'>__MSG_optOptions__</a>
                     </li>
                     <li link="support">
-                        <a href='#support'>Support</a>
+                        <a href='#support'>__MSG_optSupport__</a>
                     </li>
                 </ul>
             </div>
@@ -41,6 +41,7 @@
 
 
             <!-- INSTRUCTIONS:start -->
+            <!-- TODO: add instructions-->
             <div id="instructions" class="page">
 
                 <div class="box">
@@ -76,46 +77,46 @@
                 <div class="box">
 
                     <div class="box-line">
-                        <label for="alarm-snooze"> Snooze length </label>
+                        <label for="alarm-snooze"> __MSG_optLabelSnooze__ </label>
                         <div class="box-input">
                             <input type="text" id="alarm-snooze">
-                            <span class="tooltip">* 0 = snooze is disabled</span>
+                            <span class="tooltip"> __MSG_optLabelSnoozeTooltip__ </span>
                         </div>
 
                         <div class="help">
-                            <p>Minutes</p>
+                            <p> __MSG_optLabelMinutes__ </p>
                         </div>
 
                     </div>
 
                     <div class="box-line">
-                        <label for="alarm-stop"> Alarm stop after </label>
+                        <label for="alarm-stop"> __MSG_optLabelAlarmStop__ </label>
                         <div class="box-input">
                             <input type="text" id="alarm-stop">
-                            <span class="tooltip">* 0 = alarm lasts until user action</span>
+                            <span class="tooltip"> __MSG_optLabelAlarmStopTooltip__ </span>
                         </div>
                         <div class="help">
-                            <p>Minutes</p>
+                            <p> __MSG_optLabelMinutes__ </p>
                         </div>
                     </div>
 
                     <div class="box-line" id="song-list">
-                        <label for="alarm-tone"> Alarm tone </label>
+                        <label for="alarm-tone"> __MSG_optLabelTone__ </label>
 
                         <select class="cs-select cs-skin-rotate" id="alarm-tone">
-                            <option value="" disabled selected>Choose your alarm tone</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                            <option value="" disabled selected> __MSG_optLabelToneTooltip__ </option>
+                            <option value="0">Light</option>
+                            <option value="1">Notification</option>
+                            <option value="2">One alarm</option>
                         </select>
 
                     </div>
 
                     <div class="box-line">
-                        <label for="alarm-volume"> Alarm volume </label>
+                        <label for="alarm-volume"> __MSG_optLabelVolume__ </label>
                         <div class="box-input">
                             <input type="text" placeholder="0 - 100 %" id="alarm-volume">
-                            <span class="tooltip">* percentage (%)</span>
+                            <span class="tooltip"> __MSG_optLabelVolumeTooltip__ </span>
                         </div>
                         <div class="help">
                             <input type="button" class="toggle-sound" state="stop">
@@ -123,10 +124,10 @@
                     </div>
 
                     <div class="box-line" id="date-list">
-                        <label for="alarm-tone"> Date format </label>
+                        <label for="date-format"> __MSG_optLabelDate__ </label>
 
                         <select class="cs-select cs-skin-rotate" id="date-format">
-                            <option value="" disabled selected>Choose date format</option>
+                            <option value="" disabled selected> __MSG_optLabelDateTooltip__ </option>
                             <option value="DD.MM.YYYY">DD.MM.YYYY</option>
                             <option value="DD.MM.YY">DD.MM.YY</option>
                             <option value="DD/MM/YYYY">DD/MM/YYYY</option>
@@ -140,12 +141,12 @@
 
                     <div class="box-footer">
                         <div class="footer-hints">
-                            <p>* options are saved as soon as they are changed</p>
-                            <p>* you can always press play and listen to selected tone with selected volume</p>
-                            <p>* when "alarm stop after" time expires alarm will be snoozed for inputted duration</p>
+                            <p> __MSG_optHintSaving__ </p>
+                            <p> __MSG_optHintPlaying__ </p>
+                            <p> __MSG_optHintSnoozing__ </p>
                         </div>
                         <div class="footer-actions">
-                            <input type="button" id="options-reset" value="Reset">
+                            <input type="button" id="options-reset" value="__MSG_optBtnReset__">
                         </div>
                     </div>
 
@@ -161,22 +162,15 @@
 
                 <div class="box">
 
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet mi odio. Suspendisse elementum justo id aliquet convallis. Nulla ac eleifend orci.
-                        Sed semper sem ac mauris tincidunt accumsan. Vivamus ullamcorper dolor at ligula porttitor congue. Nullam arcu felis, congue sed egestas at, rutrum ac ex.
-                        Vivamus efficitur, enim molestie vulputate malesuada, augue sapien lobortis tellus, placerat lobortis ligula felis porttitor eros. Ut vulputate justo dui, id ultrices risus
-                        ultricies eget. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris diam ipsum, aliquam eu felis ullamcorper, tempus congue massa.
-                    </p>
-                    <p>
-                        Vivamus efficitur lectus nec velit pretium, a aliquet diam auctor. Fusce laoreet eros sed turpis pharetra eleifend. Etiam mattis lacus et vulputate aliquam. Proin hendrerit eget
-                        nulla vel posuere. Vivamus sem arcu, aliquam eget semper eget, interdum a nibh. Ut et placerat sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer sodales
-                        laoreet ipsum vel tincidunt. Quisque ac magna a elit sagittis gravida ut nec orci. Nunc lobortis dapibus velit, in aliquam lorem. Aenean sed nisi augue. Suspendisse bibendum
-                        justo ut turpis aliquam imperdiet. Aliquam a imperdiet sem, quis ullamcorper sapien.
-                    </p>
+                    <p> __MSG_supportFirst__ </p>
+
+                    <p> __MSG_supportSecond__ </p>
+
+                    </br>
                     <div id="support-links">
                         <input type="button" id="link-mail" >
                         <input type="button" id="link-linked" >
-                        <input type="button" id="link-git" >
+                        <input type="button" id="link-chrome" >
                     </div>
 
                 </div>

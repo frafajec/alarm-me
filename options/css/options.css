@@ -245,12 +245,15 @@ html,body {
 
 
 /* SUPPORT */
+#support p {
+    font-size: 13px;
+}
 #support-links {
     margin-bottom: 10px;
 }
 #support-links #link-mail,
 #support-links #link-linked,
-#support-links #link-git {
+#support-links #link-chrome {
     width: 50px;
     height: 50px;
 
@@ -263,13 +266,13 @@ html,body {
 }
 #support-links #link-mail:hover,
 #support-links #link-linked:hover,
-#support-links #link-git:hover {
+#support-links #link-chrome:hover {
     background-color: #47c9af !important;
     border-radius: 25px;
 }
 #support-links #link-mail:active,
 #support-links #link-linked:active,
-#support-links #link-git:active {
+#support-links #link-chrome:active {
     background-color: #489b81 !important;
     border-radius: 25px;
 }
@@ -283,8 +286,8 @@ html,body {
     background-size: contain;
     margin-right: 30px;
 }
-#support-links #link-git {
-    background: url(../img/github256.png);
+#support-links #link-chrome {
+    background: url(../img/chrome256.png);
     background-size: contain;
 }
 

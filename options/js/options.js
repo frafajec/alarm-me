@@ -1,4 +1,44 @@
 /*
+ * GLOBALS
+ */
+var toneList = [
+    new Audio("../../tones/light.mp3"),
+    new Audio("../../tones/notification.mp3"),
+    new Audio("../../tones/one_alarm.mp3")
+];
+var alarmTone;
+var timeOut;
+
+var toneSelect;
+var dateSelect;
+
+
+/*
+ * Localises HTML based on messages.json
+ * TAKEN: http://stackoverflow.com/questions/25467009/internationalization-of-html-pages-for-my-google-chrome-extension
+ */
+function localizeHtmlPage() {
+    //Localize by replacing __MSG_***__ meta tags
+    var objects = document.getElementsByTagName('html');
+    for (var j = 0; j < objects.length; j++)
+    {
+        var obj = objects[j];
+
+        var valStrH = obj.innerHTML.toString();
+        var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1)
+        {
+            return v1 ? chrome.i18n.getMessage(v1) : "";
+        });
+
+        if(valNewH != valStrH)
+        {
+            obj.innerHTML = valNewH;
+        }
+    }
+}
+
+
+/*
  * Initialize pages, only one should be shown
  * Two scenarios!
  * 1. opened from chrome extension options -> open 'options' page
@@ -109,7 +149,7 @@ function defaultOptions (save, change) {
         document.getElementById('alarm-stop').value = options.stop_after;
         document.getElementById('alarm-volume').value = options.volume;
         window.toneSelect._changeOption(options.tone);
-        window.toneSelect._changeOption(options.date_format);
+        window.dateSelect._changeOption(options.date_format);
     }
 
     return options;
@@ -176,11 +216,25 @@ function volume_change () {
  * SAVE options
  * called from change functions of each element
  * collects all input values and persists them
+ *
+ * stops sound play before saving (on any change)
  * @returns {null}
  */
 function save_options () {
     var options = {};
 
+    //prevention of notification play
+    if (alarmTone) {
+        var btnToggle = document.getElementsByClassName("toggle-sound")[0];
+        btnToggle.style.background = "url(img/play128.png)";
+        btnToggle.style.backgroundSize = "contain";
+        btnToggle.setAttribute('state', 'stop');
+
+        alarmTone.pause();
+        clearTimeout(timeOut);
+    }
+
+    //SAVING
     options.type = 'custom';
     options.snooze = document.getElementById('alarm-snooze').value;
     options.stop_after = document.getElementById('alarm-stop').value;
@@ -201,10 +255,21 @@ function save_options () {
  *      stop: music is off and it calls for playing
  *      play: music is on and it should be turned off
  * @returns {null}
- * TODO: implement playing sound
  */
 function toggle_sound () {
     var state = this.getAttribute('state');
+
+    alarmTone = toneList[ document.getElementById('song-list').getElementsByClassName('cs-select')[1].selectedIndex - 1 ];
+    alarmTone.volume = document.getElementById('alarm-volume').value / 100;
+    alarmTone.currentTime = 0;
+
+    var btnToggle = this,
+        timeOutFnc = function () {
+            alarmTone.pause();
+            btnToggle.style.background = "url(img/play128.png)";
+            btnToggle.style.backgroundSize = "contain";
+            btnToggle.setAttribute('state', 'stop');
+        }.bind(btnToggle);
 
     //play song
     if ( state === 'stop' ) {
@@ -212,7 +277,8 @@ function toggle_sound () {
         this.style.backgroundSize = "contain";
         this.setAttribute('state', 'play');
 
-
+        alarmTone.play();
+        timeOut = setTimeout(timeOutFnc, 8000);
     }
     //stop song
     else {
@@ -220,22 +286,45 @@ function toggle_sound () {
         this.style.backgroundSize = "contain";
         this.setAttribute('state', 'stop');
 
-
+        alarmTone.pause();
+        clearTimeout(timeOut);
     }
 }
 
 
 /*
- * GLOBAL components
+ * Button (input) actions
+ * Opens mail client, redirects to linkedin, opens app in chrome store
+ * TODO: add store link!
  */
-var toneSelect;
-var dateSelect;
+function sendMail () {
+    var mail = document.createElement("iframe");
+    mail.setAttribute("src", "mailto:filip.rafajec.dev@gmail.com");
+    mail.setAttribute("style", "display: none;");
+    mail.setAttribute("id", "mail-popup");
+
+    var body = document.getElementsByTagName("body")[0];
+    body.appendChild(mail);
+
+    body.removeChild(document.getElementById("mail-popup"));
+}
+function openLinkedin () {
+    chrome.tabs.create({ 'url': 'http://linkedin.com/in/frafajec' });
+}
+function openStore () {
+    chrome.tabs.create({ 'url': 'https://chrome.google.com/webstore' });
+}
 
 
 /*
+ * MAIN
+ * initializes DOM and loads user options
  *
+ * @returns {null}
  */
 document.addEventListener("DOMContentLoaded", function() {
+
+    localizeHtmlPage();
 
     initializePages();
 
@@ -250,7 +339,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     //LOAD and SET options
-    //TODO: add reset button
     chrome.storage.sync.get('AM_options', function (object) {
         var options = object.AM_options;
 
@@ -285,4 +373,8 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementsByClassName('toggle-sound')[0].addEventListener('click', toggle_sound);
     document.getElementById('options-reset').addEventListener('click', resetOptions);
 
+    //button actions
+    document.getElementById("link-mail").addEventListener("click", sendMail);
+    document.getElementById("link-linked").addEventListener("click", openLinkedin);
+    document.getElementById("link-chrome").addEventListener("click", openStore);
 });

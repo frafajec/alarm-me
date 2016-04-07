@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
   "name": "__MSG_extName__",
-  "version": "1.0",
+  "version": "0.1.0",
   "author": "Filip Rafajec",
 
   "default_locale": "en",
-  "description": "Extension that will notify you on a set time.",
+  "description": "Your personal pocket alarm!",
   "icons": {
       "16": "img/icon/icon16.png",
       "19": "img/icon/icon19.png",

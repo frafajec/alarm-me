@@ -1,8 +1,6 @@
 /*
  * Initializes pickers for time and date
  * called after options are loaded because it needs it for date format
- *
- * TODO: restriction functions
  */
 function initTimePickers () {
 
@@ -25,7 +23,6 @@ function initTimePickers () {
             document.getElementById('new-time-input').value = (" " + now.getHours() + ":" + now.getMinutes()).toString();
         }
 
-
     });
 
 
@@ -35,9 +32,9 @@ function initTimePickers () {
         defaultDate: new Date(),
         dateFormat: pickrDateFormat()
     });
-    datePicker.set("onChange", function(d){
-
-    });
+    //datePicker.set("onChange", function(d){
+    //
+    //});
 
 }
 
@@ -51,6 +48,31 @@ var dateFormatList = [ "DD.MM.YYYY", "DD.MM.YY", "DD/MM/YYYY", "MM.DD.YYYY" ];
 //time-picker variables
 var timePicker;
 var datePicker;
+
+
+/*
+ * Localises HTML based on messages.json
+ * TAKEN: http://stackoverflow.com/questions/25467009/internationalization-of-html-pages-for-my-google-chrome-extension
+ */
+function localizeHtmlPage() {
+    //Localize by replacing __MSG_***__ meta tags
+    var objects = document.getElementsByTagName('html');
+    for (var j = 0; j < objects.length; j++)
+    {
+        var obj = objects[j];
+
+        var valStrH = obj.innerHTML.toString();
+        var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1)
+        {
+            return v1 ? chrome.i18n.getMessage(v1) : "";
+        });
+
+        if(valNewH != valStrH)
+        {
+            obj.innerHTML = valNewH;
+        }
+    }
+}
 
 
 /*
@@ -74,14 +96,15 @@ function loadOptions () {
 loadOptions();
 
 
-
-
 /*
  * MAIN and FIRST Function (probably loaded after 'background.js'
  * loads all events and handlers that will be on popup DOM
  *
 */
 document.addEventListener('DOMContentLoaded', function() {
+
+    //localise HTML
+    localizeHtmlPage();
 
     //runs clock in background of popup
     popupClock();
@@ -378,10 +401,10 @@ function toggleNewAlarm () {
 
     if (!hidden) {
         document.getElementById("alarm-new-container").className = "hidden";
-        document.getElementById("toggle-new-alarm").value = "New alarm";
+        document.getElementById("toggle-new-alarm").value = chrome.i18n.getMessage("newAlarm");
     } else {
         document.getElementById("alarm-new-container").className = "";
-        document.getElementById("toggle-new-alarm").value = "Cancel alarm";
+        document.getElementById("toggle-new-alarm").value = chrome.i18n.getMessage("cancelAlarm");
     }
 
     removeTooltips();
@@ -397,7 +420,6 @@ function checkConstraints () {
     var fail = false;
 
     // CONSTRAINT 1 - alarm in past
-    // TODO create tooltip with saying about that
     var input_date = document.getElementById("new-date-input").value,
         input_h = document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value,
         input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value;
@@ -406,13 +428,22 @@ function checkConstraints () {
         now = new Date();
 
     if (alarm_time.getTime() <= now.getTime()) {
-        document.getElementById("new-time").notify("warning", 'Alarm time is set in history!</br>Maybe change date?');
+        document.getElementById("new-time").notify("warning", chrome.i18n.getMessage("ntfHistoryAlarm") );
 
-        //TODO: error class!
+        //error class
+        var clsTime = document.getElementById("new-time").getElementsByClassName("flatpickr-calendar")[0];
+        var clsDate = document.getElementById("new-date-input");
+        clsTime.setAttribute("class", clsTime.getAttribute("class") + " error");
+        clsDate.setAttribute("class", clsDate.getAttribute("class") + " error");
+        setTimeout(function () {
+            var clsTime = document.getElementById("new-time").getElementsByClassName("flatpickr-calendar")[0];
+            var clsDate = document.getElementById("new-date-input");
+            clsTime.setAttribute("class", clsTime.getAttribute("class").replace(" error", "") );
+            clsDate.setAttribute("class", clsDate.getAttribute("class").replace(" error", "") );
+        }, 2000);
 
         fail = true;
     }
-
 
     return fail;
 }
@@ -460,7 +491,6 @@ function initNewAlarm() {
      * resets new alarm fields
      *
      * Most delicate part is calculation of alarm
-     * TODO WARNING: if this section grows any bigger, be careful on performance!
      *
      * @returns {null}
      */
@@ -486,7 +516,7 @@ function initNewAlarm() {
             var h = parseInt((s / 3600) % 24);
             var m = parseInt((s / 60) % 60);
 
-            return (d > 0 ? d + " day(s) " : "") + (h > 0 ? h + " hour(s) " : "") + m + " minute(s)!" ;
+            return (d > 0 ? d + " "+ chrome.i18n.getMessage("day") +" " : "") + (h > 0 ? h + " "+ chrome.i18n.getMessage("hour") +" " : "") + m + " "+ chrome.i18n.getMessage("minute") +"!" ;
         }
 
 
@@ -537,7 +567,7 @@ function initNewAlarm() {
             var alarm_list = document.getElementById("alarm-list").getElementsByClassName("alarm");
             for (var i = 0; i < alarm_list.length; i++) {
                 if (alarm_list[i].getAttribute("key") === alarm.key) {
-                    alarm_list[i].notify("alarm created", "Alarm will ring in</br> " + timeToAlarm(alarm.time_span));
+                    alarm_list[i].notify("alarm created", chrome.i18n.getMessage("ntfAlarmRing") + timeToAlarm(alarm.time_span));
                 }
             }
 

@@ -3,6 +3,162 @@
   "extName": {
     "message": "Alarm Me!",
     "description": "Extension name"
+  },
+
+
+
+  "minute": {
+    "message": "minute(s)",
+    "description": "Minutes display on form"
+  },
+  "hour": {
+    "message": "hour(s)",
+    "description": "Hour display on form"
+  },
+  "day": {
+    "message": "day(s)",
+    "description": "Day display on form."
+  },
+  "month": {
+    "message": "month(s)",
+    "description": "Month display on form."
+  },
+  "year": {
+    "message": "year(s)",
+    "description": "Year display on form."
+  },
+
+
+
+
+  "newAlarm": {
+    "message": "New alarm",
+    "description": "Button label to open new alarm section"
+  },
+  "cancelAlarm": {
+    "message": "Cancel alarm",
+    "description": "Button label to close new alarm section"
+  },
+  "alarmName": {
+    "message": "Alarm name",
+    "description": "Popup placeholder"
+  },
+  "alarmDescription": {
+    "message": "Alarm description",
+    "description": "Popup placeholder"
+  },
+  "linkOptions": {
+    "message": "Options",
+    "description": "Button link to options page"
+  },
+
+  "ntfAlarmRing": {
+    "message": "Alarm will ring in</br> ",
+    "description": "Time until alarm activation"
+  },
+  "ntfHistoryAlarm": {
+    "message": "Alarm time is set in history!</br>Maybe change date?",
+    "description": "Popup notify text for alarm that is set in 'history'"
+  },
+
+
+
+
+  "optionsExt": {
+    "message": "Options - Alarm Me!",
+    "description": "Options page title"
+  },
+  "optInstructions": {
+    "message": "Instructions",
+    "description": "Instructions anchor"
+  },
+  "optOptions": {
+    "message": "Options",
+    "description": "Options anchor"
+  },
+  "optSupport": {
+    "message": "Support",
+    "description": "Support anchor"
+  },
+
+  "optLabelSnooze": {
+    "message": "Snooze length",
+    "description": "Options label"
+  },
+  "optLabelSnoozeTooltip": {
+    "message": "* 0 = snooze is disabled",
+    "description": "Options label tooltip"
+  },
+  "optLabelAlarmStop": {
+    "message": "Alarm stop after",
+    "description": "Options label"
+  },
+  "optLabelAlarmStopTooltip": {
+    "message": "* 0 = alarm lasts until user action",
+    "description": "Options label tooltip"
+  },
+  "optLabelTone": {
+    "message": "Alarm tone",
+    "description": "Options label"
+  },
+  "optLabelToneTooltip": {
+    "message": "Choose your alarm tone",
+    "description": "Options label tooltip"
+  },
+  "optLabelVolume": {
+    "message": "Alarm volume",
+    "description": "Options label"
+  },
+  "optLabelVolumeTooltip": {
+    "message": "* percentage (%)",
+    "description": "Options label tooltip"
+  },
+  "optLabelDate": {
+    "message": "Date format",
+    "description": "Options label"
+  },
+  "optLabelDateTooltip": {
+    "message": "Choose date format",
+    "description": "Options label tooltip"
+  },
+  "optLabelMinutes": {
+    "message": "Minutes",
+    "description": "Options after-label"
+  },
+
+  "optHintSaving": {
+    "message": "* options are saved as soon as they are changed",
+    "description": "Options hint"
+  },
+  "optHintPlaying": {
+    "message": "* you can always press play and listen to selected tone with selected volume",
+    "description": "Options hint"
+  },
+  "optHintSnoozing": {
+    "message": "* when 'alarm stop after' time expires alarm will be snoozed for inputted duration",
+    "description": "Options hint"
+  },
+
+  "optBtnReset": {
+    "message": "Reset",
+    "description": "Options button for reset"
+  },
+
+
+
+  "supportFirst": {
+    "message": "This is <b>lightweight</b>, <b>simple</b> and <b>user-friendly</b> extension for Google Chrome that extremely easy to install and use!</br>Its main purpose is to give users something that they can use with only few clicks, anywhere, for everything.</br></br>Extension was created out of authors personal need for something like this (<b>awesome</b>).",
+    "description": "Support first paragraph"
+  },
+  "supportSecond": {
+    "message": "If you find any errors or have some suggestion for improvement do not hesitate to contact author! And of course, if you like it, rate it in store so others can also enjoy this app. :)",
+    "description": "Support first paragraph"
+  },
+
+
+  "a": {
+    "message": "",
+    "description": ""
   }
 
 }
