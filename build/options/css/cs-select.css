@@ -10,7 +10,6 @@ div.cs-select {
 	max-width: 500px;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
-	-khtml-user-select: none;
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
@@ -41,7 +40,6 @@ div.cs-select:focus {
 
 .cs-select > span::after,
 .cs-select .cs-selected span::after {
-	speak: none;
 	position: absolute;
 	top: 50%;
 	-webkit-transform: translateY(-50%);

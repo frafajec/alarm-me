@@ -597,7 +597,7 @@ function initNewAlarm() {
  * @param {event} e
  * @returns {null}
  */
-function removeAlarm(e) {
+function removeAlarm() {
     var alarm_el = this.parentElement.parentElement;
 
     var storage_callback = function (object) {
@@ -677,14 +677,15 @@ function getAlarmList() {
  * @returns {null}
  */
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-        var key = request.key;
+        var key = request.key,
+            list, i;
 
         //remove alarm from UI
         if (request.action == "remove") {
 
-            var list = document.getElementById('alarm-list').getElementsByClassName('alarm');
+            list = document.getElementById('alarm-list').getElementsByClassName('alarm');
 
-            for (var i = 0; i < list.length; i++) {
+            for (i = 0; i < list.length; i++) {
 
                 if (key == list[i].getAttribute('key')) {
                     list[i].remove();
@@ -698,10 +699,10 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
         //change alarm time in UI
         else if (request.action == "snooze") {
 
-            var list = document.getElementById('alarm-list').getElementsByClassName('alarm');
+            list = document.getElementById('alarm-list').getElementsByClassName('alarm');
             var alarm = request.alarm;
 
-            for (var i = 0; i < list.length; i++) {
+            for (i = 0; i < list.length; i++) {
 
                 if (key == list[i].getAttribute('key')) {
 

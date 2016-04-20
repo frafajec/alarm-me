@@ -1,0 +1,28 @@
+{
+  "name": "alarmme",
+  "version": "1.0.0",
+  "description": "Chrome extension for notifications",
+  "main": "background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frafajec/AlarmMe.git"
+  },
+  "author": "Filip Rafajec",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/frafajec/AlarmMe/issues"
+  },
+  "homepage": "https://github.com/frafajec/AlarmMe#readme",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-compress": "^1.2.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-uglify": "^1.0.1"
+  }
+}
