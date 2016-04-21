@@ -105,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //localise HTML
     localizeHtmlPage();
-
     //runs clock in background of popup
     popupClock();
     //event for opening options from popup
@@ -642,7 +641,7 @@ function getAlarmList() {
 
     //fetches all alarms from storage and ASYNC adds to DOM
     chrome.storage.sync.get('AM_alarms', function (object) {
-        var alarms = object.AM_alarms,
+        var alarms = object.AM_alarms || [],
             list = document.getElementById('alarm-list'),
             alarm = null;
 

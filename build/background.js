@@ -11,6 +11,32 @@ var alarmTone;
 var notif_actions = {};
 var notif_timeouts = {};
 
+
+/*
+ * SET options
+ * data is used from options.js where true default option function is implemented
+ * @WARNING - there is event onInstalled but requires more permission fom App, therefore this approach is used
+ * @returns {json} options - default options used in application
+ */
+function setDefaults () {
+
+    chrome.storage.sync.set({'AM_alarms': []});
+
+    //@param {object} - data to be stored
+    var options = {
+        type: 'default',
+        snooze: 10,
+        stop_after: 10,
+        tone: 0,
+        volume: 100,
+        date_format: 0
+    };
+    chrome.storage.sync.set({ 'AM_options': options });
+
+    return options;
+}
+
+
 /*
  * LOAD options
  *
@@ -22,7 +48,7 @@ var notif_timeouts = {};
 function loadOptions () {
     chrome.storage.sync.get('AM_options', function (object) {
 
-        options = object.AM_options;
+        options = object.AM_options || setDefaults();
 
         //override index value with real value
         options.tone = toneList[options.tone];
