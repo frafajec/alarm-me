@@ -20,6 +20,7 @@ module.exports = function(grunt) {
                 boss: true,
                 eqnull: true,
                 browser: true,
+                loopfunc: true,
                 globals: {
                     jQuery: false,
                     debug: true

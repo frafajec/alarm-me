@@ -1,6 +1,9 @@
 /*
  * GLOBALS
-*/
+ */
+//embedded and libraries
+var chrome = chrome || undefined;
+
 var toneList = [
     new Audio("tones/light.mp3"),
     new Audio("tones/notification.mp3"),
@@ -10,6 +13,8 @@ var alarmTone;
 //currently processed notification, HAX in order to persist notifications
 var notif_actions = {};
 var notif_timeouts = {};
+var options;
+
 
 
 /*
@@ -67,7 +72,7 @@ loadOptions();
  */
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 
-    if (request.action == "change" && request.type == "reload-options") {
+    if (request.action === "change" && request.type === "reload-options") {
         loadOptions();
     }
 
@@ -124,11 +129,12 @@ function snooze (key) {
 
     //@param {object} object - object containing list of all alarms
     var storage_callback = function (object) {
-        var alarms = object.AM_alarms;
+        var alarms = object.AM_alarms,
+            alarm;
 
         for (var i = 0; i < alarms.length; i++) {
-            if (key == alarms[i].key) {
-                var alarm = alarms[i];
+            if (key === alarms[i].key) {
+                alarm = alarms[i];
                 alarms.splice(i, 1);
                 break;
             }
@@ -156,13 +162,6 @@ function snooze (key) {
     }.bind(key);
     chrome.storage.sync.get('AM_alarms', storage_callback);
 
-
-
-
-
-
-
-
 }
 
 
@@ -187,7 +186,7 @@ function remove_alarm (key) {
         var alarms = object.AM_alarms;
 
         for (var i = 0; i < alarms.length; i++) {
-            if (key == alarms[i].key) {
+            if (key === alarms[i].key) {
                 alarms.splice(i, 1);
                 break;
             }
@@ -220,7 +219,7 @@ function raise_notification (key) {
             alarm = {};
 
         for (var i = 0; i < alarms.length; i++) {
-            if (key == alarms[i].key) {
+            if (key === alarms[i].key) {
                 alarm = alarms[i];
                 break;
             }

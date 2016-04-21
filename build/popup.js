@@ -1,4 +1,38 @@
 /*
+ * GLOBALS
+ */
+//embedded and libraries
+var chrome = chrome || undefined;
+var flatpickr = flatpickr || undefined;
+
+var options = {};
+//lists for drop-down selection
+var dateFormatList = [ "DD.MM.YYYY", "DD.MM.YY", "DD/MM/YYYY", "MM.DD.YYYY" ];
+//time-picker variables
+var timePicker;
+var datePicker;
+
+
+
+
+/*
+ * Renders date format for datePicker
+ */
+function pickrDateFormat () {
+    var format = options.date_format,
+        final = [];
+
+    var split = format.split(".");
+
+    final[0] = split[0][0].toLowerCase();
+    final[1] = split[1][0].toLowerCase();
+    final[2] = split[2].length > 2 ? "Y" : "y";
+
+    return format.split(".").length > 1 ? final.join(".") : final.join("/");
+}
+
+
+/*
  * Initializes pickers for time and date
  * called after options are loaded because it needs it for date format
  */
@@ -40,17 +74,6 @@ function initTimePickers () {
 
 
 /*
- * GLOBALS
- */
-var options = {};
-//lists for drop-down selection
-var dateFormatList = [ "DD.MM.YYYY", "DD.MM.YY", "DD/MM/YYYY", "MM.DD.YYYY" ];
-//time-picker variables
-var timePicker;
-var datePicker;
-
-
-/*
  * Localises HTML based on messages.json
  * TAKEN: http://stackoverflow.com/questions/25467009/internationalization-of-html-pages-for-my-google-chrome-extension
  */
@@ -62,12 +85,14 @@ function localizeHtmlPage() {
         var obj = objects[j];
 
         var valStrH = obj.innerHTML.toString();
-        var valNewH = valStrH.replace(/__MSG_(\w+)__/g, function(match, v1)
-        {
-            return v1 ? chrome.i18n.getMessage(v1) : "";
-        });
+        var valNewH = valStrH.replace(
+            /__MSG_(\w+)__/g,
+            function(match, v1) {
+                return v1 ? chrome.i18n.getMessage(v1) : "";
+            }
+        );
 
-        if(valNewH != valStrH)
+        if(valNewH !== valStrH)
         {
             obj.innerHTML = valNewH;
         }
@@ -94,27 +119,6 @@ function loadOptions () {
     });
 }
 loadOptions();
-
-
-/*
- * MAIN and FIRST Function (probably loaded after 'background.js'
- * loads all events and handlers that will be on popup DOM
- *
-*/
-document.addEventListener('DOMContentLoaded', function() {
-
-    //localise HTML
-    localizeHtmlPage();
-    //runs clock in background of popup
-    popupClock();
-    //event for opening options from popup
-    openOptions();
-    //inserts existing alarms in popup
-    getAlarmList();
-    //adds section for new alarm in popup
-    initNewAlarm();
-
-});
 
 
 /*
@@ -207,7 +211,7 @@ function displayTime (ex) {
     return {
         time: time,
         date: date
-    }
+    };
 }
 
 
@@ -243,22 +247,6 @@ function revertTime (date, time) {
     return revert;
 }
 
-
-/*
- * Renders date format for datePicker
- */
-function pickrDateFormat () {
-    var format = options.date_format,
-        final = [];
-
-    var split = format.split(".");
-
-    final[0] = split[0][0].toLowerCase();
-    final[1] = split[1][0].toLowerCase();
-    final[2] = split[2].length > 2 ? "Y" : "y";
-
-    return format.split(".").length > 1 ? final.join(".") : final.join("/");
-}
 
 
 /*
@@ -449,6 +437,49 @@ function checkConstraints () {
 
 
 /*
+ * EVENT for removing alarm
+ * activated when button is pressed on alarm list
+ * removes from storage, cancels alarm and removes from UI
+ *
+ * @param {event} e
+ * @returns {null}
+ */
+function removeAlarm() {
+    var alarm_el = this.parentElement.parentElement;
+
+    var storage_callback = function (object) {
+        var alarms = object.AM_alarms,
+            key = alarm_el.getAttribute('key');
+
+        //stop alarm from triggering
+        chrome.alarms.clear(key);
+
+
+        //remove from storage
+        for (var i = 0; i < alarms.length; i++) {
+            if (key === alarms[i].key) {
+                alarms.splice(i, 1);
+            }
+        }
+        //@param {object} - data object to be saved as JSON
+        chrome.storage.sync.set({'AM_alarms': alarms});
+
+
+        //remove from UI
+        var alarm_list = document.getElementsByClassName('alarm');
+        for (i = 0; i < alarm_list.length; i++) {
+            if (key === alarm_list[i].getAttribute('key')) {
+                alarm_list[i].remove();
+            }
+        }
+
+    }.bind(alarm_el); //pushing variable alarm into scope!
+    chrome.storage.sync.get('AM_alarms', storage_callback);
+
+}
+
+
+/*
  * APP CORE
  * EVENT setter and functions for "New alarm" section
  *
@@ -589,49 +620,6 @@ function initNewAlarm() {
 
 
 /*
- * EVENT for removing alarm
- * activated when button is pressed on alarm list
- * removes from storage, cancels alarm and removes from UI
- *
- * @param {event} e
- * @returns {null}
- */
-function removeAlarm() {
-    var alarm_el = this.parentElement.parentElement;
-
-    var storage_callback = function (object) {
-        var alarms = object.AM_alarms,
-            key = alarm_el.getAttribute('key');
-
-        //stop alarm from triggering
-        chrome.alarms.clear(key);
-
-
-        //remove from storage
-        for (var i = 0; i < alarms.length; i++) {
-            if (key == alarms[i].key) {
-                alarms.splice(i, 1);
-            }
-        }
-        //@param {object} - data object to be saved as JSON
-        chrome.storage.sync.set({'AM_alarms': alarms});
-
-
-        //remove from UI
-        var alarm_list = document.getElementsByClassName('alarm');
-        for (i = 0; i < alarm_list.length; i++) {
-            if (key == alarm_list[i].getAttribute('key')) {
-                alarm_list[i].remove();
-            }
-        }
-
-    }.bind(alarm_el); //pushing variable alarm into scope!
-    chrome.storage.sync.get('AM_alarms', storage_callback);
-
-}
-
-
-/*
  * Gets alarms from storage and via template adds to popup DOM
  * adds event for alarm removal
  *
@@ -654,7 +642,7 @@ function getAlarmList() {
             list.appendChild( alarm );
         }
 
-        if (alarms.length == 0) {
+        if (alarms.length === 0) {
             toggleNewAlarm();
         }
 
@@ -680,13 +668,13 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
             list, i;
 
         //remove alarm from UI
-        if (request.action == "remove") {
+        if (request.action === "remove") {
 
             list = document.getElementById('alarm-list').getElementsByClassName('alarm');
 
             for (i = 0; i < list.length; i++) {
 
-                if (key == list[i].getAttribute('key')) {
+                if (key === list[i].getAttribute('key')) {
                     list[i].remove();
                     break;
                 }
@@ -696,14 +684,14 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
             sendResponse(request);
         }
         //change alarm time in UI
-        else if (request.action == "snooze") {
+        else if (request.action === "snooze") {
 
             list = document.getElementById('alarm-list').getElementsByClassName('alarm');
             var alarm = request.alarm;
 
             for (i = 0; i < list.length; i++) {
 
-                if (key == list[i].getAttribute('key')) {
+                if (key === list[i].getAttribute('key')) {
 
                     //change time in alarm
                     var alarm_dt = displayTime(alarm.time_set);
@@ -723,17 +711,22 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 );
 
 
+/*
+ * MAIN and FIRST Function (probably loaded after 'background.js'
+ * loads all events and handlers that will be on popup DOM
+ *
+ */
+document.addEventListener('DOMContentLoaded', function() {
 
+    //localise HTML
+    localizeHtmlPage();
+    //runs clock in background of popup
+    popupClock();
+    //event for opening options from popup
+    openOptions();
+    //inserts existing alarms in popup
+    getAlarmList();
+    //adds section for new alarm in popup
+    initNewAlarm();
 
-
-
-
-
-
-
-
-
-
-
-
-
+});
