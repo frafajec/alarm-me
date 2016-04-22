@@ -234,6 +234,7 @@ body {
     position: relative;
     padding: 5px;
     width: 95%;
+    max-width: 95%;
     outline: none;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;

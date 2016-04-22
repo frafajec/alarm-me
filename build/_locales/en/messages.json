@@ -30,6 +30,17 @@
 
 
 
+  "snooze": {
+    "message": "Snooze",
+    "description": "Label for snooze on notification"
+  },
+  "cancel_delete": {
+    "message": "Cancel (delete alarm)",
+    "description": "Label for cancel on notification"
+  },
+
+
+
 
   "newAlarm": {
     "message": "New alarm",

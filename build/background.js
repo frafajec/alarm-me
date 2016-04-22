@@ -231,6 +231,10 @@ function raise_notification (key) {
             }
         }
 
+        //if snooze is set to 0, there will be no snooze option!
+        var btn_snooze = { title: chrome.i18n.getMessage("snooze") + ' (' + (options.snooze).toString() + ' ' + chrome.i18n.getMessage("minute") + ')', iconUrl: "img/snooze.png" };
+        var btn_cancel = { title: chrome.i18n.getMessage("cancel_delete"), iconUrl: "img/remove_alarm.png" };
+
         //@param {string} key - always used that alarm key is the same as notification key
         //@param {object} notification properties
         //@param {function} callback
@@ -239,10 +243,7 @@ function raise_notification (key) {
             title: alarm.name,
             type: 'basic',
             message: alarm.desc,
-            buttons: [
-                { title: 'Snooze (' + (options.snooze).toString() + ' minutes)', iconUrl: "img/snooze.png" },
-                { title: 'Cancel (delete alarm)', iconUrl: "img/remove_alarm.png" }
-            ],
+            buttons: parseInt(options.snooze) ? [ btn_snooze, btn_cancel ] : [ btn_cancel ],
             isClickable: false,
             priority: 0
         }, function() {});
@@ -291,12 +292,12 @@ chrome.alarms.onAlarm.addListener(function( alarm_event ) {
 */
 chrome.notifications.onButtonClicked.addListener(function(key, btnIdx) {
 
-    if (btnIdx === 0) {
+    if (btnIdx === 0 && parseInt(options.snooze) > 0) {
         //@param {string} key - notification key for alarm to change
         snooze(key);
         //@param {string} key - notification key for notification to be terminated
         chrome.notifications.clear(key);
-    } else if (btnIdx === 1) {
+    } else if (btnIdx === 1 || parseInt(options.snooze) === 0) {
         //@param {string} key - notification key for alarm to be removed
         remove_alarm(key);
         //@param {string} key - notification key for notification to be terminated
