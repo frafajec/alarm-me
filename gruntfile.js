@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                 }
             },
             files: {
-                src: ['build/options/js/options.js', 'build/*.js']
+                src: ['build/options/*.js', 'build/*.js']
             }
         },
 

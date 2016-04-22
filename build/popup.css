@@ -301,6 +301,7 @@ body {
 .alarm {
     width: 100%;
     height: 45px;
+    clear: both;
 }
 .alarm .alarm-actions {
     display: inline-block;
@@ -385,17 +386,17 @@ body {
     border-top: 1px solid #47c9af;
     clear: both;
 }
-#footer #copyright,
+#footer #link-instructions,
 #footer #link-options {
     color: #47c9af;
     text-decoration: none;
     font-size: 12px;
 }
-#footer #copyright:hover,
+#footer #link-instructions:hover,
 #footer #link-options:hover {
     color: #3c876e;
 }
-#footer #copyright {
+#footer #link-instructions {
     float: left;
 }
 #footer #link-options {

@@ -273,20 +273,19 @@ function popupClock () {
 /*
  * open OPTIONS tab
 */
-function openOptions () {
+function initLinks () {
 
     document.getElementById('link-options').addEventListener('click', function () {
-
-        //chrome.tabs.create({ 'url': 'chrome-extension://' + chrome.runtime.id + '/options/options.html#instructions' });
-
         if (chrome.runtime.openOptionsPage) {
-            // New way to open options pages, if supported (Chrome 42+).
-            chrome.runtime.openOptionsPage();
+            chrome.runtime.openOptionsPage(); // New way to open options pages, if supported (Chrome 42+).
         } else {
-            // Reasonable fallback.
-            window.open(chrome.runtime.getURL('options/options.html'));
+            window.open(chrome.runtime.getURL('options/options.html')); // Reasonable fallback.
         }
 
+    });
+
+    document.getElementById('link-instructions').addEventListener('click', function () {
+        chrome.tabs.create({ 'url': 'chrome-extension://' + chrome.runtime.id + '/options/options.html#instructions' });
     });
 }
 
@@ -613,7 +612,6 @@ function initNewAlarm() {
     }
     document.getElementById('alarm-set').addEventListener('click', setNA);
 
-
     //toggles visibility of new alarm section
     document.getElementById("toggle-new-alarm").addEventListener('click', toggleNewAlarm);
 }
@@ -681,29 +679,34 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 
             }
 
-            sendResponse(request);
+            //sendResponse(request);
         }
         //change alarm time in UI
         else if (request.action === "snooze") {
 
-            list = document.getElementById('alarm-list').getElementsByClassName('alarm');
-            var alarm = request.alarm;
 
-            for (i = 0; i < list.length; i++) {
+            //now even when snooze alarm is removed from popup and needs to be inserted again
+            //list = document.getElementById('alarm-list').getElementsByClassName('alarm');
+            //var alarm = request.alarm;
 
-                if (key === list[i].getAttribute('key')) {
+            //for (i = 0; i < list.length; i++) {
+            //
+            //    if (key == list[i].getAttribute('key')) {
+            //
+            //        //change time in alarm
+            //        var alarm_dt = displayTime(alarm.time_set);
+            //        list[i].getElementsByClassName('time')[0].innerHTML = alarm_dt.time;
+            //        list[i].getElementsByClassName('date')[0].innerHTML = alarm_dt.date;
+            //
+            //        break;
+            //    }
+            //
+            //}
 
-                    //change time in alarm
-                    var alarm_dt = displayTime(alarm.time_set);
-                    list[i].getElementsByClassName('time')[0].innerHTML = alarm_dt.time;
-                    list[i].getElementsByClassName('date')[0].innerHTML = alarm_dt.date;
+            var alarm_t = alarmTemplate(request.alarm);
+            document.getElementById('alarm-list').appendChild(alarm_t);
 
-                    break;
-                }
-
-            }
-
-            sendResponse(request);
+            //sendResponse(request);
 
         }
 
@@ -723,7 +726,7 @@ document.addEventListener('DOMContentLoaded', function() {
     //runs clock in background of popup
     popupClock();
     //event for opening options from popup
-    openOptions();
+    initLinks();
     //inserts existing alarms in popup
     getAlarmList();
     //adds section for new alarm in popup

@@ -1,6 +1,10 @@
 /*
  * GLOBALS
  */
+//embedded and libraries
+var chrome = chrome || undefined;
+var SelectFx = SelectFx || undefined;
+
 var toneList = [
     new Audio("../../tones/light.mp3"),
     new Audio("../../tones/notification.mp3"),
@@ -30,12 +34,44 @@ function localizeHtmlPage() {
             return v1 ? chrome.i18n.getMessage(v1) : "";
         });
 
-        if(valNewH != valStrH)
+        if(valNewH !== valStrH)
         {
             obj.innerHTML = valNewH;
         }
     }
 }
+
+
+/*
+ * On menu click changes page that is shown
+ * 3 pages: instructions, options, support
+ * All pages need to have navigation 'link' to map it to ID on div with class 'page'
+ * @returns {null}
+ */
+function menuChange () {
+
+    //e.preventDefault();
+
+    var toPageLi = this.parentElement,
+        toPage = document.getElementById( toPageLi.getAttribute('link') );
+
+    var links = document.getElementById('nav').getElementsByTagName('li'),
+        pages = document.getElementsByClassName('page');
+
+    //remove 'active' from link tab
+    for (var i = 0; i < links.length; i++) {
+        links[i].setAttribute('class', '');
+    }
+
+    //hide all pages
+    for (i = 0; i < pages.length; i++) {
+        pages[i].style.display = 'none';
+    }
+
+    toPage.style.display = 'block';
+    toPageLi.setAttribute('class', 'active');
+}
+
 
 
 /*
@@ -84,45 +120,6 @@ function initializePages () {
 }
 
 
-/*
- * On menu click changes page that is shown
- * 3 pages: instructions, options, support
- * All pages need to have navigation 'link' to map it to ID on div with class 'page'
- * @returns {null}
- */
-function menuChange () {
-
-    //e.preventDefault();
-
-    var toPageLi = this.parentElement,
-        toPage = document.getElementById( toPageLi.getAttribute('link') );
-
-    var links = document.getElementById('nav').getElementsByTagName('li'),
-        pages = document.getElementsByClassName('page');
-
-    //remove 'active' from link tab
-    for (var i = 0; i < links.length; i++) {
-        links[i].setAttribute('class', '');
-    }
-
-    //hide all pages
-    for (i = 0; i < pages.length; i++) {
-        pages[i].style.display = 'none';
-    }
-
-    toPage.style.display = 'block';
-    toPageLi.setAttribute('class', 'active');
-}
-
-
-/*
- * Calls options reset
- * @returns {null}
- */
-function resetOptions () {
-    defaultOptions(true, true);
-}
-
 
 /*
  * function that handles defaults
@@ -156,59 +153,13 @@ function defaultOptions (save, change) {
 }
 
 
+
 /*
- * default input change form for proofing and control of input
- * calls options saving if there are no errors
+ * Calls options reset
  * @returns {null}
  */
-function input_change () {
-    var val = this.value,
-        error = false;
-
-    if (val == '' || parseInt(val) < 0) {
-        this.value = 0;
-    }
-    else if (isNaN(parseInt(val))) {
-        this.className = 'error';
-        error = true;
-    }
-    else {
-        this.className = '';
-        this.value = parseInt(val);
-    }
-
-    if (!error) {
-        save_options();
-    }
-}
-
-
-/*
- * specific input control because volume has upper limit on 100
- * calls options saving if there are no errors
- * @returns {null}
-*/
-function volume_change () {
-    var val = this.value,
-        error = false;
-
-    if (val == '' || parseInt(val) < 0) {
-        this.value = 0;
-    }
-    else if ( isNaN(parseInt(val)) ) {
-        this.className = 'error';
-        error = true;
-    }
-    else if (parseInt(val) > 100) {
-        this.value = 100;
-    }
-    else {
-        this.className = '';
-    }
-
-    if (!error) {
-        save_options();
-    }
+function resetOptions () {
+    defaultOptions(true, true);
 }
 
 
@@ -246,6 +197,63 @@ function save_options () {
     chrome.storage.sync.set({'AM_options': options});
     //notify background to change options
     chrome.extension.sendMessage({action: 'change', type: 'reload-options'});
+}
+
+
+
+/*
+ * default input change form for proofing and control of input
+ * calls options saving if there are no errors
+ * @returns {null}
+ */
+function input_change () {
+    var val = this.value,
+        error = false;
+
+    if (val === '' || parseInt(val) < 0) {
+        this.value = 0;
+    }
+    else if (isNaN(parseInt(val))) {
+        this.className = 'error';
+        error = true;
+    }
+    else {
+        this.className = '';
+        this.value = parseInt(val);
+    }
+
+    if (!error) {
+        save_options();
+    }
+}
+
+
+/*
+ * specific input control because volume has upper limit on 100
+ * calls options saving if there are no errors
+ * @returns {null}
+*/
+function volume_change () {
+    var val = this.value,
+        error = false;
+
+    if (val === '' || parseInt(val) < 0) {
+        this.value = 0;
+    }
+    else if ( isNaN(parseInt(val)) ) {
+        this.className = 'error';
+        error = true;
+    }
+    else if (parseInt(val) > 100) {
+        this.value = 100;
+    }
+    else {
+        this.className = '';
+    }
+
+    if (!error) {
+        save_options();
+    }
 }
 
 

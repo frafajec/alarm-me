@@ -51,6 +51,10 @@
     "message": "Options",
     "description": "Button link to options page"
   },
+  "linkInstructions": {
+    "message": "Instructions",
+    "description": "Button link to instructions page"
+  },
 
   "ntfAlarmRing": {
     "message": "Alarm will ring in</br> ",

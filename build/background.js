@@ -13,6 +13,7 @@ var alarmTone;
 //currently processed notification, HAX in order to persist notifications
 var notif_actions = {};
 var notif_timeouts = {};
+var snoozed_alarms = {};
 var options;
 
 
@@ -127,6 +128,8 @@ function alarm_sound (play) {
  */
 function snooze (key) {
 
+    alarm_sound(false);
+
     //@param {object} object - object containing list of all alarms
     var storage_callback = function (object) {
         var alarms = object.AM_alarms,
@@ -145,6 +148,9 @@ function snooze (key) {
         alarm.time_created = new Date().getTime();
         alarm.time_set = new Date().getTime() + (snooze_time * 60 * 1000);
         alarm.time_span = alarm.time_set - alarm.time_created;
+
+        //add alarm to snooze list (when button is pressed sometimes delete can occur)
+        snoozed_alarms[alarm.key] = true;
 
         //create alarm -> 1 minute = 60,000 milliseconds
         chrome.alarms.create(alarm.key, { delayInMinutes: (alarm.time_span / 60000) });
@@ -320,7 +326,13 @@ chrome.notifications.onClosed.addListener(function(key, x_close) {
     //if key in notification actions, remove it and consider handled
     if (notif_actions[key] || x_close) {
         alarm_sound(false);
-        remove_alarm(key);
+
+        if (!snoozed_alarms[key]) {
+            remove_alarm(key);
+        } else {
+            delete snoozed_alarms[key];
+        }
+
         chrome.notifications.clear(key);
         delete notif_actions[key];
         delete notif_timeouts[key];
