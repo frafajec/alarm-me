@@ -184,7 +184,7 @@ html,body {
     width: 30px;
     height: 30px;
     vertical-align: middle;
-    background: url(../img/play128.png);
+    background: url(img/play128.png);
     background-size: contain;
     border: 0;
     margin-left: 5px;
@@ -277,17 +277,17 @@ html,body {
     border-radius: 25px;
 }
 #support-links #link-mail {
-    background: url(../img/mail256.png);
+    background: url(img/mail256.png);
     background-size: contain;
     margin-right: 30px;
 }
 #support-links #link-linked {
-    background: url(../img/linkedin256.png);
+    background: url(img/linkedin256.png);
     background-size: contain;
     margin-right: 30px;
 }
 #support-links #link-chrome {
-    background: url(../img/chrome256.png);
+    background: url(img/chrome256.png);
     background-size: contain;
 }
 

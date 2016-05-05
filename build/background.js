@@ -149,9 +149,6 @@ function snooze (key) {
         alarm.time_set = new Date().getTime() + (snooze_time * 60 * 1000);
         alarm.time_span = alarm.time_set - alarm.time_created;
 
-        //add alarm to snooze list (when button is pressed sometimes delete can occur)
-        snoozed_alarms[alarm.key] = true;
-
         //create alarm -> 1 minute = 60,000 milliseconds
         chrome.alarms.create(alarm.key, { delayInMinutes: (alarm.time_span / 60000) });
 
@@ -231,26 +228,36 @@ function raise_notification (key) {
             }
         }
 
-        //if snooze is set to 0, there will be no snooze option!
-        var btn_snooze = { title: chrome.i18n.getMessage("snooze") + ' (' + (options.snooze).toString() + ' ' + chrome.i18n.getMessage("minute") + ')', iconUrl: "img/snooze.png" };
-        var btn_cancel = { title: chrome.i18n.getMessage("cancel_delete"), iconUrl: "img/remove_alarm.png" };
+        //fallback in scenario where alarm is not found
+        if (alarm) {
 
-        //@param {string} key - always used that alarm key is the same as notification key
-        //@param {object} notification properties
-        //@param {function} callback
-        chrome.notifications.create(alarm.key, {
-            iconUrl: chrome.runtime.getURL('img/icon/icon512.png'),
-            title: alarm.name,
-            type: 'basic',
-            message: alarm.desc,
-            buttons: parseInt(options.snooze) ? [ btn_snooze, btn_cancel ] : [ btn_cancel ],
-            isClickable: false,
-            priority: 0
-        }, function() {});
+            alarm_sound(true);
+
+            //if snooze is set to 0, there will be no snooze option!
+            var btn_snooze = { title: chrome.i18n.getMessage("snooze") + ' (' + (options.snooze).toString() + ' ' + chrome.i18n.getMessage("minute") + ')', iconUrl: "img/snooze.png" };
+            var btn_cancel = { title: chrome.i18n.getMessage("cancel_delete"), iconUrl: "img/remove_alarm.png" };
+
+            //@param {string} key - always used that alarm key is the same as notification key
+            //@param {object} notification properties
+            //@param {function} callback
+            chrome.notifications.create(alarm.key, {
+                iconUrl: chrome.runtime.getURL('img/icon/icon512.png'),
+                title: alarm.name,
+                type: 'basic',
+                message: alarm.desc,
+                buttons: parseInt(options.snooze) ? [ btn_snooze, btn_cancel ] : [ btn_cancel ],
+                isClickable: false,
+                priority: 0
+            }, function() {});
+
+        } else {
+
+            alarm_sound(false);
+            console.log("Alarm not found! Binding with notification canceled.");
+
+        }
 
     }.bind(key); //key pushed into scope
-
-    alarm_sound(true);
 
     //get list of alarms to raise notification
     chrome.storage.sync.get('AM_alarms', storage_callback);
@@ -293,6 +300,8 @@ chrome.alarms.onAlarm.addListener(function( alarm_event ) {
 chrome.notifications.onButtonClicked.addListener(function(key, btnIdx) {
 
     if (btnIdx === 0 && parseInt(options.snooze) > 0) {
+        //add alarm to snooze list (when button is pressed sometimes delete can occur)
+        snoozed_alarms[key] = true;
         //@param {string} key - notification key for alarm to change
         snooze(key);
         //@param {string} key - notification key for notification to be terminated
