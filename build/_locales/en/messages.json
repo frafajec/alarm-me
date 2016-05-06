@@ -79,6 +79,13 @@
 
 
 
+
+
+
+
+
+
+
   "optionsExt": {
     "message": "Options - Alarm Me!",
     "description": "Options page title"
@@ -161,14 +168,72 @@
 
 
 
-  "supportFirst": {
-    "message": "This is <b>lightweight</b>, <b>simple</b> and <b>user-friendly</b> extension for Google Chrome that extremely easy to install and use!</br>Its main purpose is to give users something that they can use with only few clicks, anywhere, for everything.</br></br>Extension was created out of authors personal need for something like this (<b>awesome</b>).",
-    "description": "Support first paragraph"
+
+  "insSCR": {
+    "message": "Small, compact, reachable",
+    "description": "Instructions title"
   },
-  "supportSecond": {
-    "message": "If you find any errors or have some suggestion for improvement do not hesitate to contact author! And of course, if you like it, rate it in store so others can also enjoy this app. :)",
-    "description": "Support first paragraph"
+  "insSCRText": {
+    "message": "Small popup application that will always be within a reach. When opened it takes little place and all features are within few clicks. If there are no alarms, new alarm form is opened automatically! </br> In footer are 'Instructions' and 'Options'' links that will open section for configuration at any time.",
+    "description": "Instructions text"
   },
+  "insCRAlarms": {
+    "message": "Create & remove alarms",
+    "description": "Instructions title"
+  },
+  "insCRAlarmsText1": {
+    "message": "Creating is easy! When form is opened simply set date and time and text if you want some context on alarm. When done, press check-mark button (green button).",
+    "description": "Instructions text"
+  },
+  "insCRAlarmsText2": {
+    "message": "Picking a date for calendar was never easier! Simply navigate through days, months, maybe even years!",
+    "description": "Instructions text"
+  },
+  "insCRAlarmsText3": {
+    "message": "When popup is opened, alarms are listed one after another. By simply pressing delete (red button) alarm will be removed.",
+    "description": "Instructions text"
+  },
+  "insNotif": {
+    "message": "Notifications",
+    "description": "Instructions title"
+  },
+  "insNotifText": {
+    "message": "Notifications are raised when alarm is due, and are shown in bottom right corner of your main display.</br>While notification is up, sound selected in configuration (Options page) will play.",
+    "description": "Instructions title"
+  },
+
+
+
+
+  "suppAbout": {
+    "message": "About",
+    "description": "Support title"
+  },
+  "suppAboutText": {
+    "message": "This is lightweight, simple and user-friendly extension for Google Chrome that extremely easy to install and use! Its main purpose is to give users alarms/notifications that they can use with only few clicks, anywhere, for every device (with chrome).</br>Extension was created out of authors personal need for something like this and therefore is not profitable or gains income in any way.",
+    "description": "Support text"
+  },
+  "suppLib": {
+    "message": "Libraries",
+    "description": "Support title"
+  },
+  "suppLibText1": {
+    "message": "A lightweight and powerful datetime-picker that is used to easily manipulate date and time of alarm.",
+    "description": "Support text"
+  },
+  "suppLibText2": {
+    "message": "Additional functionality on top of a select HTML element. Extends to some cool behavior!",
+    "description": "Support text"
+  },
+  "suppSupport": {
+    "message": "Support",
+    "description": "Support title"
+  },
+  "suppSupportText": {
+    "message": "If you find any errors or have some suggestion for improvement do not hesitate to contact author! </br> And of course, if you like it, rate it in store so others can also enjoy this app. :)",
+    "description": "Support text"
+  },
+
 
 
   "a": {

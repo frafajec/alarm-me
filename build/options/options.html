@@ -42,29 +42,45 @@
 
 
             <!-- INSTRUCTIONS:start -->
-            <!-- TODO: add instructions-->
             <div id="instructions" class="page">
 
                 <div class="box">
 
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sit amet mi odio. Suspendisse elementum justo id aliquet convallis. Nulla ac eleifend orci.
-                        Sed semper sem ac mauris tincidunt accumsan. Vivamus ullamcorper dolor at ligula porttitor congue. Nullam arcu felis, congue sed egestas at, rutrum ac ex.
-                        Vivamus efficitur, enim molestie vulputate malesuada, augue sapien lobortis tellus, placerat lobortis ligula felis porttitor eros. Ut vulputate justo dui, id ultrices risus
-                        ultricies eget. Interdum et malesuada fames ac ante ipsum primis in faucibus. Mauris diam ipsum, aliquam eu felis ullamcorper, tempus congue massa.
-                    </p>
-                    <p>
-                        Vivamus efficitur lectus nec velit pretium, a aliquet diam auctor. Fusce laoreet eros sed turpis pharetra eleifend. Etiam mattis lacus et vulputate aliquam. Proin hendrerit eget
-                        nulla vel posuere. Vivamus sem arcu, aliquam eget semper eget, interdum a nibh. Ut et placerat sapien. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer sodales
-                        laoreet ipsum vel tincidunt. Quisque ac magna a elit sagittis gravida ut nec orci. Nunc lobortis dapibus velit, in aliquam lorem. Aenean sed nisi augue. Suspendisse bibendum
-                        justo ut turpis aliquam imperdiet. Aliquam a imperdiet sem, quis ullamcorper sapien.
-                    </p>
-                    <p>
-                        Nullam non tempus lectus. Fusce congue porttitor dui sit amet bibendum. Phasellus molestie vulputate massa, quis interdum libero venenatis eu. Nam leo neque, posuere quis
-                        nunc vitae, tempus bibendum tortor. Mauris commodo, nulla in iaculis porta, urna risus faucibus nulla, at placerat mauris libero posuere diam. Nam malesuada molestie augue,
-                        non gravida nulla maximus non. In pellentesque nisi at ante fermentum ullamcorper. Integer tincidunt, leo nec euismod maximus, velit risus pellentesque nibh, vel maximus erat
-                        nisi eu quam. Donec justo tellus, tristique in diam at, ultrices condimentum diam. Nulla nec finibus sem, nec pharetra massa.
-                    </p>
+                    <div class="box-line">
+                        <h2 class="box-line-title"> __MSG_insSCR__ </h2>
+                        <table class="grid-1">
+                            <tr>
+                                <td class="grid-image"> <img src="img/popup-1.png" alt="popup-1.png" width="240px"> </td>
+                                <td class="grid-text"> __MSG_insSCRText__ </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="box-line">
+                        <h2 class="box-line-title"> __MSG_insCRAlarms__ </h2>
+                        <table class="grid-2">
+                            <tr>
+                                <td class="grid-image"> <img src="img/popup-2.png" alt="popup-2.png" width="220px"> </td>
+                                <td class="grid-image"> <img src="img/calendar.png" alt="calendar.png" width="200px"> </td>
+                                <td class="grid-image"> <img src="img/popup-3.png" alt="popup-3.png" width="260px"> </td>
+                            </tr>
+                            <tr>
+                                <td class="grid-text"> __MSG_insCRAlarmsText1__ </td>
+                                <td class="grid-text"> __MSG_insCRAlarmsText2__ </td>
+                                <td class="grid-text"> __MSG_insCRAlarmsText3__ </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="box-line">
+                        <h2 class="box-line-title"> __MSG_insNotif__ </h2>
+                        <table class="grid-1">
+                            <tr>
+                                <td class="grid-image"> <img src="img/notification.png" alt="notification.png" align="left"> </td>
+                                <td class="grid-text"> __MSG_insNotifText__ </td>
+                            </tr>
+                        </table>
+                    </div>
 
                 </div>
 
@@ -163,18 +179,36 @@
 
                 <div class="box">
 
-                    <p> __MSG_supportFirst__ </p>
-
-                    <p> __MSG_supportSecond__ </p>
-
-                    </br>
-                    <div id="support-links">
-                        <input type="button" id="link-mail" >
-                        <input type="button" id="link-linked" >
-                        <input type="button" id="link-chrome" >
+                    <div class="box-line">
+                        <h2 class="box-line-title"> __MSG_suppAbout__ </h2>
+                        <p class="box-line-text"> __MSG_suppAboutText__ </p>
                     </div>
 
-                </div>
+                    <div class="box-line">
+                        <h2 class="box-line-title"> __MSG_suppLib__ </h2>
+                        <table class="grid-3">
+                            <tr>
+                                <td> <a class="out-link" href="http://chmln.github.io/flatpickr/" target="_blank">flatpickr</a> </td>
+                                <td> __MSG_suppLibText1__ </td>
+                            </tr>
+                            <tr>
+                                <td> <a class="out-link" href="https://github.com/typesettin/component.selectfx" target="_blank">selectFX</a> </td>
+                                <td> __MSG_suppLibText2__ </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="box-line">
+                        <h2 class="box-line-title"> __MSG_suppSupport__ </h2>
+                        <p class="box-line-text"> __MSG_suppSupportText__ </p>
+                        <div id="support-links">
+                            <input type="button" id="link-mail" >
+                            <input type="button" id="link-linked" >
+                            <input type="button" id="link-chrome" >
+                        </div>
+                    </div>
+
+                </div> <!-- box -->
 
             </div>
             <!-- SUPPORT:end -->

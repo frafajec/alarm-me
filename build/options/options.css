@@ -131,6 +131,8 @@ html,body {
 /*  NAVIGATION:end  */
 
 
+
+
 /*  PAGES:start */
 .page {
     /*height: 100%;*/
@@ -138,7 +140,7 @@ html,body {
 }
 .box {
     width: 50%;
-    margin: 50px auto 0;
+    margin: 50px auto 10px;
     padding: 0 10px;
     text-align: center;
     border: 1px solid #47c9af;
@@ -243,6 +245,41 @@ html,body {
 }
 
 
+h2.box-line-title {
+    margin-bottom: 0;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #3c876e;
+    width: 65%;
+    color: #3c876e;
+}
+
+.box-line table.grid-1,
+.box-line table.grid-2 {
+    margin: 5px;
+    padding: 2px;
+}
+
+.box-line td.grid-image img {
+    border: 1px solid #3c876e;
+    border-radius: 5px;
+    margin: 2px;
+    text-align: center;
+    vertical-align: middle;
+}
+.box-line table.grid-1 td.grid-text {
+    padding: 0 5%;
+    font-size: 1.1em;
+    line-height: 1.5em;
+}
+
+.box-line table.grid-2 td.grid-image,
+.box-line table.grid-2 td.grid-text {
+    width: 30%;
+    text-align: center;
+    vertical-align: top;
+}
+
+
 
 /* SUPPORT */
 #support p {
@@ -250,6 +287,38 @@ html,body {
 }
 #support-links {
     margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+p.box-line-text {
+    padding: 0 10px;
+}
+.text-center {
+    text-align: center;
+}
+div.box table.grid-3 {
+    width: 100%;
+    margin: 10px 0 10px 10px;
+}
+div.box table.grid-3 tr {
+    font-size: 1.1em;
+    height: 30px;
+}
+div.box table.grid-3 tr td:nth-child(1) {
+    text-align: center;
+    padding-right: 5px;
+}
+div.box table.grid-3 tr td:nth-child(2) {
+    text-align: left;
+    padding-left: 5px;
+}
+a.out-link {
+    text-decoration: none;
+    color: #47c9af;
+    font-weight: bold;
+}
+a.out-link:hover {
+    color: #3c876e;
 }
 #support-links #link-mail,
 #support-links #link-linked,
@@ -279,12 +348,12 @@ html,body {
 #support-links #link-mail {
     background: url(img/mail256.png);
     background-size: contain;
-    margin-right: 30px;
+    margin-right: 10%;
 }
 #support-links #link-linked {
     background: url(img/linkedin256.png);
     background-size: contain;
-    margin-right: 30px;
+    margin-right: 10%;
 }
 #support-links #link-chrome {
     background: url(img/chrome256.png);
@@ -328,7 +397,8 @@ html,body {
 }
 /*  PAGES:end */
 
-
-
-
-
+@media (max-width: 1377px) {
+    div.box {
+        width: 75%;
+    }
+}

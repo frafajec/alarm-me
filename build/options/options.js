@@ -48,9 +48,9 @@ function localizeHtmlPage() {
  * All pages need to have navigation 'link' to map it to ID on div with class 'page'
  * @returns {null}
  */
-function menuChange () {
+function menuChange (e) {
 
-    //e.preventDefault();
+    e.preventDefault();
 
     var toPageLi = this.parentElement,
         toPage = document.getElementById( toPageLi.getAttribute('link') );
@@ -69,7 +69,16 @@ function menuChange () {
     }
 
     toPage.style.display = 'block';
-    toPageLi.setAttribute('class', 'active');
+    if (toPageLi.getAttribute("id") === "logo") {
+        //fix when clicked on logo so tab options is highlighted
+        links[2].setAttribute('class', 'active');
+    } else {
+        toPageLi.setAttribute('class', 'active');
+    }
+
+    //change hash after "page" is changed and "disable" scroll to anchor point
+    window.location.hash = "#" + toPageLi.getAttribute('link');
+    window.scrollTo(0,0);
 }
 
 
