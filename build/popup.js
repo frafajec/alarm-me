@@ -600,6 +600,8 @@ function initNewAlarm() {
                 }
             }
 
+            orderAlarms();
+
         }.bind(alarm); //pushing variable alarm into scope!
         chrome.storage.sync.get('AM_alarms', storage_callback);
 
@@ -618,13 +620,47 @@ function initNewAlarm() {
 
 
 /*
+ * takes alarms in UI and orders them by date
+ * TODO: add effects (maybe)
+ *
+ * returns {null}
+ */
+function orderAlarms () {
+
+    function compare(a,b) {
+        if (a.time < b.time) { return -1; }
+        else if (a.time > b.time) { return 1; }
+        else { return 0; }
+    }
+
+    var container = document.getElementById('alarm-list'),
+        list_raw = container.getElementsByClassName("alarm"),
+        list = [];
+
+    for (var i = 0; i < list_raw.length; i++) {
+        list[i] = {
+            html: list_raw[i],
+            time: revertTime( list_raw[i].getElementsByClassName("date")[0].innerHTML, list_raw[i].getElementsByClassName("time")[0].innerHTML ).getTime()
+        };
+    }
+
+    list.sort(compare);
+
+    container.innerHTML = "";
+    for (i = 0; i < list.length; i++) {
+        container.appendChild( list[i].html );
+    }
+
+}
+
+
+/*
  * Gets alarms from storage and via template adds to popup DOM
  * adds event for alarm removal
  *
  * @returns {null}
  */
 function getAlarmList() {
-
     //fetches all alarms from storage and ASYNC adds to DOM
     chrome.storage.sync.get('AM_alarms', function (object) {
         var alarms = object.AM_alarms || [],
@@ -642,6 +678,8 @@ function getAlarmList() {
 
         if (alarms.length === 0) {
             toggleNewAlarm();
+        } else {
+            orderAlarms();
         }
 
     });

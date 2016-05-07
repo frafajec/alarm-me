@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d55bc229-75f7-4893-8c80-1990bce07e56" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/_locales/en/messages.json" afterPath="$PROJECT_DIR$/build/_locales/en/messages.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/options/options.css" afterPath="$PROJECT_DIR$/build/options/options.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/options/options.html" afterPath="$PROJECT_DIR$/build/options/options.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/options/options.js" afterPath="$PROJECT_DIR$/build/options/options.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/popup.js" afterPath="$PROJECT_DIR$/build/popup.js" />
     </list>
     <ignored path="chromeapp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,7 +23,45 @@
     <favorites_list name="chromeapp" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="popup.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build/popup.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="310">
+              <caret line="250" column="0" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!block;n#pickrDateFormat#0" expanded="false" />
+                <element signature="n#!!block;n#initTimePickers#0" expanded="false" />
+                <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
+                <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+                <element signature="n#!!block;n#initNotify#0" expanded="false" />
+                <element signature="n#!!block;n#removeTooltips#0" expanded="false" />
+                <element signature="n#!!block;n#displayTime#0" expanded="false" />
+                <element signature="n#!!block;n#revertTime#0" expanded="false" />
+                <element signature="n#!!block;n#initLinks#0" expanded="false" />
+                <element signature="n#!!block;n#alarmTemplate#0" expanded="false" />
+                <element signature="n#!!block;n#toggleNewAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
+                <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#initNewAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#resetNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="popup.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/popup.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="370" column="21" selection-start-line="370" selection-start-column="21" selection-end-line="370" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -66,14 +101,14 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/build/popup.html" />
         <option value="$PROJECT_DIR$/gruntfile.js" />
-        <option value="$PROJECT_DIR$/build/popup.js" />
         <option value="$PROJECT_DIR$/build/popup.css" />
-        <option value="$PROJECT_DIR$/build/background.js" />
         <option value="$PROJECT_DIR$/build/manifest.json" />
         <option value="$PROJECT_DIR$/build/options/options.js" />
         <option value="$PROJECT_DIR$/build/options/options.css" />
         <option value="$PROJECT_DIR$/build/options/options.html" />
         <option value="$PROJECT_DIR$/build/_locales/en/messages.json" />
+        <option value="$PROJECT_DIR$/build/background.js" />
+        <option value="$PROJECT_DIR$/build/popup.js" />
       </list>
     </option>
   </component>
@@ -288,7 +323,7 @@
       <option name="presentableId" value="Default" />
       <updated>1457176039763</updated>
       <workItem from="1462360090389" duration="18535000" />
-      <workItem from="1462551524510" duration="7208000" />
+      <workItem from="1462551524510" duration="9335000" />
     </task>
     <task id="LOCAL-00001" summary="Grunt init">
       <created>1461157848223</created>
@@ -308,13 +343,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25743000" />
+    <option name="totallyTimeSpent" value="27870000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13645834" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13645834" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -351,7 +386,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="27" />
+      <option name="time" value="28" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -423,6 +458,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -504,16 +540,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/background.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="271" column="2" selection-start-line="271" selection-start-column="2" selection-end-line="271" selection-end-column="2" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build/manifest.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -526,23 +552,6 @@
         <state relative-caret-position="17">
           <caret line="29" column="57" selection-start-line="29" selection-start-column="57" selection-end-line="29" selection-end-column="57" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/popup.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="505">
-          <caret line="324" column="29" selection-start-line="324" selection-start-column="23" selection-end-line="324" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/popup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-232">
-          <caret line="670" column="69" selection-start-line="670" selection-start-column="69" selection-end-line="670" selection-end-column="69" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -591,6 +600,47 @@
         <state relative-caret-position="575">
           <caret line="297" column="1" selection-start-line="297" selection-start-column="1" selection-end-line="297" selection-end-column="1" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/background.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="73" column="41" selection-start-line="73" selection-start-column="41" selection-end-line="73" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="370" column="21" selection-start-line="370" selection-start-column="21" selection-end-line="370" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="250" column="0" selection-start-line="250" selection-start-column="0" selection-end-line="250" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!block;n#pickrDateFormat#0" expanded="false" />
+            <element signature="n#!!block;n#initTimePickers#0" expanded="false" />
+            <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
+            <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+            <element signature="n#!!block;n#initNotify#0" expanded="false" />
+            <element signature="n#!!block;n#removeTooltips#0" expanded="false" />
+            <element signature="n#!!block;n#displayTime#0" expanded="false" />
+            <element signature="n#!!block;n#revertTime#0" expanded="false" />
+            <element signature="n#!!block;n#initLinks#0" expanded="false" />
+            <element signature="n#!!block;n#alarmTemplate#0" expanded="false" />
+            <element signature="n#!!block;n#toggleNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
+            <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#resetNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
