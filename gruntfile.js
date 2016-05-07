@@ -152,7 +152,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
 
     // Default task(s).
-    //grunt.registerTask('default', ['jshint', 'copy:pre', 'uglify', 'cssmin', 'clean:pre', 'string-replace', 'copy:post', 'compress', 'clean:post']);
-    grunt.registerTask('default', ['copy:pre', 'uglify', 'cssmin', 'clean:pre', 'string-replace', 'copy:post', 'compress', 'clean:post']);
+    grunt.registerTask('default', ['jshint', 'copy:pre', 'uglify', 'cssmin', 'clean:pre', 'string-replace', 'copy:post', 'compress', 'clean:post']);
 
 };

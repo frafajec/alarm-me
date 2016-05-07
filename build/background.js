@@ -3,6 +3,7 @@
  */
 //embedded and libraries
 var chrome = chrome || undefined;
+var console = console || undefined;
 
 var toneList = [
     new Audio("tones/light.mp3"),

@@ -478,6 +478,43 @@ function removeAlarm() {
 }
 
 
+
+/*
+ * takes alarms in UI and orders them by date
+ * TODO: add effects (maybe)
+ *
+ * returns {null}
+ */
+function orderAlarms () {
+
+    function compare(a,b) {
+        if (a.time < b.time) { return -1; }
+        else if (a.time > b.time) { return 1; }
+        else { return 0; }
+    }
+
+    var container = document.getElementById('alarm-list'),
+        list_raw = container.getElementsByClassName("alarm"),
+        list = [];
+
+    for (var i = 0; i < list_raw.length; i++) {
+        list[i] = {
+            html: list_raw[i],
+            time: revertTime( list_raw[i].getElementsByClassName("date")[0].innerHTML, list_raw[i].getElementsByClassName("time")[0].innerHTML ).getTime()
+        };
+    }
+
+    list.sort(compare);
+
+    container.innerHTML = "";
+    for (i = 0; i < list.length; i++) {
+        container.appendChild( list[i].html );
+    }
+
+}
+
+
+
 /*
  * APP CORE
  * EVENT setter and functions for "New alarm" section
@@ -618,40 +655,6 @@ function initNewAlarm() {
     document.getElementById("toggle-new-alarm").addEventListener('click', toggleNewAlarm);
 }
 
-
-/*
- * takes alarms in UI and orders them by date
- * TODO: add effects (maybe)
- *
- * returns {null}
- */
-function orderAlarms () {
-
-    function compare(a,b) {
-        if (a.time < b.time) { return -1; }
-        else if (a.time > b.time) { return 1; }
-        else { return 0; }
-    }
-
-    var container = document.getElementById('alarm-list'),
-        list_raw = container.getElementsByClassName("alarm"),
-        list = [];
-
-    for (var i = 0; i < list_raw.length; i++) {
-        list[i] = {
-            html: list_raw[i],
-            time: revertTime( list_raw[i].getElementsByClassName("date")[0].innerHTML, list_raw[i].getElementsByClassName("time")[0].innerHTML ).getTime()
-        };
-    }
-
-    list.sort(compare);
-
-    container.innerHTML = "";
-    for (i = 0; i < list.length; i++) {
-        container.appendChild( list[i].html );
-    }
-
-}
 
 
 /*
