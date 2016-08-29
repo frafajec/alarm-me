@@ -131,11 +131,14 @@ loadOptions();
  */
 function initNotify () {
 
-    Element.prototype.notify = function(title, content) {
+    Element.prototype.notify = function(title, content, type) {
         var el = this;
 
         var ntf = document.createElement("span");
         ntf.setAttribute("class", "tooltip-notification");
+        if (type) {
+            ntf.setAttribute("class", "tooltip-notification " + type);
+        }
         var ntf_title = document.createElement("h6");
         ntf_title.innerHTML = title.toUpperCase();
         ntf.appendChild( ntf_title );
@@ -289,95 +292,6 @@ function initLinks () {
     });
 }
 
-
-/* TEMPLATE for alarm popup list
- *    <div class="alarm" key="ALARM_KEY">
- *        <div class="alarm-actions"> <input type="button" class="alarm-remove"> </div>
- *
- *        <div class="alarm-container">
- *            <div class="alarm-head">
- *                <div class="datetime">
- *                    <p class="time">06:12</p>
- *                    <p class="date">22.07.2016</p>
- *                </div>
- *                <div class="alarm-name"> <p> ALARM NAME </p> </div>
- *            </div>
- *
- *            <div class="alarm-body">
- *               <div class="alarm-desc"> <p> ALARM DESCRIPTION </p> </div>
- *            </div>
- *        </div>
- *
- *    </div>
- * @param {object} alarm - alarm object from (as in storage)
- * @returns {html} div - html alarm object
- */
-function alarmTemplate(alarm) {
-    var html = document.createElement("div");
-    html.setAttribute("class", "alarm");
-    html.setAttribute("key", alarm.key);
-
-    //alarm-actions and button
-    var actions = document.createElement("div");
-    actions.setAttribute("class", "alarm-actions");
-        var input = document.createElement("input");
-        input.setAttribute("class", "alarm-remove");
-        input.setAttribute("type", "button");
-    actions.appendChild(input);
-
-
-    //alarm-container
-    var container = document.createElement("div");
-    container.setAttribute("class", "alarm-container");
-
-        var head = document.createElement("div");
-        head.setAttribute("class", "alarm-head");
-
-            var dt = displayTime(alarm.time_set);
-
-            var head_datetime = document.createElement("div");
-            head_datetime.setAttribute("class", "datetime");
-
-                var time = document.createElement("p");
-                time.setAttribute("class", "time");
-                time.innerHTML = dt.time;
-                var date = document.createElement("p");
-                date.setAttribute("class", "date");
-                date.innerHTML = dt.date;
-
-            head_datetime.appendChild(time);
-            head_datetime.appendChild(date);
-
-            var head_name = document.createElement("div");
-            head_name.setAttribute("class", "alarm-name");
-                var alarm_name = document.createElement("p");
-                alarm_name.innerHTML = alarm.name;
-            head_name.appendChild(alarm_name);
-
-        head.appendChild(head_datetime);
-        head.appendChild(head_name);
-
-
-        var body = document.createElement("div");
-        body.setAttribute("class", "alarm-body");
-            var body_desc = document.createElement("div");
-            body_desc.setAttribute("class", "alarm-desc");
-                var alarm_desc = document.createElement("p");
-                alarm_desc.innerHTML = alarm.desc;
-            body_desc.appendChild(alarm_desc);
-        body.appendChild(body_desc);
-
-
-    container.appendChild(head);
-    container.appendChild(body);
-
-    html.appendChild(actions);
-    html.appendChild(container);
-
-    return html;
-}
-
-
 /*
  * Changes visibility of new alarm section
  */
@@ -388,12 +302,78 @@ function toggleNewAlarm () {
     if (!hidden) {
         document.getElementById("alarm-new-container").className = "hidden";
         document.getElementById("toggle-new-alarm").value = chrome.i18n.getMessage("newAlarm");
+
+        document.getElementById("toggle-repetitive-alarm").style.display = "none";
+        document.getElementById("toggle-onetime-alarm").style.display = "none";
     } else {
         document.getElementById("alarm-new-container").className = "";
         document.getElementById("toggle-new-alarm").value = chrome.i18n.getMessage("cancelAlarm");
+
+        document.getElementById("toggle-repetitive-alarm").style.display = "block";
+        document.getElementById("toggle-onetime-alarm").style.display = "block";
     }
 
     removeTooltips();
+}
+
+
+/*
+ * Swaps between one-time alarm and repetitive type alarm adding
+ */
+function toggleAlarmType (e) {
+    var oneBtn = document.getElementById("toggle-onetime-alarm"),
+        oneSec = document.getElementById("new-desc"),
+        repBtn = document.getElementById("toggle-repetitive-alarm"),
+        repSec = document.getElementById("new-rep");
+
+    if (e.target == repBtn && repBtn.className !== "alarm-type-active") {
+        oneBtn.className = "";
+        oneSec.className = "hidden";
+        repBtn.className = "alarm-type-active";
+        repSec.className = "";
+    } else if (e.target == oneBtn && oneBtn.className !== "alarm-type-active") {
+        oneBtn.className = "alarm-type-active";
+        oneSec.className = "";
+        repBtn.className = "";
+        repSec.className = "hidden";
+    }
+}
+
+
+/*
+ * Date checker on repetitive alarm
+ */
+function dateCheck () {
+    var all = document.getElementById("new-rep-all"),
+        dates = document.getElementsByClassName("new-rep-date"),
+        checked = 0;
+
+    for (var i = 0; i < dates.length; i++) {
+        if ( dates[i].checked ) {
+            checked++;
+        }
+    }
+
+    all.checked = dates.length === checked;
+}
+
+
+/*
+ * All-checker on repetitive alarm
+ */
+function allCheck () {
+    var all = document.getElementById("new-rep-all"),
+        dates = document.getElementsByClassName("new-rep-date");
+
+    if (all.checked) {
+        for (var i = 0; i < dates.length; i++) {
+            dates[i].checked = true;
+        }
+    } else {
+        for (var i = 0; i < dates.length; i++) {
+            dates[i].checked = false;
+        }
+    }
 }
 
 
@@ -414,7 +394,7 @@ function checkConstraints () {
         now = new Date();
 
     if (alarm_time.getTime() <= now.getTime()) {
-        document.getElementById("new-time").notify("warning", chrome.i18n.getMessage("ntfHistoryAlarm") );
+        document.getElementById("new-time").notify("warning", chrome.i18n.getMessage("ntfHistoryAlarm"), "warning" );
 
         //error class
         var clsTime = document.getElementById("new-time").getElementsByClassName("flatpickr-calendar")[0];
@@ -545,6 +525,13 @@ function initNewAlarm() {
         document.getElementById("new-date-input").value = displayTime(t).date;
         datePicker.setDate(t);
 
+        document.getElementById('new-rep-all').checked = false;
+        var dates = document.getElementsByClassName("new-rep-date");
+        for (var i = 0; i < dates.length; i++) {
+            dates[i].checked = false;
+        }
+        dates[ (new Date()).getDay() - 1 ].checked = true;
+
     }
     document.getElementById('alarm-reset').addEventListener('click', resetNA);
 
@@ -592,7 +579,6 @@ function initNewAlarm() {
          * @param {int} time_created - time at which alarm was created (ms from 1970)
          * @param {int} time_set - time when alarm was supposed to activate (ms from 1970)
          * @param {int} time_span - difference between current time and time when alarm is to be activated (ms)
-         * @param {int} time_snoozed - REMOVED //TODO potentially implement
          */
         var alarm = {
             key: make_key(),
@@ -600,9 +586,13 @@ function initNewAlarm() {
             desc: document.getElementById('new-desc-input').value,
             time_created: new Date().getTime(),
             time_set: "",
-            time_span: ""
+            time_span: "",
+            repetitive: false,
+            rep_days: [0, 0, 0, 0, 0, 0, 0]
         };
 
+
+        //DATA collect
 
         //time is taken from picker that has date object
         //when seconds set to something, picker will change date object but action itself returns time in milliseconds
@@ -612,6 +602,15 @@ function initNewAlarm() {
 
         alarm.time_set = revertTime(input_date, input_h + ":" + input_min + ":00").getTime();
         alarm.time_span = alarm.time_set - alarm.time_created;
+
+        alarm.repetitive = document.getElementById("toggle-repetitive-alarm").getAttribute("class").length > 0;
+        if (alarm.repetitive) {
+            var rep_days = document.getElementsByClassName("new-rep-box");
+            for (var i = 0; i < rep_days.length - 1; i++) {
+                var d = rep_days[i].getElementsByTagName("input")[0];
+                alarm.rep_days[i] = d.checked;
+            }
+        }
 
 
         //ASYNC!
@@ -624,10 +623,10 @@ function initNewAlarm() {
             chrome.storage.sync.set({'AM_alarms': alarms});
 
             //add alarm to list
-            var alarm_el = alarmTemplate(alarm);
+            // var alarm_el = alarmTemplate(alarm);
+            var alarm_el = template('alarm', alarm);
             alarm_el.getElementsByClassName('alarm-remove')[0].addEventListener('click', removeAlarm);
             document.getElementById('alarm-list').appendChild(alarm_el);
-
 
             //notify user that alarm is created and will be processed in X minutes
             var alarm_list = document.getElementById("alarm-list").getElementsByClassName("alarm");
@@ -649,10 +648,22 @@ function initNewAlarm() {
         resetNA();
         toggleNewAlarm();
     }
+
+    //select current day
+    var dates = document.getElementsByClassName("new-rep-date");
+    dates[ (new Date()).getDay() - 1 ].checked = true;
+
     document.getElementById('alarm-set').addEventListener('click', setNA);
 
     //toggles visibility of new alarm section
     document.getElementById("toggle-new-alarm").addEventListener('click', toggleNewAlarm);
+    document.getElementById("toggle-onetime-alarm").addEventListener('click', toggleAlarmType);
+    document.getElementById("toggle-repetitive-alarm").addEventListener('click', toggleAlarmType);
+    document.getElementById("new-rep-all").addEventListener('click', allCheck);
+
+    for (var i = 0; i < dates.length; i++) {
+        dates[i].addEventListener('click', dateCheck);
+    }
 }
 
 
@@ -672,7 +683,7 @@ function getAlarmList() {
 
         for (var i = 0; i < alarms.length; i++) {
             //create alarm HTML template
-            alarm = alarmTemplate(alarms[i]);
+            alarm = template('alarm', alarms[i]);
             //add remove event
             alarm.getElementsByClassName('alarm-remove')[0].addEventListener('click', removeAlarm);
             //add alarm to DOM
@@ -683,6 +694,8 @@ function getAlarmList() {
             toggleNewAlarm();
         } else {
             orderAlarms();
+            document.getElementById("toggle-repetitive-alarm").style.display = "none";
+            document.getElementById("toggle-onetime-alarm").style.display = "none";
         }
 
     });
@@ -744,7 +757,7 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
             //
             //}
 
-            var alarm_t = alarmTemplate(request.alarm);
+            var alarm_t = template('alarm', request.alarm);
             document.getElementById('alarm-list').appendChild(alarm_t);
 
             //sendResponse(request);

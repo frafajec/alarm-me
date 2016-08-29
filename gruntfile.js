@@ -58,6 +58,7 @@ module.exports = function(grunt) {
 
                     'tmp/background.min.js': ['tmp/background.js'],
                     'tmp/popup.min.js': ['tmp/popup.js'],
+                    'tmp/template.min.js': ['tmp/template.js'],
                     'tmp/options/options.min.js': ['tmp/options/options.js']
                 }
             }
@@ -75,23 +76,6 @@ module.exports = function(grunt) {
             }
         },
 
-        //'string-replace': {
-        //    dist: {
-        //        files: [{
-        //            expand: true,
-        //            cwd: 'tmp/',
-        //            src: '**/popup.html',
-        //            dest: 'tmp/'
-        //        }],
-        //        options: {
-        //            replacements: [{
-        //                pattern: 'popup.js',
-        //                replacement: 'popup.min.js'
-        //            }]
-        //        }
-        //    }
-        //},
-
         'string-replace': {
             dist: {
                 files: [
@@ -104,6 +88,7 @@ module.exports = function(grunt) {
                         { pattern: 'background.js', replacement: 'background.min.js' },
                         { pattern: 'popup.css', replacement: 'popup.min.css' },
                         { pattern: 'popup.js', replacement: 'popup.min.js' },
+                        { pattern: 'template.js', replacement: 'template.min.js' },
 
                         { pattern: 'normalize.css', replacement: 'normalize.min.css' },
                         { pattern: 'selectFX.css', replacement: 'selectFX.min.css' },
@@ -131,7 +116,7 @@ module.exports = function(grunt) {
         // production clean-up
         clean: {
             pre: [
-                'tmp/libs/classie.js', 'tmp/libs/selectFX.js', 'tmp/background.js', 'tmp/popup.js', 'tmp/options/options.js',
+                'tmp/libs/classie.js', 'tmp/libs/selectFX.js', 'tmp/background.js', 'tmp/popup.js', 'tmp/template.js', 'tmp/options/options.js',
                 'tmp/libs/normalize.css', 'tmp/libs/selectFX.css', 'tmp/popup.css', 'tmp/options/options.css'
             ],
             post: ['tmp']

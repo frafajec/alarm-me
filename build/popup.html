@@ -10,6 +10,7 @@
         <script src="libs/flatpickr.min.js"></script>
 
         <link rel="stylesheet" href="popup.css">
+        <script src="template.js"></script>
         <script src="popup.js"></script>
     </head>
 
@@ -31,27 +32,27 @@
 
 
             <div id="alarm-new">
+
                 <input type="button" id="toggle-new-alarm" value="New alarm">
+                <input type="button" id="toggle-repetitive-alarm" value="__MSG_toggleRepetitive__" class="">
+                <input type="button" id="toggle-onetime-alarm" value="__MSG_toggleOnetime__" class="alarm-type-active">
 
                 <div id="alarm-new-container" class="hidden">
-
 
                     <div id="alarm-new-left">
 
                         <div id="new-time">
                             <input id="new-time-input" class="flatpickr" data-enabletime="true" data-time_24hr="true" data-nocalendar="true" data-inline="true">
                         </div>
+
                         <div id="new-date">
                             <input id="new-date-input" class="flatpickr">
                         </div>
 
                         <div id="new-actions">
                             <input type="button" id="alarm-reset">
-                            <!--<span id="alarm-reset-tooltip">Reset</span>-->
                             <input type="button" id="alarm-set">
-                            <!--<span id="alarm-set-tooltip">Confirm</span>-->
                         </div>
-
 
                     </div>
 
@@ -60,8 +61,25 @@
                         <div id="new-name">
                             <input id="new-name-input" type="text" maxlength="20" placeholder=" __MSG_alarmName__ ">
                         </div>
+
                         <div id="new-desc">
                             <textarea id="new-desc-input" placeholder=" __MSG_alarmDescription__ " rows="4"></textarea>
+                        </div>
+
+                        <div id="new-rep" class="hidden">
+                            <div id="new-rep-box-left">
+                                <div class="new-rep-box"> <input class="new-rep-date" type="checkbox" id="new-rep-mo"> <label for="new-rep-mo"> __MSG_mon__ </label> </div>
+                                <div class="new-rep-box"> <input class="new-rep-date" type="checkbox" id="new-rep-tu"> <label for="new-rep-tu"> __MSG_tue__ </label> </div>
+                                <div class="new-rep-box"> <input class="new-rep-date" type="checkbox" id="new-rep-we"> <label for="new-rep-we"> __MSG_wed__ </label> </div>
+                                <div class="new-rep-box"> <input class="new-rep-date" type="checkbox" id="new-rep-th"> <label for="new-rep-th"> __MSG_thu__ </label> </div>
+                            </div>
+                            <div id="new-rep-box-right">
+                                <div class="new-rep-box"> <input class="new-rep-date" type="checkbox" id="new-rep-fr"> <label for="new-rep-fr"> __MSG_fri__ </label> </div>
+                                <div class="new-rep-box"> <input class="new-rep-date" type="checkbox" id="new-rep-sa"> <label for="new-rep-sa"> __MSG_sat__ </label> </div>
+                                <div class="new-rep-box"> <input class="new-rep-date" type="checkbox" id="new-rep-su"> <label for="new-rep-su"> __MSG_sun__ </label> </div>
+
+                                <div class="new-rep-box"> <input type="checkbox" id="new-rep-all"> <label for="new-rep-all"> __MSG_all__ </label> </div>
+                            </div>
                         </div>
 
                     </div>
@@ -84,7 +102,6 @@
             </div>
 
         </div>
-
 
     </body>
 </html>

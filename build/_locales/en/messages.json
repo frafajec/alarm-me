@@ -28,6 +28,39 @@
     "description": "Year display on form."
   },
 
+  "mon": {
+    "message": "Mon",
+    "description": "Abbreviation of day of the week."
+  },
+  "tue": {
+    "message": "Tue",
+    "description": "Abbreviation of day of the week."
+  },
+  "wed": {
+    "message": "Wed",
+    "description": "Abbreviation of day of the week."
+  },
+  "thu": {
+    "message": "Thu",
+    "description": "Abbreviation of day of the week."
+  },
+  "fri": {
+  "message": "Fri",
+  "description": "Abbreviation of day of the week."
+  },
+  "sat": {
+    "message": "Sat",
+    "description": "Abbreviation of day of the week."
+  },
+  "sun": {
+    "message": "Sun",
+    "description": "Abbreviation of day of the week."
+  },
+  "all": {
+    "message": "All",
+    "description": "All."
+  },
+
 
 
   "snooze": {
@@ -49,6 +82,14 @@
   "cancelAlarm": {
     "message": "Cancel alarm",
     "description": "Button label to close new alarm section"
+  },
+  "toggleRepetitive": {
+    "message": "Repetitive",
+    "description": "Button value on alarm type switch."
+  },
+  "toggleOnetime": {
+    "message": "One time",
+    "description": "Button value on alarm type switch."
   },
   "alarmName": {
     "message": "Alarm name",
@@ -232,13 +273,6 @@
   "suppSupportText": {
     "message": "If you find any errors or have some suggestion for improvement do not hesitate to contact author! </br> And of course, if you like it, rate it in store so others can also enjoy this app. :)",
     "description": "Support text"
-  },
-
-
-
-  "a": {
-    "message": "",
-    "description": ""
   }
 
 }
