@@ -3,7 +3,6 @@
  */
 //embedded and libraries
 var chrome = chrome || undefined;
-var console = console || undefined;
 
 var toneList = [
     new Audio("tones/light.mp3"),
@@ -11,15 +10,20 @@ var toneList = [
     new Audio("tones/one_alarm.mp3")
 ];
 var alarmTone;
+
 //currently processed notification, HAX in order to persist notifications
-var notif_actions = {};
-var notif_timeouts = {};
-var snoozed_alarms = {};
+var notif_actions = {}; //object that contains alarm keys where user reacted to notification
+var notif_timeouts = {}; //object for alarm notification duration (if longer than in options, auto-cancellation of notification and snooze)
+
+var snoozed_alarms = {}; //when alarm snoozed for not taking more than one action, popped from object when snooze finished
+var removed_alarms = {}; //when alarm is to be canceled for not taking more than one action, after handling alarm canceled and popped from object
+
 var options;
 
 
 
 /*
+ * @Module - Init
  * SET options
  * data is used from options.js where true default option function is implemented
  * @WARNING - there is event onInstalled but requires more permission fom App, therefore this approach is used
@@ -45,8 +49,8 @@ function setDefaults () {
 
 
 /*
+ * @Module - Init
  * LOAD options
- *
  * date-time pickers can cause problems when not loaded after options
  * however, there is a chance that options will be loaded before DOM, then simply move load options into DOMContentLoaded
  *
@@ -68,20 +72,21 @@ function loadOptions () {
 }
 loadOptions();
 
+
 /*
+ * @Module - Logic
  * When options changed in options menu, reload it here
  * Listener that waits for specific set of instructions
  */
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 
-    if (request.action === "change" && request.type === "reload-options") {
-        loadOptions();
-    }
+    if (request.reload_options) { loadOptions(); }
 
 });
 
 
 /*
+ * @Module - Logic
  * Updates chrome badge icon
  * triggered on any storage change
  *
@@ -104,26 +109,51 @@ chrome.storage.onChanged.addListener(updateBadge);
 
 
 /*
+ * @Module - Logic
  * PLAY selected tune from options
- *
  * @param {boolean} play - parameter for notification sound
  * @return {null}
  */
 function alarm_sound (play) {
 
-    if (play) {
-        alarmTone.play();
-    }
-    else {
-        alarmTone.pause();
-    }
+    if (play) { alarmTone.play(); }
+    else { alarmTone.pause(); }
 }
 
 
 /*
+ * @Module - Logic
+ * Calculates repeat alarm time
+ * sets alarm to be repeated on next step
+ * @param {string} key - key of alarm to be snoozed
+ * @returns {null}
+ */
+function calc_repetitive (alarm) {
+    var alarm_time = (new Date(alarm.time_rep)),
+        alarm_next,
+        i = alarm_time.getDay(),
+        next = -1,
+        diff = 0;
+
+    do {
+        diff++;
+        if (alarm.rep_days[i]) {  next = i; } //search for next day through array
+        else if (i++ === 6) { i = 0; } //if end of array, return search from monday
+    } while (next === -1);
+
+    alarm_next = (new Date(alarm_time.getTime() + (60000 * 60 * 24 * diff) ) ).getTime();
+    alarm.time_span = alarm_next - alarm.time_set;
+    alarm.time_set = alarm_next;
+    alarm.time_rep = alarm_next;
+
+    return alarm;
+}
+
+
+/*
+ * @Module - Logic
  * SNOOZE alarm
  * postpones alarm for given period of time
- * UI handles everything
  * @param {string} key - key of alarm to be snoozed
  * @returns {null}
  */
@@ -160,7 +190,7 @@ function snooze (key) {
         chrome.storage.sync.set({'AM_alarms': alarms});
 
         //popup handles UI and saving
-        chrome.extension.sendMessage({action: 'snooze', key: key, alarm: alarm});
+        chrome.extension.sendMessage({remove: true, update: true, key: key, alarm: alarm});
 
 
     }.bind(key);
@@ -170,31 +200,48 @@ function snooze (key) {
 
 
 /*
- * REMOVES alarm from storage
- * calls UI to remove from popup
- *
- * this is called only when alarm is already activated -> alarm itself called for this
- *
- * @param {string} key - alarm key
+ * @Module - Logic
+ * CANCELS alarm (onetime or repetitive)
+ * Determines type of alarm and handles/removes it
+ * @param {string} key - key of alarm to be snoozed
  * @returns {null}
  */
-function remove_alarm (key) {
-
-    //calls popup where listener is set to receive action
-    //only to remove UI >>IF<< popup is raised during call
-    //@param {object} - data to be transferred
-    chrome.extension.sendMessage({action: 'remove', key: key});
-
+function cancel_alarm (key) {
 
     var storage_callback = function (object) {
-        var alarms = object.AM_alarms;
+        var alarms = object.AM_alarms,
+            alarm;
 
+        //find alarm that is to be canceled
         for (var i = 0; i < alarms.length; i++) {
             if (key === alarms[i].key) {
-                alarms.splice(i, 1);
+                alarm = alarms.splice(i, 1)[0];
                 break;
             }
         }
+
+
+        //REPETITIVE section
+        if (alarm.repetitive === true) {
+
+            //calculates time when alarm will be called again and updates object
+            //@param {object} alarm - whole alarm object that is set to be updated
+            alarm = calc_repetitive(alarm);
+            //create alarm -> 1 minute = 60,000 milliseconds
+            chrome.alarms.create(alarm.key, { delayInMinutes: (alarm.time_span / 60000) });
+            //add to alarm list
+            alarms.push(alarm);
+            //calls popup where listener is set to receive action (if UI open)
+            chrome.extension.sendMessage({remove: true, update: true, key: key, alarm: alarm});
+
+        //NORMAL section
+        } else {
+
+            //calls popup where listener is set to receive action (if UI open)
+            chrome.extension.sendMessage({remove: true, key: key});
+
+        }
+
 
         //@param {object} - data to be stored
         chrome.storage.sync.set({'AM_alarms': alarms});
@@ -206,6 +253,7 @@ function remove_alarm (key) {
 
 
 /*
+ * @Module - Logic
  * called when notification UI need to be raised
  * always matched with alarm, eg. alarm is raised, notification is called!
  * alarm key and notification key are ALWAYS the same
@@ -254,7 +302,6 @@ function raise_notification (key) {
         } else {
 
             alarm_sound(false);
-            console.log("Alarm not found! Binding with notification canceled.");
 
         }
 
@@ -268,6 +315,7 @@ function raise_notification (key) {
 
 
 /*
+ * @Module - Logic
  * Alarm is triggered
  * Default for all alarms - every alarm comes here
  *
@@ -287,11 +335,12 @@ chrome.alarms.onAlarm.addListener(function( alarm_event ) {
 
 
 /*
+ * @Module - Logic
  * Event when action buttons are clicked on notification
  * Respond to the user's clicking one of the buttons (no self-triggering)
  *
  * Button 0: snooze alarm
- * Button 1: ok, remove alarm
+ * Button 1: ok, cancel alarm (actions deferred to next function)
  * Both actions remove notification
  *
  * @param {string} key - notification key (same as alarm key)
@@ -308,8 +357,10 @@ chrome.notifications.onButtonClicked.addListener(function(key, btnIdx) {
         //@param {string} key - notification key for notification to be terminated
         chrome.notifications.clear(key);
     } else if (btnIdx === 1 || parseInt(options.snooze) === 0) {
-        //@param {string} key - notification key for alarm to be removed
-        remove_alarm(key);
+        //add alarm to remove list (when button is pressed sometimes actions taken are doubled)
+        removed_alarms[key] = true;
+        //@param {string} key - notification key for alarm to turn off and delete or repeat
+        cancel_alarm(key);
         //@param {string} key - notification key for notification to be terminated
         chrome.notifications.clear(key);
     }
@@ -320,6 +371,7 @@ chrome.notifications.onButtonClicked.addListener(function(key, btnIdx) {
 
 
 /*
+ * @Module - Logic
  * Closing of notification by non-default action
  * Notification length is 8 seconds!
  *
@@ -338,10 +390,12 @@ chrome.notifications.onClosed.addListener(function(key, x_close) {
     if (notif_actions[key] || x_close) {
         alarm_sound(false);
 
-        if (!snoozed_alarms[key]) {
-            remove_alarm(key);
+        //when notification is closed via buttons then "cancel_alarm" is triggered there and would be here
+        if (!snoozed_alarms[key] && !removed_alarms[key]) {
+            cancel_alarm(key);
         } else {
             delete snoozed_alarms[key];
+            delete removed_alarms[key];
         }
 
         chrome.notifications.clear(key);
@@ -366,10 +420,3 @@ chrome.notifications.onClosed.addListener(function(key, x_close) {
     }
 
 });
-
-
-
-
-
-
-

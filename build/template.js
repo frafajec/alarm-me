@@ -1,4 +1,16 @@
-function template (template, p1, p2, p3) {
+/*
+ * GLOBALS
+ */
+var displayTime = displayTime || undefined;
+var chrome = chrome || undefined;
+
+
+/*
+ * Helper function that renders templates for app
+ *
+ * alarmTemplate - renders template for alarms in list on popup.js
+ */
+function template (template, data) {
     var html = "";
 
     //TEMPLATES
@@ -63,7 +75,7 @@ function template (template, p1, p2, p3) {
                     var alarm_rep = document.createElement("p");
                     alarm_rep.setAttribute("class", "alarm-days");
 
-                    var span = undefined,
+                    var span,
                         days = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
                     for (var i = 0; i < 7; i++) {
@@ -89,7 +101,8 @@ function template (template, p1, p2, p3) {
 
 
     //FORKING
-    if (template === 'alarm') { html = alarmTemplate(p1); }
+    if (template === 'alarm') { html = alarmTemplate(data.alarm); }
 
     return html;
 }
+template(true, {});

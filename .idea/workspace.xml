@@ -4,10 +4,10 @@
     <list default="true" id="d55bc229-75f7-4893-8c80-1990bce07e56" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/background.js" afterPath="$PROJECT_DIR$/build/background.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/manifest.json" afterPath="$PROJECT_DIR$/build/manifest.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/options/options.js" afterPath="$PROJECT_DIR$/build/options/options.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/popup.css" afterPath="$PROJECT_DIR$/build/popup.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/popup.js" afterPath="$PROJECT_DIR$/build/popup.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gruntfile.js" afterPath="$PROJECT_DIR$/gruntfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/template.js" afterPath="$PROJECT_DIR$/build/template.js" />
     </list>
     <ignored path="chromeapp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,19 +31,124 @@
       <file leaf-file-name="gruntfile.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gruntfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="125" column="17" selection-start-line="125" selection-start-column="17" selection-end-line="125" selection-end-column="17" />
+            <state relative-caret-position="-289">
+              <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manifest.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/build/manifest.json">
+      <file leaf-file-name="messages.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/_locales/en/messages.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+            <state relative-caret-position="119">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="popup.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/popup.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="popup.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/popup.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1581">
+              <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/template.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="popup.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build/popup.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!block;n#pickrDateFormat#0" expanded="false" />
+                <element signature="n#!!block;n#initTimePickers#0" expanded="false" />
+                <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
+                <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+                <element signature="n#!!block;n#initNotify#0" expanded="false" />
+                <element signature="n#!!block;n#removeNotify#0" expanded="false" />
+                <element signature="n#!!block;n#displayTime#0" expanded="false" />
+                <element signature="n#!!block;n#revertTime#0" expanded="false" />
+                <element signature="n#!!block;n#popupClock#0" expanded="false" />
+                <element signature="n#!!block;n#initLinks#0" expanded="false" />
+                <element signature="n#!!block;n#initHelpers#0" expanded="false" />
+                <element signature="n#!!block;n#toggleNewAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#toggleAlarmType#0" expanded="false" />
+                <element signature="n#!!block;n#dateCheck#0" expanded="false" />
+                <element signature="n#!!block;n#allCheck#0" expanded="false" />
+                <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
+                <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#orderAlarms#0" expanded="false" />
+                <element signature="n#!!block;n#initNewAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#resetNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#make_key#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#timeToAlarm#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+                <element signature="n#!!block;n#getAlarmList#0" expanded="false" />
+                <element signature="e#24525#25635#0" expanded="false" />
+                <element signature="e#25849#26083#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="background.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/background.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="720">
+              <caret line="377" column="50" selection-start-line="377" selection-start-column="50" selection-end-line="377" selection-end-column="50" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+                <element signature="n#!!block;n#setDefaults#0" expanded="false" />
+                <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+                <element signature="e#2327#2383#0" expanded="false" />
+                <element signature="n#!!block;n#updateBadge#0" expanded="false" />
+                <element signature="n#!!block;n#alarm_sound#0" expanded="false" />
+                <element signature="n#!!block;n#calc_repetitive#0" expanded="false" />
+                <element signature="n#!!block;n#snooze#0" expanded="false" />
+                <element signature="n#!!block;n#cancel_alarm#0" expanded="false" />
+                <element signature="n#!!block;n#raise_notification#0" expanded="false" />
+                <element signature="e#9506#9744#0" expanded="false" />
+                <element signature="e#10267#11143#0" expanded="false" />
+                <element signature="e#11612#12746#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="options.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/build/options/options.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3228">
+              <caret line="338" column="2" selection-start-line="338" selection-start-column="2" selection-end-line="338" selection-end-column="2" />
+              <folding>
+                <element signature="n#!!block;n#menuChange#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -85,17 +190,18 @@
         <option value="$PROJECT_DIR$/build/options/css/options.css" />
         <option value="$PROJECT_DIR$/build/options/css/cs-select.css" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/build/popup.html" />
-        <option value="$PROJECT_DIR$/build/popup.css" />
-        <option value="$PROJECT_DIR$/build/options/options.js" />
         <option value="$PROJECT_DIR$/build/options/options.css" />
         <option value="$PROJECT_DIR$/build/options/options.html" />
-        <option value="$PROJECT_DIR$/build/_locales/en/messages.json" />
         <option value="$PROJECT_DIR$/gruntfile.js" />
-        <option value="$PROJECT_DIR$/build/background.js" />
-        <option value="$PROJECT_DIR$/build/popup.js" />
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/build/manifest.json" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/build/_locales/en/messages.json" />
+        <option value="$PROJECT_DIR$/build/popup.html" />
+        <option value="$PROJECT_DIR$/build/template.js" />
+        <option value="$PROJECT_DIR$/build/popup.css" />
+        <option value="$PROJECT_DIR$/build/background.js" />
+        <option value="$PROJECT_DIR$/build/options/options.js" />
+        <option value="$PROJECT_DIR$/build/popup.js" />
       </list>
     </option>
   </component>
@@ -165,6 +271,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="build" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chromeapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AlarmMe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="build" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="options" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chromeapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AlarmMe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="build" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="_locales" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="en" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -254,6 +400,9 @@
       <workItem from="1462360090389" duration="18535000" />
       <workItem from="1462551524510" duration="9466000" />
       <workItem from="1462641550810" duration="1841000" />
+      <workItem from="1471564617421" duration="27095000" />
+      <workItem from="1472919542970" duration="15049000" />
+      <workItem from="1473353839581" duration="5786000" />
     </task>
     <task id="LOCAL-00001" summary="Grunt init">
       <created>1461157848223</created>
@@ -273,29 +422,29 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29842000" />
+    <option name="totallyTimeSpent" value="77772000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13645834" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1421875" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296146" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296146" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980973" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -316,11 +465,152 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="28" />
+      <option name="time" value="35" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/gruntfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/_locales/en/messages.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7378">
+          <caret line="434" column="1" selection-start-line="434" selection-start-column="1" selection-end-line="434" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1581">
+          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/template.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1615">
+          <caret line="99" column="1" selection-start-line="99" selection-start-column="1" selection-end-line="99" selection-end-column="1" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5083">
+          <caret line="595" column="0" selection-start-line="595" selection-start-column="0" selection-end-line="595" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!block;n#pickrDateFormat#0" expanded="false" />
+            <element signature="n#!!block;n#initTimePickers#0" expanded="false" />
+            <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
+            <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+            <element signature="n#!!block;n#initNotify#0" expanded="false" />
+            <element signature="n#!!block;n#removeNotify#0" expanded="false" />
+            <element signature="n#!!block;n#displayTime#0" expanded="false" />
+            <element signature="n#!!block;n#revertTime#0" expanded="false" />
+            <element signature="n#!!block;n#popupClock#0" expanded="false" />
+            <element signature="n#!!block;n#initLinks#0" expanded="false" />
+            <element signature="n#!!block;n#initHelpers#0" expanded="false" />
+            <element signature="n#!!block;n#toggleNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#toggleAlarmType#0" expanded="false" />
+            <element signature="n#!!block;n#dateCheck#0" expanded="false" />
+            <element signature="n#!!block;n#allCheck#0" expanded="false" />
+            <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
+            <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#orderAlarms#0" expanded="false" />
+            <element signature="n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#resetNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#make_key#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#timeToAlarm#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#getAlarmList#0" expanded="false" />
+            <element signature="e#24525#25635#0" expanded="false" />
+            <element signature="e#25849#26083#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/background.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!block;n#setDefaults#0" expanded="false" />
+            <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+            <element signature="e#2327#2383#0" expanded="false" />
+            <element signature="n#!!block;n#updateBadge#0" expanded="false" />
+            <element signature="n#!!block;n#alarm_sound#0" expanded="false" />
+            <element signature="n#!!block;n#calc_repetitive#0" expanded="false" />
+            <element signature="n#!!block;n#snooze#0" expanded="false" />
+            <element signature="n#!!block;n#cancel_alarm#0" expanded="false" />
+            <element signature="n#!!block;n#raise_notification#0" expanded="false" />
+            <element signature="e#9506#9744#0" expanded="false" />
+            <element signature="e#10267#11143#0" expanded="false" />
+            <element signature="e#11612#12746#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gruntfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/_locales/en/messages.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7378">
+          <caret line="434" column="1" selection-start-line="434" selection-start-column="1" selection-end-line="434" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1581">
+          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/template.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1139">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/build/popup.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -331,17 +621,77 @@
             <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
             <element signature="n#!!block;n#loadOptions#0" expanded="false" />
             <element signature="n#!!block;n#initNotify#0" expanded="false" />
-            <element signature="n#!!block;n#removeTooltips#0" expanded="false" />
+            <element signature="n#!!block;n#removeNotify#0" expanded="false" />
             <element signature="n#!!block;n#displayTime#0" expanded="false" />
             <element signature="n#!!block;n#revertTime#0" expanded="false" />
+            <element signature="n#!!block;n#popupClock#0" expanded="false" />
             <element signature="n#!!block;n#initLinks#0" expanded="false" />
-            <element signature="n#!!block;n#alarmTemplate#0" expanded="false" />
+            <element signature="n#!!block;n#initHelpers#0" expanded="false" />
             <element signature="n#!!block;n#toggleNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#toggleAlarmType#0" expanded="false" />
+            <element signature="n#!!block;n#dateCheck#0" expanded="false" />
+            <element signature="n#!!block;n#allCheck#0" expanded="false" />
             <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
             <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#orderAlarms#0" expanded="false" />
             <element signature="n#!!block;n#initNewAlarm#0" expanded="false" />
             <element signature="n#!!block;n#resetNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
             <element signature="n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#make_key#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#timeToAlarm#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#getAlarmList#0" expanded="false" />
+            <element signature="e#24525#25635#0" expanded="false" />
+            <element signature="e#25849#26083#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gruntfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2125">
+          <caret line="125" column="17" selection-start-line="125" selection-start-column="17" selection-end-line="125" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/manifest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!block;n#pickrDateFormat#0" expanded="false" />
+            <element signature="n#!!block;n#initTimePickers#0" expanded="false" />
+            <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
+            <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+            <element signature="n#!!block;n#initNotify#0" expanded="false" />
+            <element signature="n#!!block;n#removeNotify#0" expanded="false" />
+            <element signature="n#!!block;n#displayTime#0" expanded="false" />
+            <element signature="n#!!block;n#revertTime#0" expanded="false" />
+            <element signature="n#!!block;n#popupClock#0" expanded="false" />
+            <element signature="n#!!block;n#initLinks#0" expanded="false" />
+            <element signature="n#!!block;n#initHelpers#0" expanded="false" />
+            <element signature="n#!!block;n#toggleNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#toggleAlarmType#0" expanded="false" />
+            <element signature="n#!!block;n#dateCheck#0" expanded="false" />
+            <element signature="n#!!block;n#allCheck#0" expanded="false" />
+            <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
+            <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#orderAlarms#0" expanded="false" />
+            <element signature="n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#resetNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#make_key#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#timeToAlarm#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#getAlarmList#0" expanded="false" />
+            <element signature="e#24525#25635#0" expanded="false" />
+            <element signature="e#25849#26083#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -366,7 +716,7 @@
         <state relative-caret-position="272">
           <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -395,17 +745,27 @@
             <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
             <element signature="n#!!block;n#loadOptions#0" expanded="false" />
             <element signature="n#!!block;n#initNotify#0" expanded="false" />
-            <element signature="n#!!block;n#removeTooltips#0" expanded="false" />
+            <element signature="n#!!block;n#removeNotify#0" expanded="false" />
             <element signature="n#!!block;n#displayTime#0" expanded="false" />
             <element signature="n#!!block;n#revertTime#0" expanded="false" />
+            <element signature="n#!!block;n#popupClock#0" expanded="false" />
             <element signature="n#!!block;n#initLinks#0" expanded="false" />
-            <element signature="n#!!block;n#alarmTemplate#0" expanded="false" />
+            <element signature="n#!!block;n#initHelpers#0" expanded="false" />
             <element signature="n#!!block;n#toggleNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#toggleAlarmType#0" expanded="false" />
+            <element signature="n#!!block;n#dateCheck#0" expanded="false" />
+            <element signature="n#!!block;n#allCheck#0" expanded="false" />
             <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
             <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#orderAlarms#0" expanded="false" />
             <element signature="n#!!block;n#initNewAlarm#0" expanded="false" />
             <element signature="n#!!block;n#resetNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
             <element signature="n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#make_key#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#timeToAlarm#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#getAlarmList#0" expanded="false" />
+            <element signature="e#24525#25635#0" expanded="false" />
+            <element signature="e#25849#26083#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -445,7 +805,7 @@
         <state relative-caret-position="102">
           <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -454,7 +814,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4811">
           <caret line="285" column="29" selection-start-line="285" selection-start-column="29" selection-end-line="285" selection-end-column="29" />
-          <folding />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!block;n#setDefaults#0" expanded="false" />
+            <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+            <element signature="e#2327#2383#0" expanded="false" />
+            <element signature="n#!!block;n#updateBadge#0" expanded="false" />
+            <element signature="n#!!block;n#alarm_sound#0" expanded="false" />
+            <element signature="n#!!block;n#calc_repetitive#0" expanded="false" />
+            <element signature="n#!!block;n#snooze#0" expanded="false" />
+            <element signature="n#!!block;n#cancel_alarm#0" expanded="false" />
+            <element signature="n#!!block;n#raise_notification#0" expanded="false" />
+            <element signature="e#9506#9744#0" expanded="false" />
+            <element signature="e#10267#11143#0" expanded="false" />
+            <element signature="e#11612#12746#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -487,31 +861,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/popup.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="850">
-          <caret line="50" column="64" selection-start-line="50" selection-start-column="64" selection-end-line="50" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build/libs/selectFx.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/_locales/en/messages.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="189" column="38" selection-start-line="189" selection-start-column="38" selection-end-line="189" selection-end-column="38" />
         </state>
       </provider>
     </entry>
@@ -522,16 +875,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/options/options.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="36" column="31" selection-start-line="36" selection-start-column="31" selection-end-line="36" selection-end-column="31" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build/options/options.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="575">
@@ -539,68 +882,144 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/popup.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6290">
-          <caret line="370" column="21" selection-start-line="370" selection-start-column="21" selection-end-line="370" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/background.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="36" column="16" selection-start-line="36" selection-start-column="16" selection-end-line="36" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/popup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="657" column="0" selection-start-line="657" selection-start-column="0" selection-end-line="657" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!block;n#pickrDateFormat#0" expanded="false" />
-            <element signature="n#!!block;n#initTimePickers#0" expanded="false" />
-            <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
-            <element signature="n#!!block;n#loadOptions#0" expanded="false" />
-            <element signature="n#!!block;n#initNotify#0" expanded="false" />
-            <element signature="n#!!block;n#removeTooltips#0" expanded="false" />
-            <element signature="n#!!block;n#displayTime#0" expanded="false" />
-            <element signature="n#!!block;n#revertTime#0" expanded="false" />
-            <element signature="n#!!block;n#initLinks#0" expanded="false" />
-            <element signature="n#!!block;n#alarmTemplate#0" expanded="false" />
-            <element signature="n#!!block;n#toggleNewAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
-            <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#initNewAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#resetNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="19" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/manifest.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="MarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/_locales/en/messages.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1581">
+          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gruntfile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="125" column="17" selection-start-line="125" selection-start-column="17" selection-end-line="125" selection-end-column="17" />
+        <state relative-caret-position="-289">
+          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/manifest.json">
+    <entry file="file://$PROJECT_DIR$/build/background.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="28" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+        <state relative-caret-position="720">
+          <caret line="377" column="50" selection-start-line="377" selection-start-column="50" selection-end-line="377" selection-end-column="50" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!block;n#setDefaults#0" expanded="false" />
+            <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+            <element signature="e#2327#2383#0" expanded="false" />
+            <element signature="n#!!block;n#updateBadge#0" expanded="false" />
+            <element signature="n#!!block;n#alarm_sound#0" expanded="false" />
+            <element signature="n#!!block;n#calc_repetitive#0" expanded="false" />
+            <element signature="n#!!block;n#snooze#0" expanded="false" />
+            <element signature="n#!!block;n#cancel_alarm#0" expanded="false" />
+            <element signature="n#!!block;n#raise_notification#0" expanded="false" />
+            <element signature="e#9506#9744#0" expanded="false" />
+            <element signature="e#10267#11143#0" expanded="false" />
+            <element signature="e#11612#12746#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/options/options.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3228">
+          <caret line="338" column="2" selection-start-line="338" selection-start-column="2" selection-end-line="338" selection-end-column="2" />
+          <folding>
+            <element signature="n#!!block;n#menuChange#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/template.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="16" selection-start-line="24" selection-start-column="16" selection-end-line="24" selection-end-column="16" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!block;n#pickrDateFormat#0" expanded="false" />
+            <element signature="n#!!block;n#initTimePickers#0" expanded="false" />
+            <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
+            <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+            <element signature="n#!!block;n#initNotify#0" expanded="false" />
+            <element signature="n#!!block;n#removeNotify#0" expanded="false" />
+            <element signature="n#!!block;n#displayTime#0" expanded="false" />
+            <element signature="n#!!block;n#revertTime#0" expanded="false" />
+            <element signature="n#!!block;n#popupClock#0" expanded="false" />
+            <element signature="n#!!block;n#initLinks#0" expanded="false" />
+            <element signature="n#!!block;n#initHelpers#0" expanded="false" />
+            <element signature="n#!!block;n#toggleNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#toggleAlarmType#0" expanded="false" />
+            <element signature="n#!!block;n#dateCheck#0" expanded="false" />
+            <element signature="n#!!block;n#allCheck#0" expanded="false" />
+            <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
+            <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#orderAlarms#0" expanded="false" />
+            <element signature="n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#resetNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#make_key#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#timeToAlarm#0;n#!!block;n#setNA#0;n#!!block;n#initNewAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#getAlarmList#0" expanded="false" />
+            <element signature="e#24525#25635#0" expanded="false" />
+            <element signature="e#25849#26083#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

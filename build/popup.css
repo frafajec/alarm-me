@@ -21,7 +21,7 @@ body {
     padding: 0;
     margin: 0;
 }
-.tooltip-notification:after {
+.notify:after {
     content: "";
     position: absolute;
     bottom: -10px;
@@ -32,7 +32,7 @@ body {
     display: block;
     width: 0;
 }
-.tooltip-notification {
+.notify {
     position: fixed;
     border-radius: 6px;
     z-index: 1;
@@ -44,15 +44,15 @@ body {
     background-color: rgba(255, 255, 255, 1);
     color: black;
 }
-.tooltip-notification.warning {
+.notify.warning {
     border: 2px solid #c94747;
 }
-.tooltip-notification h6 {
+.notify h6 {
     margin: 0;
     border-bottom: 1px solid black;
     padding: 2px 3px;
 }
-.tooltip-notification p {
+.notify p {
     padding: 0 0 3px 3px;
     margin: 0;
     font-size: 10px;

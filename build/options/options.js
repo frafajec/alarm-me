@@ -205,7 +205,7 @@ function save_options () {
     //persist options to storage
     chrome.storage.sync.set({'AM_options': options});
     //notify background to change options
-    chrome.extension.sendMessage({action: 'change', type: 'reload-options'});
+    chrome.extension.sendMessage({reload_options: true});
 }
 
 
@@ -329,7 +329,7 @@ function openLinkedin () {
     chrome.tabs.create({ 'url': 'http://linkedin.com/in/frafajec' });
 }
 function openStore () {
-    chrome.tabs.create({ 'url': 'https://chrome.google.com/webstore' });
+    chrome.tabs.create({ 'url': 'https://chrome.google.com/webstore/detail/alarm-me/knahjdfbilnkfipggnnhojmjpjcgjkmg' });
 }
 
 

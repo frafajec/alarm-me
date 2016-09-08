@@ -4,6 +4,7 @@
 //embedded and libraries
 var chrome = chrome || undefined;
 var flatpickr = flatpickr || undefined;
+var template = template || undefined;
 
 var options = {};
 //lists for drop-down selection
@@ -13,9 +14,8 @@ var timePicker;
 var datePicker;
 
 
-
-
 /*
+ * @Module - Init
  * Renders date format for datePicker
  */
 function pickrDateFormat () {
@@ -33,6 +33,7 @@ function pickrDateFormat () {
 
 
 /*
+ * @Module - Init
  * Initializes pickers for time and date
  * called after options are loaded because it needs it for date format
  */
@@ -47,33 +48,24 @@ function initTimePickers () {
         timeFormat: "H:i",
         minuteIncrement: 1
     });
-
     timePicker.set("onChange", function(d){
-
         var now = new Date();
-
         if (d.getTime() < now.getTime()) {
-            //timePicker.set( "defaultDate" , now );
             document.getElementById('new-time-input').value = (" " + now.getHours() + ":" + now.getMinutes()).toString();
         }
-
     });
 
-
-    //TODO: CHANGE!
     datePicker = flatpickr("#new-date-input", {
         minDate: new Date(),
         defaultDate: new Date(),
         dateFormat: pickrDateFormat()
     });
-    //datePicker.set("onChange", function(d){
-    //
-    //});
 
 }
 
 
 /*
+ * @Module - Init
  * Localises HTML based on messages.json
  * TAKEN: http://stackoverflow.com/questions/25467009/internationalization-of-html-pages-for-my-google-chrome-extension
  */
@@ -92,17 +84,14 @@ function localizeHtmlPage() {
             }
         );
 
-        if(valNewH !== valStrH)
-        {
-            obj.innerHTML = valNewH;
-        }
+        if(valNewH !== valStrH) { obj.innerHTML = valNewH; }
     }
 }
 
 
 /*
+ * @Module - Init
  * LOAD options
- *
  * date-time pickers can cause problems when not loaded after options
  * however, there is a chance that options will be loaded before DOM, then simply move load options into DOMContentLoaded
  */
@@ -122,12 +111,15 @@ loadOptions();
 
 
 /*
- * Creates tooltip/notify element and inserts it into element for display
+ * TODO: change how remove is done because it can close newer notify too soon
+ * @Module - UI
+ * Creates notify element and inserts it into element for display
  * WARNING: can only be called on container, not individual element!
  *
  * @param {html} element - html object of element where tooltip will be inserted
  * @param {string} title - text that will be displayed in title (short)
  * @param {string} content - text that will be inserted into body of tooltip
+ * @param {string} type - additional class that differentiates notifications
  */
 function initNotify () {
 
@@ -135,9 +127,9 @@ function initNotify () {
         var el = this;
 
         var ntf = document.createElement("span");
-        ntf.setAttribute("class", "tooltip-notification");
+        ntf.setAttribute("class", "notify");
         if (type) {
-            ntf.setAttribute("class", "tooltip-notification " + type);
+            ntf.setAttribute("class", "notify " + type);
         }
         var ntf_title = document.createElement("h6");
         ntf_title.innerHTML = title.toUpperCase();
@@ -147,7 +139,7 @@ function initNotify () {
         ntf.appendChild( ntf_body );
 
         var ntfSelfRemove = function () {
-            var ttps = el.getElementsByClassName("tooltip-notification");
+            var ttps = el.getElementsByClassName("notify");
             for (var i = 0; i < ttps.length; i++) {
                 ttps[i].remove();
             }
@@ -164,22 +156,23 @@ initNotify();
 
 
 /*
- * Removes all tooltips from popup
+ * @Module - UI
+ * Removes all notify from popup
  * Takes care of situation when new alarm is closed etc
  *
  * @returns {null}
  */
-function removeTooltips() {
-    var ttps = document.getElementsByClassName("tooltip-notification");
-    for (var i = 0; i < ttps.length; i++) {
-        ttps[i].remove();
+function removeNotify() {
+    var notifs = document.getElementsByClassName("notify");
+    for (var i = 0; i < notifs.length; i++) {
+        notifs[i].remove();
     }
 }
 
 
 /*
+ * @Module - UI
  * Prepares date-time object to be displayed in DOM
- *
  * @param {int} ex - existing datetime unix number format (time from 1970)
  * @return {object} date/time - processed string ready for DOM
  */
@@ -219,8 +212,8 @@ function displayTime (ex) {
 
 
 /*
+ * @Module - Helper
  * Reverts date format from user-display to universal
- *
  * @param {string} date - date in current display format
  * @param {string} time - time in hh:mm format (default 00:00:00)
  */
@@ -251,8 +244,8 @@ function revertTime (date, time) {
 }
 
 
-
 /*
+ * @Module - UI
  * Sets clock roller on popup
  * Every second checks time and changes it if needed
  * @return {null}
@@ -268,12 +261,12 @@ function popupClock () {
 
     }
     rollClock();
-
     window.setInterval(rollClock, 1000);
 }
 
 
 /*
+ * @Module - UI
  * open OPTIONS tab
 */
 function initLinks () {
@@ -292,7 +285,21 @@ function initLinks () {
     });
 }
 
+
 /*
+ * @Module - Init
+ * Initializes helper functions and widgets
+ */
+function initHelpers () {
+    //runs clock in background of popup
+    popupClock();
+    //event for opening options from popup
+    initLinks();
+}
+
+
+/*
+ * @Module - UI
  * Changes visibility of new alarm section
  */
 function toggleNewAlarm () {
@@ -313,12 +320,13 @@ function toggleNewAlarm () {
         document.getElementById("toggle-onetime-alarm").style.display = "block";
     }
 
-    removeTooltips();
+    removeNotify();
 }
 
 
 /*
- * Swaps between one-time alarm and repetitive type alarm adding
+ * @Module - UI
+ * Swaps between one-time alarm and repetitive type alarm
  */
 function toggleAlarmType (e) {
     var oneBtn = document.getElementById("toggle-onetime-alarm"),
@@ -326,12 +334,12 @@ function toggleAlarmType (e) {
         repBtn = document.getElementById("toggle-repetitive-alarm"),
         repSec = document.getElementById("new-rep");
 
-    if (e.target == repBtn && repBtn.className !== "alarm-type-active") {
+    if (e.target === repBtn && repBtn.className !== "alarm-type-active") {
         oneBtn.className = "";
         oneSec.className = "hidden";
         repBtn.className = "alarm-type-active";
         repSec.className = "";
-    } else if (e.target == oneBtn && oneBtn.className !== "alarm-type-active") {
+    } else if (e.target === oneBtn && oneBtn.className !== "alarm-type-active") {
         oneBtn.className = "alarm-type-active";
         oneSec.className = "";
         repBtn.className = "";
@@ -341,7 +349,9 @@ function toggleAlarmType (e) {
 
 
 /*
+ * @Module - UI
  * Date checker on repetitive alarm
+ * Handles "select all" option
  */
 function dateCheck () {
     var all = document.getElementById("new-rep-all"),
@@ -359,18 +369,21 @@ function dateCheck () {
 
 
 /*
+ * @Module - UI
  * All-checker on repetitive alarm
+ * Selects/deselects all dates for alarm
  */
 function allCheck () {
     var all = document.getElementById("new-rep-all"),
-        dates = document.getElementsByClassName("new-rep-date");
+        dates = document.getElementsByClassName("new-rep-date"),
+        i = 0;
 
     if (all.checked) {
-        for (var i = 0; i < dates.length; i++) {
+        for (i; i < dates.length; i++) {
             dates[i].checked = true;
         }
     } else {
-        for (var i = 0; i < dates.length; i++) {
+        for (i = 0; i < dates.length; i++) {
             dates[i].checked = false;
         }
     }
@@ -378,9 +391,8 @@ function allCheck () {
 
 
 /*
+ * @Module - Logic
  * CONSTRAINTS when creating new alarm
- *
- * TODO
  */
 function checkConstraints () {
     var fail = false;
@@ -416,6 +428,8 @@ function checkConstraints () {
 
 
 /*
+ * TODO: if UI changed, change THIS!!
+ * @Module - Logic
  * EVENT for removing alarm
  * activated when button is pressed on alarm list
  * removes from storage, cancels alarm and removes from UI
@@ -432,7 +446,6 @@ function removeAlarm() {
 
         //stop alarm from triggering
         chrome.alarms.clear(key);
-
 
         //remove from storage
         for (var i = 0; i < alarms.length; i++) {
@@ -458,8 +471,8 @@ function removeAlarm() {
 }
 
 
-
 /*
+ * @Module - Logic
  * takes alarms in UI and orders them by date
  * TODO: add effects (maybe)
  *
@@ -494,8 +507,8 @@ function orderAlarms () {
 }
 
 
-
 /*
+ * @Module - Logic
  * APP CORE
  * EVENT setter and functions for "New alarm" section
  *
@@ -530,7 +543,11 @@ function initNewAlarm() {
         for (var i = 0; i < dates.length; i++) {
             dates[i].checked = false;
         }
-        dates[ (new Date()).getDay() - 1 ].checked = true;
+
+        //select current day
+        //sunday is 0 but in html is 7th in order, so we swap with array
+        var day_now = (new Date()).getDay();
+        dates[ day_now === 0 ? 6 : day_now - 1 ].checked = true;
 
     }
     document.getElementById('alarm-reset').addEventListener('click', resetNA);
@@ -550,11 +567,7 @@ function initNewAlarm() {
     function setNA() {
 
         //constraints before creating new alarm
-        var fail = checkConstraints();
-        if (fail) {
-            return false;
-        }
-
+        if ( checkConstraints() ) { return false; }
 
         //random key generator
         //6 character alphanumeric string
@@ -572,13 +585,15 @@ function initNewAlarm() {
             return (d > 0 ? d + " "+ chrome.i18n.getMessage("day") +" " : "") + (h > 0 ? h + " "+ chrome.i18n.getMessage("hour") +" " : "") + m + " "+ chrome.i18n.getMessage("minute") +"!" ;
         }
 
-
         /*
          * ALARM object
          * @param {string} key - 6-char alphanumeric string used as identifier
          * @param {int} time_created - time at which alarm was created (ms from 1970)
          * @param {int} time_set - time when alarm was supposed to activate (ms from 1970)
          * @param {int} time_span - difference between current time and time when alarm is to be activated (ms)
+         * @param {bool} repetitive - checker if alarm is one time or will be repeated
+         * @param {int} time_rep - original time at which alarm will be repeated (only time taken, date dropped)
+         * @param {array} rep_days - true/false entries on days that are repeated/not repeated
          */
         var alarm = {
             key: make_key(),
@@ -588,29 +603,42 @@ function initNewAlarm() {
             time_set: "",
             time_span: "",
             repetitive: false,
+            time_rep: "",
             rep_days: [0, 0, 0, 0, 0, 0, 0]
         };
 
 
         //DATA collect
-
         //time is taken from picker that has date object
         //when seconds set to something, picker will change date object but action itself returns time in milliseconds
         var input_date = document.getElementById("new-date-input").value,
             input_h = document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value,
             input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value;
-
         alarm.time_set = revertTime(input_date, input_h + ":" + input_min + ":00").getTime();
-        alarm.time_span = alarm.time_set - alarm.time_created;
-
         alarm.repetitive = document.getElementById("toggle-repetitive-alarm").getAttribute("class").length > 0;
+
+        //repetitive alarm additions
         if (alarm.repetitive) {
-            var rep_days = document.getElementsByClassName("new-rep-box");
-            for (var i = 0; i < rep_days.length - 1; i++) {
-                var d = rep_days[i].getElementsByTagName("input")[0];
+            var rep_days = document.getElementsByClassName("new-rep-box"),
+                i, d;
+
+            for (i = 0; i < rep_days.length - 1; i++) {
+                d = rep_days[i].getElementsByTagName("input")[0];
                 alarm.rep_days[i] = d.checked;
             }
+            alarm.time_rep = alarm.time_set;
+
+            var true_rep = false;
+            for (i = 0; alarm.rep_days.length; i++) {
+                if (alarm.rep_days[i]) { true_rep = true; break; }
+            }
+            
+            if(!true_rep) { alarm.repetitive = false; }
         }
+
+
+        //ALARM TIME - calculate when alarm will trigger
+        alarm.time_span = alarm.time_set - alarm.time_created;
 
 
         //ASYNC!
@@ -624,7 +652,7 @@ function initNewAlarm() {
 
             //add alarm to list
             // var alarm_el = alarmTemplate(alarm);
-            var alarm_el = template('alarm', alarm);
+            var alarm_el = template('alarm', { alarm: alarm } );
             alarm_el.getElementsByClassName('alarm-remove')[0].addEventListener('click', removeAlarm);
             document.getElementById('alarm-list').appendChild(alarm_el);
 
@@ -649,9 +677,7 @@ function initNewAlarm() {
         toggleNewAlarm();
     }
 
-    //select current day
-    var dates = document.getElementsByClassName("new-rep-date");
-    dates[ (new Date()).getDay() - 1 ].checked = true;
+
 
     document.getElementById('alarm-set').addEventListener('click', setNA);
 
@@ -661,6 +687,11 @@ function initNewAlarm() {
     document.getElementById("toggle-repetitive-alarm").addEventListener('click', toggleAlarmType);
     document.getElementById("new-rep-all").addEventListener('click', allCheck);
 
+    //select current day
+    //sunday is 0 but in html is 7th in order, so we swap with array
+    var dates = document.getElementsByClassName("new-rep-date");
+    var day_now = (new Date()).getDay();
+    dates[ day_now === 0 ? 6 : day_now - 1 ].checked = true;
     for (var i = 0; i < dates.length; i++) {
         dates[i].addEventListener('click', dateCheck);
     }
@@ -669,6 +700,7 @@ function initNewAlarm() {
 
 
 /*
+ * @Module - Logic
  * Gets alarms from storage and via template adds to popup DOM
  * adds event for alarm removal
  *
@@ -679,11 +711,27 @@ function getAlarmList() {
     chrome.storage.sync.get('AM_alarms', function (object) {
         var alarms = object.AM_alarms || [],
             list = document.getElementById('alarm-list'),
-            alarm = null;
+            alarm = null,
+            removed = false;
 
+
+        //checks age of alarm and removes if alarm "passed" - happens when PC turned off and alarm is "triggered"
         for (var i = 0; i < alarms.length; i++) {
+
+            if (!alarms[i].repetitive) {
+                if ( (alarms[i].time_set - (new Date()).getTime()) < 0 ) {
+                    alarms.splice(i, 1);
+                    removed = true;
+                }
+            }
+
+        }
+        if (removed) { chrome.storage.sync.set({'AM_alarms': alarms}); }
+
+
+        for (i = 0; i < alarms.length; i++) {
             //create alarm HTML template
-            alarm = template('alarm', alarms[i]);
+            alarm = template('alarm', { alarm: alarms[i] });
             //add remove event
             alarm.getElementsByClassName('alarm-remove')[0].addEventListener('click', removeAlarm);
             //add alarm to DOM
@@ -704,8 +752,10 @@ function getAlarmList() {
 
 
 /*
+ * @Module - UI
  * UI update for alarms when called from notifications
- * Current options are to REMOVE or SNOOZE alarm
+ * Current options are to REMOVE and UPDATE alarm
+ * It is possible to utilize both remove and update
  *
  * 'background.js' notification/alarm activation interface has handlers for alarms/notifications
  * This function receives updates regarding UI update for popup and returns request (for easier keeping)
@@ -717,50 +767,35 @@ function getAlarmList() {
  */
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
         var key = request.key,
-            list, i;
+            list = document.getElementById('alarm-list').getElementsByClassName('alarm'),
+            i, alarm_t;
 
-        //remove alarm from UI
-        if (request.action === "remove") {
 
-            list = document.getElementById('alarm-list').getElementsByClassName('alarm');
-
+        //REMOVES alarm from UI
+        if (request.remove === true) {
             for (i = 0; i < list.length; i++) {
-
                 if (key === list[i].getAttribute('key')) {
                     list[i].remove();
                     break;
                 }
+            }
+        }
 
+
+        //CHANGES alarm time in UI
+        // alarm should always be removed and here new template is created
+        if (request.update === true) {
+            alarm_t = template('alarm', { alarm: request.alarm } );
+            document.getElementById('alarm-list').appendChild(alarm_t);
+            list = document.getElementById('alarm-list').getElementsByClassName('alarm');
+
+            for (i = 0; i < list.length; i++) {
+                if (list[i].getAttribute("key") === key) {
+                    list[i].getElementsByClassName("alarm-remove")[0].addEventListener('click', removeAlarm);
+                }
             }
 
-            //sendResponse(request);
-        }
-        //change alarm time in UI
-        else if (request.action === "snooze") {
-
-
-            //now even when snooze alarm is removed from popup and needs to be inserted again
-            //list = document.getElementById('alarm-list').getElementsByClassName('alarm');
-            //var alarm = request.alarm;
-
-            //for (i = 0; i < list.length; i++) {
-            //
-            //    if (key == list[i].getAttribute('key')) {
-            //
-            //        //change time in alarm
-            //        var alarm_dt = displayTime(alarm.time_set);
-            //        list[i].getElementsByClassName('time')[0].innerHTML = alarm_dt.time;
-            //        list[i].getElementsByClassName('date')[0].innerHTML = alarm_dt.date;
-            //
-            //        break;
-            //    }
-            //
-            //}
-
-            var alarm_t = template('alarm', request.alarm);
-            document.getElementById('alarm-list').appendChild(alarm_t);
-
-            //sendResponse(request);
+            orderAlarms();
 
         }
 
@@ -769,18 +804,16 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 
 
 /*
- * MAIN and FIRST Function (probably loaded after 'background.js'
+ * @Module - Init
+ * MAIN and FIRST Function (probably loaded after 'background.js')
  * loads all events and handlers that will be on popup DOM
- *
  */
 document.addEventListener('DOMContentLoaded', function() {
 
     //localise HTML
     localizeHtmlPage();
-    //runs clock in background of popup
-    popupClock();
-    //event for opening options from popup
-    initLinks();
+    //initializes helpers and widgets for UI
+    initHelpers();
     //inserts existing alarms in popup
     getAlarmList();
     //adds section for new alarm in popup
