@@ -13,6 +13,14 @@ var chrome = chrome || undefined;
 function template (template, data) {
     var html = "";
 
+
+    //helper functions
+    function reviseLength(txt, n) {
+        if (txt.length > n) { txt = txt.substr(0, n - 3) + "..."; }
+        return txt;
+    }
+
+
     //TEMPLATES
     function alarmTemplate(alarm) {
 
@@ -62,14 +70,14 @@ function template (template, data) {
                 head_name.setAttribute("class", "alarm-meta");
                     var alarm_name = document.createElement("p");
                     alarm_name.setAttribute("class", "alarm-name");
-                    alarm_name.innerHTML = alarm.name;
+                    alarm_name.innerHTML = reviseLength(alarm.name, 22);
                 head_name.appendChild(alarm_name);
 
 
                 if (!alarm.repetitive) {
                     var alarm_desc = document.createElement("p");
                     alarm_desc.setAttribute("class", "alarm-desc");
-                    alarm_desc.innerHTML = alarm.desc;
+                    alarm_desc.innerHTML = reviseLength(alarm.desc, 30);
                     head_name.appendChild(alarm_desc);
                 } else {
                     var alarm_rep = document.createElement("p");

@@ -297,6 +297,8 @@ body {
     outline: 0;
     float: none;
     cursor: pointer;
+    transition: ease 0.5s;
+    animation: ease 0.5s;
 }
 #alarm-new #new-actions #alarm-set:hover {
     background-color: #00cd00 !important;

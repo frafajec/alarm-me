@@ -214,8 +214,12 @@
     "message": "Small, compact, reachable",
     "description": "Instructions title"
   },
-  "insSCRText": {
+  "insSCRText1": {
     "message": "Small popup application that will always be within a reach. When opened it takes little place and all features are within few clicks. If there are no alarms, new alarm form is opened automatically! </br> In footer are 'Instructions' and 'Options'' links that will open section for configuration at any time.",
+    "description": "Instructions text"
+  },
+  "insSCRText2": {
+    "message": "You can choose between creating one-time alarm or repetitive alarm that will trigger at same time at every day you select!</br>By simply creating your few alarms that will be your reminders, you are good to go!",
     "description": "Instructions text"
   },
   "insCRAlarms": {
