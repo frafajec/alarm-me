@@ -5,6 +5,8 @@
   "version": "1.1",
   "author": "Filip Rafajec",
 
+  "offline_enabled": true,
+  
   "default_locale": "en",
   "description": "Your personal pocket alarm!",
   "icons": {
