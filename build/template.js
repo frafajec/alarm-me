@@ -39,7 +39,12 @@ function template (template, data) {
         var actions = document.createElement("div");
         actions.setAttribute("class", "alarm-actions");
             var input = document.createElement("input");
-            input.setAttribute("class", "alarm-remove");
+            if (alarm.ringing) {
+                input.setAttribute("class", "alarm-ring-cancel");
+            } else {
+                input.setAttribute("class", "alarm-remove");
+            }
+
             input.setAttribute("type", "button");
         actions.appendChild(input);
 
@@ -105,8 +110,6 @@ function template (template, data) {
 
         return html;
     }
-
-
 
     //FORKING
     if (template === 'alarm') { html = alarmTemplate(data.alarm); }

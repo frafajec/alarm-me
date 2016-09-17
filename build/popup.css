@@ -351,14 +351,20 @@ body {
     width: 25px;
     height: 25px;
     vertical-align: middle;
-    background: url(img/cancel.png);
-    background-size: contain;
     border: 0;
     outline: 0;
     float: none;
     cursor: pointer;
     top: 3px;
     position: relative;
+}
+.alarm .alarm-actions input.alarm-remove {
+    background: url(img/cancel.png);
+    background-size: contain;
+}
+.alarm .alarm-actions input.alarm-ring-cancel {
+    background: url(img/cancel_ring.png);
+    background-size: contain;
 }
 .alarm .alarm-actions input:hover {
     background-color: #cd0000 !important;

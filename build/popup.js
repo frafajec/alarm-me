@@ -472,6 +472,17 @@ function removeAlarm() {
 
 
 /*
+ * @Module - UI
+ * Addition to background.js where logic is implemented
+ * Accessibility for user to shot down alarm from UI
+ */
+function cancelRingAlarm () {
+    var alarm_el = this.parentElement.parentElement;
+    chrome.extension.sendMessage({cancel_ringing: true, key: alarm_el.getAttribute('key')});
+}
+
+
+/*
  * @Module - Logic
  * takes alarms in UI and orders them by date
  * TODO: add effects (maybe)
@@ -604,7 +615,8 @@ function initNewAlarm() {
             time_span: "",
             repetitive: false,
             time_rep: "",
-            rep_days: [0, 0, 0, 0, 0, 0, 0]
+            rep_days: [0, 0, 0, 0, 0, 0, 0],
+            ringing: false
         };
 
 
@@ -718,11 +730,16 @@ function getAlarmList() {
         //checks age of alarm and removes if alarm "passed" - happens when PC turned off and alarm is "triggered"
         for (var i = 0; i < alarms.length; i++) {
 
-            if (!alarms[i].repetitive) {
+            if (!alarms[i].repetitive && !alarms[i].ringing) {
                 if ( (alarms[i].time_set - (new Date()).getTime()) < 0 ) {
                     alarms.splice(i, 1);
                     removed = true;
                 }
+            }
+
+            /* HAX when notification is broken (not risen), then this will raise it, at least then popup is opened */
+            if(alarms[i].ringing) {
+                chrome.notifications.update(alarms[i].key, { requireInteraction: true });
             }
 
         }
@@ -732,8 +749,11 @@ function getAlarmList() {
         for (i = 0; i < alarms.length; i++) {
             //create alarm HTML template
             alarm = template('alarm', { alarm: alarms[i] });
+
             //add remove event
-            alarm.getElementsByClassName('alarm-remove')[0].addEventListener('click', removeAlarm);
+            if (alarms[i].ringing) { alarm.getElementsByClassName("alarm-ring-cancel")[0].addEventListener('click', cancelRingAlarm);
+            } else { alarm.getElementsByClassName('alarm-remove')[0].addEventListener('click', removeAlarm); }
+
             //add alarm to DOM
             list.appendChild( alarm );
         }
@@ -791,7 +811,11 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
 
             for (i = 0; i < list.length; i++) {
                 if (list[i].getAttribute("key") === key) {
-                    list[i].getElementsByClassName("alarm-remove")[0].addEventListener('click', removeAlarm);
+                    if (request.alarm.ringing) {
+                        list[i].getElementsByClassName("alarm-ring-cancel")[0].addEventListener('click', cancelRingAlarm);
+                    } else {
+                        list[i].getElementsByClassName("alarm-remove")[0].addEventListener('click', removeAlarm);
+                    }
                 }
             }
 

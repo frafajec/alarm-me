@@ -75,14 +75,15 @@ loadOptions();
 
 /*
  * @Module - Logic
- * When options changed in options menu, reload it here
- * Listener that waits for specific set of instructions
+ * PLAY selected tune from options
+ * @param {boolean} play - parameter for notification sound
+ * @return {null}
  */
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+function alarm_sound (play) {
 
-    if (request.reload_options) { loadOptions(); }
-
-});
+    if (play) { alarmTone.play(); }
+    else { alarmTone.pause(); }
+}
 
 
 /*
@@ -106,19 +107,6 @@ function updateBadge(changes, area) {
 
 }
 chrome.storage.onChanged.addListener(updateBadge);
-
-
-/*
- * @Module - Logic
- * PLAY selected tune from options
- * @param {boolean} play - parameter for notification sound
- * @return {null}
- */
-function alarm_sound (play) {
-
-    if (play) { alarmTone.play(); }
-    else { alarmTone.pause(); }
-}
 
 
 /*
@@ -169,6 +157,7 @@ function snooze (key) {
         for (var i = 0; i < alarms.length; i++) {
             if (key === alarms[i].key) {
                 alarm = alarms[i];
+                alarm.ringing = false;
                 alarms.splice(i, 1);
                 break;
             }
@@ -216,6 +205,7 @@ function cancel_alarm (key) {
         for (var i = 0; i < alarms.length; i++) {
             if (key === alarms[i].key) {
                 alarm = alarms.splice(i, 1)[0];
+                alarm.ringing = false;
                 break;
             }
         }
@@ -254,6 +244,32 @@ function cancel_alarm (key) {
 
 /*
  * @Module - Logic
+ * When alarm is created he is updated so that UI will be able to shut down ringing
+ * FIX when notification is not "shown" for some unknown reason...
+ */
+function register_ringing (key) {
+
+    var storage_callback = function (object) {
+        var alarms = object.AM_alarms;
+
+        for (var i = 0; i < alarms.length; i++) {
+            if (key === alarms[i].key) {
+                alarms[i].ringing = true;
+                chrome.extension.sendMessage({remove: true, update: true, key: key, alarm: alarms[i]});
+                chrome.storage.sync.set({'AM_alarms': alarms});
+                break;
+            }
+        }
+    }.bind(key); //key pushed into scope
+
+    //get list of alarms to raise notification
+    chrome.storage.sync.get('AM_alarms', storage_callback);
+
+}
+
+
+/*
+ * @Module - Logic
  * called when notification UI need to be raised
  * always matched with alarm, eg. alarm is raised, notification is called!
  * alarm key and notification key are ALWAYS the same
@@ -278,9 +294,7 @@ function raise_notification (key) {
         }
 
         //fallback in scenario where alarm is not found
-        if (alarm) {
-
-            alarm_sound(true);
+        if (alarm && alarm.key) {
 
             //if snooze is set to 0, there will be no snooze option!
             var btn_snooze = { title: chrome.i18n.getMessage("snooze") + ' (' + (options.snooze).toString() + ' ' + chrome.i18n.getMessage("minute") + ')', iconUrl: "img/snooze.png" };
@@ -296,8 +310,13 @@ function raise_notification (key) {
                 message: alarm.desc,
                 buttons: parseInt(options.snooze) ? [ btn_snooze, btn_cancel ] : [ btn_cancel ],
                 isClickable: false,
-                priority: 0
-            }, function() {});
+                priority: 2,
+                requireInteraction: true
+            }, function() {
+
+                alarm_sound(true);
+
+            });
 
         } else {
 
@@ -313,6 +332,29 @@ function raise_notification (key) {
 }
 
 
+/*
+ * @Module - Logic
+ * 1. When options changed in options menu, reload it here
+ * 2. When alarm canceled from popup, proceed to termination
+ * Listener that waits for specific set of instructions
+ */
+chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
+
+    if (request.reload_options) {
+        loadOptions();
+    }
+
+    if (request.cancel_ringing) {
+        alarm_sound(false);
+        cancel_alarm(request.key);
+        chrome.notifications.clear(request.key);
+        delete notif_actions[request.key];
+        delete notif_timeouts[request.key];
+
+    }
+
+});
+
 
 /*
  * @Module - Logic
@@ -325,11 +367,15 @@ function raise_notification (key) {
  * @return {null}
 */
 chrome.alarms.onAlarm.addListener(function( alarm_event ) {
+    
 
     //@param {string} key - alarm_event.name is key of alarm
     raise_notification(alarm_event.name);
+    //@param {string} key
+    register_ringing(alarm_event.name);
     //put alarm into currently active ones and set its creation time
     notif_timeouts[alarm_event.name] = new Date().getTime();
+
 
 });
 

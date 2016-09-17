@@ -1,31 +1,27 @@
 ## Synopsis
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
-
-## Code Example
-
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+Chrome extension app that enables users to use "pocket" alarm on the run. It provides basic functionality for creating and handling alarm, providing few options to alter alarms behavior and notifies user via chrome notifications when alarm is due.
 
 ## Motivation
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+Project was created out of personal need of an author and is and will remain free. Idea was that whenever user uses chrome for fun or work, he can always have easy access to alarm.
 
 ## Installation
 
-Provide code examples and explanations of how to get the project.
+As easy as it gets! App is on Chrome WebStore so it is 2-click install from this [link](https://chrome.google.com/webstore/detail/alarm-me/knahjdfbilnkfipggnnhojmjpjcgjkmg "Alarm Me!").
 
 ## API Reference
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+API is entirely on Chrome browser platform, however some additional libraries are used to enhance app itself. Link to API reference [here](https://developer.chrome.com/extensions "Chrome extensions").
 
-## Tests
+## Versions
 
-Describe and show how to run the tests with code examples.
+**1.0** Initial version with basic alarm triggering, options and notifications
 
-## Contributors
+**1.1** Added repetitive alarms
 
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
+**1.2** Fix when alarm triggers but notification is not raised; added possibility to shut down alarm from popup UI
 
 ## License
 
-A short snippet describing the license (MIT, Apache, etc.)
+No licence set

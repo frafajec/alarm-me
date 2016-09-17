@@ -243,7 +243,7 @@
     "description": "Instructions title"
   },
   "insNotifText": {
-    "message": "Notifications are raised when alarm is due, and are shown in bottom right corner of your main display.</br>While notification is up, sound selected in configuration (Options page) will play.",
+    "message": "Notifications are raised when alarm is due, and are shown in bottom right corner of your main display.</br>While notification is up, sound selected in configuration (Options page) will play.</br>Alarm is also possible to cancel from popup! Instead of 'delete', there will be offered 'cancel'!",
     "description": "Instructions title"
   },
 
