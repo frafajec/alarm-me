@@ -8,67 +8,67 @@
 
 
   "minute": {
-    "message": "minute(s)",
+    "message": "minuta(e)",
     "description": "Minutes display on form"
   },
   "hour": {
-    "message": "hour(s)",
+    "message": "sat(i)",
     "description": "Hour display on form"
   },
   "day": {
-    "message": "day(s)",
+    "message": "dan(i)",
     "description": "Day display on form."
   },
   "month": {
-    "message": "month(s)",
+    "message": "mesec(i)",
     "description": "Month display on form."
   },
   "year": {
-    "message": "year(s)",
+    "message": "godina(e)",
     "description": "Year display on form."
   },
 
   "mon": {
-    "message": "Mon",
+    "message": "Pon",
     "description": "Abbreviation of day of the week."
   },
   "tue": {
-    "message": "Tue",
+    "message": "Uto",
     "description": "Abbreviation of day of the week."
   },
   "wed": {
-    "message": "Wed",
+    "message": "Sri",
     "description": "Abbreviation of day of the week."
   },
   "thu": {
-    "message": "Thu",
+    "message": "Čet",
     "description": "Abbreviation of day of the week."
   },
   "fri": {
-  "message": "Fri",
+  "message": "Pet",
   "description": "Abbreviation of day of the week."
   },
   "sat": {
-    "message": "Sat",
+    "message": "Sub",
     "description": "Abbreviation of day of the week."
   },
   "sun": {
-    "message": "Sun",
+    "message": "Ned",
     "description": "Abbreviation of day of the week."
   },
   "all": {
-    "message": "All",
+    "message": "Svi",
     "description": "All."
   },
 
 
 
   "snooze": {
-    "message": "Snooze",
+    "message": "Odgodi",
     "description": "Label for snooze on notification"
   },
   "cancel_delete": {
-    "message": "Cancel (delete alarm)",
+    "message": "Poništi (ukloni alarm)",
     "description": "Label for cancel on notification"
   },
 
@@ -76,44 +76,44 @@
 
 
   "newAlarm": {
-    "message": "New alarm",
+    "message": "Novi alarm",
     "description": "Button label to open new alarm section"
   },
   "cancelAlarm": {
-    "message": "Cancel alarm",
+    "message": "Poništi alarm",
     "description": "Button label to close new alarm section"
   },
   "toggleRepetitive": {
-    "message": "Repetitive",
+    "message": "Ponavljajuč",
     "description": "Button value on alarm type switch."
   },
   "toggleOnetime": {
-    "message": "One time",
+    "message": "Jednokratni",
     "description": "Button value on alarm type switch."
   },
   "alarmName": {
-    "message": "Alarm name",
+    "message": "Naziv alarma",
     "description": "Popup placeholder"
   },
   "alarmDescription": {
-    "message": "Alarm description",
+    "message": "Opis alarma",
     "description": "Popup placeholder"
   },
   "linkOptions": {
-    "message": "Options",
+    "message": "Opcije",
     "description": "Button link to options page"
   },
   "linkInstructions": {
-    "message": "Instructions",
+    "message": "Upute",
     "description": "Button link to instructions page"
   },
 
   "ntfAlarmRing": {
-    "message": "Alarm will ring in</br> ",
+    "message": "Alarm će zvoniti za</br> ",
     "description": "Time until alarm activation"
   },
   "ntfHistoryAlarm": {
-    "message": "Alarm time is set in history!</br>Maybe change date?",
+    "message": "Alarm je stavljen u prošlost!</br>Možda promjeniti datum?",
     "description": "Popup notify text for alarm that is set in 'history'"
   },
 
@@ -128,82 +128,82 @@
 
 
   "optionsExt": {
-    "message": "Options - Alarm Me!",
+    "message": "Opcije - Alarm Me!",
     "description": "Options page title"
   },
   "optInstructions": {
-    "message": "Instructions",
+    "message": "Upute",
     "description": "Instructions anchor"
   },
   "optOptions": {
-    "message": "Options",
+    "message": "Opcije",
     "description": "Options anchor"
   },
   "optSupport": {
-    "message": "Support",
+    "message": "Podrška",
     "description": "Support anchor"
   },
 
   "optLabelSnooze": {
-    "message": "Snooze length",
+    "message": "Duljina odgode",
     "description": "Options label"
   },
   "optLabelSnoozeTooltip": {
-    "message": "* 0 = snooze is disabled",
+    "message": "* 0 = odgoda je onemogućena",
     "description": "Options label tooltip"
   },
   "optLabelAlarmStop": {
-    "message": "Alarm stop after",
+    "message": "Zaustavi zvonjavu nakon",
     "description": "Options label"
   },
   "optLabelAlarmStopTooltip": {
-    "message": "* 0 = alarm lasts until user action",
+    "message": "* 0 = alarm zvoni do korisničke akcije",
     "description": "Options label tooltip"
   },
   "optLabelTone": {
-    "message": "Alarm tone",
+    "message": "Ton alarma",
     "description": "Options label"
   },
   "optLabelToneTooltip": {
-    "message": "Choose your alarm tone",
+    "message": "Izaberite svoju zvonjavu alarma",
     "description": "Options label tooltip"
   },
   "optLabelVolume": {
-    "message": "Alarm volume",
+    "message": "Glasnoća alarma",
     "description": "Options label"
   },
   "optLabelVolumeTooltip": {
-    "message": "* percentage (%)",
+    "message": "* postotak (%)",
     "description": "Options label tooltip"
   },
   "optLabelDate": {
-    "message": "Date format",
+    "message": "Format datuma",
     "description": "Options label"
   },
   "optLabelDateTooltip": {
-    "message": "Choose date format",
+    "message": "Odaberite format datuma",
     "description": "Options label tooltip"
   },
   "optLabelMinutes": {
-    "message": "Minutes",
+    "message": "Minute",
     "description": "Options after-label"
   },
 
   "optHintSaving": {
-    "message": "* options are saved as soon as they are changed",
+    "message": "* Opcije su zabilježene odmah kako su promijenjene",
     "description": "Options hint"
   },
   "optHintPlaying": {
-    "message": "* you can always press play and listen to selected tone with selected volume",
+    "message": "* uvijek možete kliknuti 'sviraj' kako bi ste čuli odabranu zvonjavu sa određenom glasnoćom",
     "description": "Options hint"
   },
   "optHintSnoozing": {
-    "message": "* when 'alarm stop after' time expires alarm will be snoozed for inputted duration",
+    "message": "* kada 'zaostavi zvonjavu nakon' vrijeme istekne alarm će se odgoditi za vrijeme postavljeno kod odgode",
     "description": "Options hint"
   },
 
   "optBtnReset": {
-    "message": "Reset",
+    "message": "Resetiraj",
     "description": "Options button for reset"
   },
 
@@ -211,39 +211,39 @@
 
 
   "insSCR": {
-    "message": "Small, compact, reachable",
+    "message": "Mala, kompaktna, dostupna",
     "description": "Instructions title"
   },
   "insSCRText1": {
-    "message": "Small popup application that will always be within a reach. When opened it takes little place and all features are within few clicks. If there are no alarms, new alarm form is opened automatically! </br> In footer are 'Instructions' and 'Options' links that will open section for configuration at any time.",
+    "message": "Mala popup aplikacija koja će uvijek biti u dohvatu ruke. Kada se otvori zauzima malo mjesta i sve funkcionalnosti su udaljene par klika. Ako nema alarma, forma za novi alarm je ovorena automatski! </br> U podnoju su 'Upute' i 'Opcije' koje otvaraju sekciju za koniguraciju u bilo kojem trenutku.",
     "description": "Instructions text"
   },
   "insSCRText2": {
-    "message": "You can choose between creating one-time alarm or repetitive alarm that will trigger at same time at every day you select!</br>By simply creating your few alarms that will be your reminders, you are good to go!",
+    "message": "Moete birati između kreiranja jednokratkog alarma ili ponavljajućeg koji će se upaliti u isto vrijeme svaki dan koji ste označili! </br>Jednostavnim kreiranjem nekoliko alarma koji će biti vaši podsjetnici, spremni ste koristi aplikaciju!!",
     "description": "Instructions text"
   },
   "insCRAlarms": {
-    "message": "Create & remove alarms",
+    "message": "Kreiraj i ukloni alarme",
     "description": "Instructions title"
   },
   "insCRAlarmsText1": {
-    "message": "Creating is easy! When form is opened simply set date and time and text if you want some context on alarm. When done, press check-mark button (green button).",
+    "message": "Kreiranje je jednostavno! Kada je forma otvorena jednostavno odaberite vrijeme, datum i tekst ukoliko želite više podataka.  Kada ste popunili, pristisnite gumb potvrde (zeleni gumb).",
     "description": "Instructions text"
   },
   "insCRAlarmsText2": {
-    "message": "Picking a date for calendar was never easier! Simply navigate through days, months, maybe even years!",
+    "message": "Odabir datuma za alarm nikada nije bilo jednostavnije! Jednostavno navigirajte kroz date, mjesece, možda čak i godine!",
     "description": "Instructions text"
   },
   "insCRAlarmsText3": {
-    "message": "When popup is opened, alarms are listed one after another. By simply pressing delete (red button) alarm will be removed.",
+    "message": "Kada je popup otvoren, alarmi su poredani jedan iza drugog. Jednostavnim pritiskom na obriši (crveni gumb) alarm će se ukloniti.",
     "description": "Instructions text"
   },
   "insNotif": {
-    "message": "Notifications",
+    "message": "Notifikacije",
     "description": "Instructions title"
   },
   "insNotifText": {
-    "message": "Notifications are raised when alarm is due, and are shown in bottom right corner of your main display.</br>While notification is up, sound selected in configuration (Options page) will play.</br>Alarm is also possible to cancel from popup! Instead of 'delete', there will be offered 'cancel'!",
+    "message": "Notifikacije su podignute kada je vrijeme da alarm zvoni i prikazane su u donjem desnom kutu vašeg glavnog ekrana. </br>Kada je notifikacija podignuta, ton alarma selektiran u opcijama će svirati. </br>Alarm je također moguće ugasiti sa popup-a! Umjesto 'obriši', tamo će pokraj alarma biti ponuđeno 'poništi'!",
     "description": "Instructions title"
   },
 
@@ -251,31 +251,31 @@
 
 
   "suppAbout": {
-    "message": "About",
+    "message": "O aplikaciji",
     "description": "Support title"
   },
   "suppAboutText": {
-    "message": "This is lightweight, simple and user-friendly extension for Google Chrome that extremely easy to install and use! Its main purpose is to give users alarms/notifications that they can use with only few clicks, anywhere, for every device (with chrome).</br>Extension was created out of authors personal need for something like this and therefore is not profitable or gains income in any way.",
+    "message": "Ovo je lagana, jednostavna i korisnički prijateljska ekstenzija za Google Chrome koju je vrlo lako instalirati i koristiti! Glavna namjena je omogućniti korisnicima alam/notifikacije koje mogu koristiti sa samo par klika, svugdje, na bilo kojem uređaju (sa Chromom).</br>Ekstenzija je kreirana zbog autorove osobne potrebe za takvom funkcionalnošću i zato nije profitabilna niti stvara prihode na bilo koji način.",
     "description": "Support text"
   },
   "suppLib": {
-    "message": "Libraries",
+    "message": "Biblioteke",
     "description": "Support title"
   },
   "suppLibText1": {
-    "message": "A lightweight and powerful datetime-picker that is used to easily manipulate date and time of alarm.",
+    "message": "Lagana i moćna biblioteka za odabir datuma i vremena koja se korisni na pop-upu alarma.",
     "description": "Support text"
   },
   "suppLibText2": {
-    "message": "Additional functionality on top of a select HTML element. Extends to some cool behavior!",
+    "message": "Dodatne funkcionalnosti na HTML select elemntu.",
     "description": "Support text"
   },
   "suppSupport": {
-    "message": "Support",
+    "message": "Podrška",
     "description": "Support title"
   },
   "suppSupportText": {
-    "message": "If you find any errors or have some suggestion for improvement do not hesitate to contact author! </br> And of course, if you like it, rate it in store so others can also enjoy this app. :)",
+    "message": "Ukoliko pronađete neke greške ili imate prijedlog za poboljšanje slobodnokontaktirajte autora! </br> I naravno ukoliko vam se sviđa, ocjenite apikaciju u Chrome dućanu kako bi i drugi mogli uživati u ovoj aplikaciji. :)",
     "description": "Support text"
   }
 

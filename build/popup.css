@@ -341,85 +341,58 @@ body {
     height: 45px;
     clear: both;
 }
-.alarm .alarm-actions {
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 8px;
-    margin-left: 4px;
-}
-.alarm .alarm-actions input {
-    width: 25px;
-    height: 25px;
-    vertical-align: middle;
-    border: 0;
-    outline: 0;
-    float: none;
-    cursor: pointer;
-    top: 3px;
-    position: relative;
-}
-.alarm .alarm-actions input.alarm-remove {
-    background: url(img/cancel.png);
-    background-size: contain;
-}
-.alarm .alarm-actions input.alarm-ring-cancel {
-    background: url(img/cancel_ring.png);
-    background-size: contain;
-}
-.alarm .alarm-actions input:hover {
-    background-color: #cd0000 !important;
-    border-radius: 20px;
-}
-.alarm .alarm-actions input:active {
-    background-color: #9b0000 !important;
-    border-radius: 20px;
-}
-
-
 .alarm .alarm-container {
     border: 1px solid #47c9af;
     border-radius: 10px;
     margin: 3px 0;
     padding: 2px;
     display: inline-block;
-    width: 85%;
-    float: right;
+    width: 98%;
+    float: left;
+    position: relative;
 
     /* JS CHANGE */
     height: 35px;
     overflow: hidden;
+
+    /* transitions */
+    transition: background-color 0.1s linear;
 }
-
-
-.alarm .alarm-head .datetime,
-.alarm .alarm-head .alarm-meta {
+.alarm .alarm-container[state="inactive"] {
+    background-color: #dddddd;
+}
+.alarm .alarm-body {
+    width: 100%;
+}
+.alarm .alarm-body .datetime,
+.alarm .alarm-body .alarm-meta {
     display: inline-block;
     text-align: center;
     vertical-align: middle;
     height: 35px;
 }
-.alarm .alarm-head .datetime {
+.alarm .alarm-body .datetime {
     width: 25%;
 }
-.alarm .alarm-head .alarm-meta {
+.alarm .alarm-body .alarm-meta {
     width: 70%;
     border-left: 1px solid #47c9af;
     padding-left: 5px;
 }
-.alarm .alarm-head .datetime p,
-.alarm .alarm-head .alarm-meta p {
+.alarm .alarm-body .datetime p,
+.alarm .alarm-body .alarm-meta p {
     margin: 0;
 }
 
-.alarm .alarm-head .alarm-meta p {
+.alarm .alarm-body .alarm-meta p {
     text-align: left;
 }
 
-.alarm .alarm-head .datetime .time {
+.alarm .alarm-body .datetime .time {
     font-size: 14px;
     font-weight: bold;
 }
-.alarm .alarm-head .datetime .date {
+.alarm .alarm-body .datetime .date {
     font-size: 12px;
 }
 .alarm .alarm-days {
@@ -427,23 +400,134 @@ body {
     margin: 0;
     font-size: 9px;
 }
-.alarm .alarm-head .alarm-name {
+.alarm .alarm-body .alarm-name {
     font-weight: bold;
     font-size: 14px;
     padding-top: 1px;
 }
-.alarm .alarm-head .alarm-desc {
+.alarm .alarm-body .alarm-desc {
     font-size: 12px;
 }
-.alarm .alarm-head .alarm-days span {
+.alarm .alarm-body .alarm-days span {
     padding-right: 2px;
     font-size: 10px;
     color: #8c8c8c;
     font-family: "Helvetica"; /*to break default*/
 }
-.alarm .alarm-head .alarm-days span.active {
+.alarm .alarm-body .alarm-days span.active {
     color: black;
     font-weight: bold;
+}
+.alarm .alarm-options {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 33px;
+    padding: 4px 0 2px 0;
+    background-color: white;
+    transition: width 0.1s linear;
+}
+.alarm .alarm-options[state="open"] {
+    border-top-color: white;
+    border-bottom-color: white;
+    border-right-color: white;
+    border-left: 2px solid #47c9af;
+    width: 118px;
+}
+.alarm .alarm-options .alarm-actions {
+    display: inline-block;
+    position: absolute;
+    right: 30px;
+    transition: width 0.1s linear;
+    height: 32px;
+    overflow: hidden;
+}
+.alarm .alarm-options[state="open"] .alarm-actions {
+    width: 84px;
+    padding-left: 3px;
+}
+.alarm .alarm-options[state="closed"] .alarm-actions {
+    width: 0;
+}
+
+
+@keyframes spin { 100% { transform: rotate(360deg) translateZ(0) translateY(0) scale(0.99); backface-visibility: hidden; filter: blur(0); -webkit-font-smoothing: antialiased; } }
+@keyframes shake {
+    0% { transform: rotate(-15deg); } 8% { transform: rotate(15deg); } 10% { transform: rotate(-18deg); }
+    12% { transform: rotate(18deg); } 8% { transform: rotate(-22deg); } 10% { transform: rotate(22deg); }
+    12% { transform: rotate(-18deg); } 14% { transform: rotate(18deg); } 100%, 20% { transform: rotate(0deg); }
+}
+.alarm .alarm-options i.alarm-options-toggle {
+    float: right;
+    vertical-align: middle;
+    outline: 0;
+    cursor: pointer;
+    margin-top: -5px;
+    width: initial;
+    height: initial;
+    top: 0;
+}
+.alarm .alarm-options i.alarm-options-toggle:hover {
+    animation: spin 4s linear infinite;
+}
+.alarm .alarm-options i {
+    cursor: pointer;
+    width: 17px;
+    height: 17px;
+    padding: 5px 5px 5px;
+
+    border-radius: 50%;
+    transition: background-color 0.2s ease-in;
+    /*transition: color 0.1s linear;*/
+
+    display: inline-block;
+    position: relative;
+    top: 1px;
+}
+.alarm .alarm-options i.alarm-remove:hover {
+    background-color: #831515;
+    /*background-color: #d71515;*/
+    animation: shake 2s ease 0.2s;
+    color: white;
+}
+
+.alarm .alarm-options i.alarm-edit {
+    top: 3px;
+    padding-top: 7px;
+}
+.alarm .alarm-options i.alarm-edit:hover {
+    background-color: #e78a00;
+    animation: shake 2s ease 0.2s;
+    color: white;
+}
+.alarm .alarm-container[state="active"] .alarm-options i.alarm-change-state {
+    color: green;
+    top: 3px;
+}
+.alarm .alarm-container[state="inactive"] .alarm-options i.alarm-change-state {
+    color: #831515;
+    left: 5px;
+}
+@keyframes ring {
+    0% { transform: rotate(-15deg); } 2% { transform: rotate(15deg); }
+    4% { transform: rotate(-18deg); } 6% { transform: rotate(18deg); }
+    8% { transform: rotate(-18deg); } 10% { transform: rotate(18deg); }
+    12% { transform: rotate(-18deg); } 14% { transform: rotate(18deg); }
+    16% { transform: rotate(-18deg); } 18% { transform: rotate(18deg); }
+    100%, 50% { transform: rotate(0deg); }
+}
+.alarm input.alarm-ring-cancel {
+    background: url(img/cancel_ring.png);
+    background-size: contain;
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    height: 25px;
+    width: 25px;
+    border: 0;
+    cursor: pointer;
+    animation: ring 2s ease 0.5s infinite;
 }
 /********  ALARM-LIST:end  ********/
 

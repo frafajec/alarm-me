@@ -16,11 +16,13 @@ API is entirely on Chrome browser platform, however some additional libraries ar
 
 ## Versions
 
-**1.0** Initial version with basic alarm triggering, options and notifications
+**1.0.0** Initial version with basic alarm triggering, options and notifications
 
-**1.1** Added repetitive alarms
+**1.1.0** Added repetitive alarms
 
-**1.2** Fix when alarm triggers but notification is not raised; added possibility to shut down alarm from popup UI
+**1.2.0** Fix when alarm triggers but notification is not raised; added possibility to shut down alarm from popup UI
+
+**1.3.0** Added locales, reduced permissions, added sounds
 
 ## License
 

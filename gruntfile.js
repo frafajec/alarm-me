@@ -76,6 +76,17 @@ module.exports = function(grunt) {
             }
         },
 
+        imagemin: {
+            dynamic: {
+              files: [{
+                expand: true,
+                cwd: 'tmp/img',
+                src: ['**/*.{png,jpg,gif}'],
+                dest: 'tmp/img/'
+              }]
+            }
+        },
+
         'string-replace': {
             dist: {
                 files: [
@@ -104,7 +115,7 @@ module.exports = function(grunt) {
         compress: {
             main: {
                 options: {
-                    archive: 'alarmMe_<%= pkg.version %>.zip'
+                    archive: 'releases/alarmMe_<%= pkg.version %>.zip'
                 },
                 files: [
                     {expand: true, cwd: 'dist/', src: ['**'], dest: '/'}
@@ -125,18 +136,16 @@ module.exports = function(grunt) {
         // tasks:end
     });
 
-    // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-jshint');
-
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-string-replace');
-
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
 
     // Default task(s).
-    grunt.registerTask('default', ['jshint', 'copy:pre', 'uglify', 'cssmin', 'clean:pre', 'string-replace', 'copy:post', 'compress', 'clean:post']);
+    grunt.registerTask('default', ['jshint', 'copy:pre', 'uglify', 'cssmin', 'imagemin', 'clean:pre', 'string-replace', 'copy:post', 'compress', 'clean:post']);
 
 };

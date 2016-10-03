@@ -8,7 +8,8 @@ var SelectFx = SelectFx || undefined;
 var toneList = [
     new Audio("../../tones/light.mp3"),
     new Audio("../../tones/notification.mp3"),
-    new Audio("../../tones/one_alarm.mp3")
+    new Audio("../../tones/one_alarm.mp3"),
+    new Audio("../../tones/analog.mp3")
 ];
 var alarmTone;
 var timeOut;
@@ -312,7 +313,6 @@ function toggle_sound () {
 /*
  * Button (input) actions
  * Opens mail client, redirects to linkedin, opens app in chrome store
- * TODO: add store link!
  */
 function sendMail () {
     var mail = document.createElement("iframe");

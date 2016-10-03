@@ -7,7 +7,8 @@ var chrome = chrome || undefined;
 var toneList = [
     new Audio("tones/light.mp3"),
     new Audio("tones/notification.mp3"),
-    new Audio("tones/one_alarm.mp3")
+    new Audio("tones/one_alarm.mp3"),
+    new Audio("tones/analog.mp3")
 ];
 var alarmTone;
 

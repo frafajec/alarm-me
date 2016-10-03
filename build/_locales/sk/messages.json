@@ -1,0 +1,282 @@
+{
+
+  "extName": {
+    "message": "Alarm Me!",
+    "description": "Extension name"
+  },
+
+
+
+  "minute": {
+    "message": "minút",
+    "description": "Minutes display on form"
+  },
+  "hour": {
+    "message": "hodín",
+    "description": "Hour display on form"
+  },
+  "day": {
+    "message": "dní",
+    "description": "Day display on form."
+  },
+  "month": {
+    "message": "mesiacov",
+    "description": "Month display on form."
+  },
+  "year": {
+    "message": "rokov",
+    "description": "Year display on form."
+  },
+
+  "mon": {
+    "message": "Po",
+    "description": "Abbreviation of day of the week."
+  },
+  "tue": {
+    "message": "Út",
+    "description": "Abbreviation of day of the week."
+  },
+  "wed": {
+    "message": "St",
+    "description": "Abbreviation of day of the week."
+  },
+  "thu": {
+    "message": "Št",
+    "description": "Abbreviation of day of the week."
+  },
+  "fri": {
+  "message": "Pi",
+  "description": "Abbreviation of day of the week."
+  },
+  "sat": {
+    "message": "So",
+    "description": "Abbreviation of day of the week."
+  },
+  "sun": {
+    "message": "Ne",
+    "description": "Abbreviation of day of the week."
+  },
+  "all": {
+    "message": "Vždy",
+    "description": "All."
+  },
+
+
+
+  "snooze": {
+    "message": "Odložiť",
+    "description": "Label for snooze on notification"
+  },
+  "cancel_delete": {
+    "message": "Zrušiť (zmazať pripomienku)",
+    "description": "Label for cancel on notification"
+  },
+
+
+
+
+  "newAlarm": {
+    "message": "Nová pripomienka",
+    "description": "Button label to open new alarm section"
+  },
+  "cancelAlarm": {
+    "message": "Zahoď pripomienku",
+    "description": "Button label to close new alarm section"
+  },
+  "toggleRepetitive": {
+    "message": "Opakovaná",
+    "description": "Button value on alarm type switch."
+  },
+  "toggleOnetime": {
+    "message": "Jednorázová",
+    "description": "Button value on alarm type switch."
+  },
+  "alarmName": {
+    "message": "Názov",
+    "description": "Popup placeholder"
+  },
+  "alarmDescription": {
+    "message": "Popis",
+    "description": "Popup placeholder"
+  },
+  "linkOptions": {
+    "message": "Nastavenia",
+    "description": "Button link to options page"
+  },
+  "linkInstructions": {
+    "message": "Inštrukcie",
+    "description": "Button link to instructions page"
+  },
+
+  "ntfAlarmRing": {
+    "message": "Pripomienka za</br> ",
+    "description": "Time until alarm activation"
+  },
+  "ntfHistoryAlarm": {
+    "message": "Čas je uložený v pamäti!</br>Chceš zmeniť dátum?",
+    "description": "Popup notify text for alarm that is set in 'history'"
+  },
+
+
+
+
+
+
+
+
+
+
+
+  "optionsExt": {
+    "message": "Nastavenia - Alarm Me!",
+    "description": "Options page title"
+  },
+  "optInstructions": {
+    "message": "Inštrukcie",
+    "description": "Instructions anchor"
+  },
+  "optOptions": {
+    "message": "Nastavenia",
+    "description": "Options anchor"
+  },
+  "optSupport": {
+    "message": "Podpora",
+    "description": "Support anchor"
+  },
+
+  "optLabelSnooze": {
+    "message": "Rozostup medzi opakovaním",
+    "description": "Options label"
+  },
+  "optLabelSnoozeTooltip": {
+    "message": "* 0 = opakovanie je vypnuté",
+    "description": "Options label tooltip"
+  },
+  "optLabelAlarmStop": {
+    "message": "Vypnúť pripomienku po",
+    "description": "Options label"
+  },
+  "optLabelAlarmStopTooltip": {
+    "message": "* 0 = pripomienka sa vypne po interakcii užívateľa",
+    "description": "Options label tooltip"
+  },
+  "optLabelTone": {
+    "message": "Tón pripomienky",
+    "description": "Options label"
+  },
+  "optLabelToneTooltip": {
+    "message": "Vyber tón",
+    "description": "Options label tooltip"
+  },
+  "optLabelVolume": {
+    "message": "Hlasitosť pripomienky",
+    "description": "Options label"
+  },
+  "optLabelVolumeTooltip": {
+    "message": "* percentá (%)",
+    "description": "Options label tooltip"
+  },
+  "optLabelDate": {
+    "message": "Formát dátumu",
+    "description": "Options label"
+  },
+  "optLabelDateTooltip": {
+    "message": "Vyber formát dátumu",
+    "description": "Options label tooltip"
+  },
+  "optLabelMinutes": {
+    "message": "Minút",
+    "description": "Options after-label"
+  },
+
+  "optHintSaving": {
+    "message": "* nastavenia budú uložené ihneď po zmene",
+    "description": "Options hint"
+  },
+  "optHintPlaying": {
+    "message": "* po stlačení tlačidla Play je možné spustiť vybraný tón s vybranou hlasitosťou",
+    "description": "Options hint"
+  },
+  "optHintSnoozing": {
+    "message": "* Ak vyprší čas definovaný vo 'vypnúť pripomienku po', bude pripomienka odložená o definovaný čas",
+    "description": "Options hint"
+  },
+
+  "optBtnReset": {
+    "message": "Reštart",
+    "description": "Options button for reset"
+  },
+
+
+
+
+  "insSCR": {
+    "message": "Malý, kompaktný, dostupný",
+    "description": "Instructions title"
+  },
+  "insSCRText1": {
+    "message": "Malá popup aplikácia, ktorú budete mať vždy poruke. Spustená zaberá málo miesta a všetky funkcie sú dostupné na pár kliknutí. Ak nie sú uložené žiadne pripomienky, okno vytvorenia novej pripomienky sa spustí automaticky! </br> V zápätí sa nachádzajú linky vedúce k 'inštrukciám' a 'nastaveniam', pomocou ktorých je možné sa kedykoľvek dostať k zvolenej sekcii.",
+    "description": "Instructions text"
+  },
+  "insSCRText2": {
+    "message": "Je možné si vybrať medzi vytvorením jednorázovej alebo opakovanej pripomienky ktorá sa pripomenie každý z vybraných dní!</br>Jednoduchým vytvorením zopár pripomienok je práca hotová!",
+    "description": "Instructions text"
+  },
+  "insCRAlarms": {
+    "message": "Vytvoriť a zmazať pripomienky",
+    "description": "Instructions title"
+  },
+  "insCRAlarmsText1": {
+    "message": "Vytvoriť pripomienku je jednoduché! Po otvorení okna jendnoducho nastavíte dátum, čas a pokiaľ chcete aj sprievodný text. Ak je všetko hotové, pokračujte kliknutím na zelené tlačidlo.",
+    "description": "Instructions text"
+  },
+  "insCRAlarmsText2": {
+    "message": "Zvolenie dátumu z kalendára nebolo nikdy jednoduchšie! Jednoducho prechádzajte medzi dňami, mesiacmi dokonca rokmi!",
+    "description": "Instructions text"
+  },
+  "insCRAlarmsText3": {
+    "message": "Ak je okno otvorené, pripomienky sú zobrazené jedna po druhej. Jednoduchým kliknutím na tlačidlo 'zmazať' (červené tlačidlo) je možné pripomienku zmazať.",
+    "description": "Instructions text"
+  },
+  "insNotif": {
+    "message": "Notifikácie",
+    "description": "Instructions title"
+  },
+  "insNotifText": {
+    "message": "Notifikácie sa objavia keď nastane nastavený čas a sú zobrazené v pravom dolnom rohu Vašej hlavnej obrazovky..</br>Pokiaľ je notifikácia aktívna, prehráva sa zvuk zvolený v nastaveniach (Okno nastavení).</br>Pripomienku je tiež možné zrušiť s vyskakovacieho okna! Namiesto 'zmazať' sa v okne objaví 'zrušiť'!",
+    "description": "Instructions title"
+  },
+
+
+
+
+  "suppAbout": {
+    "message": "O programe",
+    "description": "Support title"
+  },
+  "suppAboutText": {
+    "message": "Toto je jednoduché, a používateľsky prívetivé rozšírenie pre Google Chrome ktorého inštalácia a používanie je veľmi jednoduché! Jeho hlavným účelom je umožniť používateľom nastaviť pripomienky či alarm na pár klikov, kdekoľvek, na akomkoľvek zariadení(s nainštalovaným prehliadačom Chrome).</br>Rozšírenie bolo vytvorené z dovodu potreby autora a preto nevyžaduje a neočakáva žiaden zisk v akejkoľvek podobe.",
+    "description": "Support text"
+  },
+  "suppLib": {
+    "message": "Knižnice",
+    "description": "Support title"
+  },
+  "suppLibText1": {
+    "message": "Jednoduchý a výkonný selektor dátumu, ktorý je určený na jednoduchú manipuláciu s dátumom a časom pripomienky.",
+    "description": "Support text"
+  },
+  "suppLibText2": {
+    "message": "Dodatočná funkcionalita nad HTML elementom 'select'. Je možné rozšíriť o skvelé funkcie!",
+    "description": "Support text"
+  },
+  "suppSupport": {
+    "message": "Podpora",
+    "description": "Support title"
+  },
+  "suppSupportText": {
+    "message": "Ak narazíte na chyby alebo máte nápady na vylepšenie aplikácie, neváhajte kontaktovať autora! </br> A samozrejme, ak sa Vám aplikácia páči nezabudnite ju ohodnotiť, nech si ju možu užiť aj ďaľší. :)",
+    "description": "Support text"
+  }
+
+}

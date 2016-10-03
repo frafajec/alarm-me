@@ -428,6 +428,56 @@ function checkConstraints () {
 
 
 /*
+ * @Module - UI
+ */
+function toggleAlarmOptions () {
+    var alarm_el = this.parentElement.parentElement.parentElement,
+        options = alarm_el.getElementsByClassName("alarm-options")[0],
+        container = alarm_el.getElementsByClassName("alarm-container")[0];
+
+    if (options.getAttribute("state") === "open") {
+        options.setAttribute("state", "closed");
+    }
+    else {
+        options.setAttribute("state", "open");
+    }
+
+    //TODO callback close
+}
+
+
+/*
+ * @Module - Logic
+ */
+function editAlarm () {
+
+}
+
+
+/*
+ * @Module - UI/Logic
+ */
+function changeAlarmState () {
+    var alarm_el = this.parentElement.parentElement.parentElement.parentElement,
+        container = alarm_el.getElementsByClassName("alarm-container")[0],
+        state = container.getAttribute("state"),
+        toggle = alarm_el.getElementsByClassName("alarm-change-state")[0];
+    
+    //TODO:Implement logic
+    
+    
+    //do the UI
+    if (state === "inactive") {
+        container.setAttribute("state", "active");
+        toggle.setAttribute("class", "fa fa-toggle-on fa-lg alarm-change-state");
+    } else {
+        container.setAttribute("state", "inactive");
+        toggle.setAttribute("class", "fa fa-toggle-on fa-rotate-180 fa-lg alarm-change-state");
+    }
+}
+
+
+/*
  * TODO: if UI changed, change THIS!!
  * @Module - Logic
  * EVENT for removing alarm
@@ -438,7 +488,7 @@ function checkConstraints () {
  * @returns {null}
  */
 function removeAlarm() {
-    var alarm_el = this.parentElement.parentElement;
+    var alarm_el = this.parentElement.parentElement.parentElement.parentElement;
 
     var storage_callback = function (object) {
         var alarms = object.AM_alarms,
@@ -479,6 +529,25 @@ function removeAlarm() {
 function cancelRingAlarm () {
     var alarm_el = this.parentElement.parentElement;
     chrome.extension.sendMessage({cancel_ringing: true, key: alarm_el.getAttribute('key')});
+}
+
+
+/*
+ * @Module - UI
+ * Calls template creator and after adds event listeners
+ * UI cleanup code
+ */
+function createTemplate (templateName, templateData) {
+
+    var element = template(templateName, templateData);
+
+    [].map.call( element.getElementsByClassName("alarm-ring-cancel") , function (e) { e.addEventListener('click', cancelRingAlarm); });
+    [].map.call( element.getElementsByClassName("alarm-edit") , function (e) { e.addEventListener('click', editAlarm); });
+    [].map.call( element.getElementsByClassName("alarm-remove") , function (e) { e.addEventListener('click', removeAlarm); });
+    [].map.call( element.getElementsByClassName("alarm-change-state") , function (e) { e.addEventListener('click', changeAlarmState); });
+    [].map.call( element.getElementsByClassName("alarm-options-toggle") , function (e) { e.addEventListener('click', toggleAlarmOptions); });
+
+    return element;
 }
 
 
@@ -616,7 +685,8 @@ function initNewAlarm() {
             repetitive: false,
             time_rep: "",
             rep_days: [0, 0, 0, 0, 0, 0, 0],
-            ringing: false
+            ringing: false,
+            active: true
         };
 
 
@@ -663,10 +733,8 @@ function initNewAlarm() {
             chrome.storage.sync.set({'AM_alarms': alarms});
 
             //add alarm to list
-            // var alarm_el = alarmTemplate(alarm);
-            var alarm_el = template('alarm', { alarm: alarm } );
-            alarm_el.getElementsByClassName('alarm-remove')[0].addEventListener('click', removeAlarm);
-            document.getElementById('alarm-list').appendChild(alarm_el);
+            var alarm_element = createTemplate('alarm', { alarm: alarm } );
+            document.getElementById('alarm-list').appendChild(alarm_element);
 
             //notify user that alarm is created and will be processed in X minutes
             var alarm_list = document.getElementById("alarm-list").getElementsByClassName("alarm");
@@ -747,14 +815,8 @@ function getAlarmList() {
 
 
         for (i = 0; i < alarms.length; i++) {
-            //create alarm HTML template
-            alarm = template('alarm', { alarm: alarms[i] });
-
-            //add remove event
-            if (alarms[i].ringing) { alarm.getElementsByClassName("alarm-ring-cancel")[0].addEventListener('click', cancelRingAlarm);
-            } else { alarm.getElementsByClassName('alarm-remove')[0].addEventListener('click', removeAlarm); }
-
-            //add alarm to DOM
+            //create alarm HTML template and add to DOM
+            alarm = createTemplate('alarm', { alarm: alarms[i] });
             list.appendChild( alarm );
         }
 
@@ -805,19 +867,10 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
         //CHANGES alarm time in UI
         // alarm should always be removed and here new template is created
         if (request.update === true) {
-            alarm_t = template('alarm', { alarm: request.alarm } );
+
+            alarm_t = createTemplate('alarm', { alarm: request.alarm } );
             document.getElementById('alarm-list').appendChild(alarm_t);
             list = document.getElementById('alarm-list').getElementsByClassName('alarm');
-
-            for (i = 0; i < list.length; i++) {
-                if (list[i].getAttribute("key") === key) {
-                    if (request.alarm.ringing) {
-                        list[i].getElementsByClassName("alarm-ring-cancel")[0].addEventListener('click', cancelRingAlarm);
-                    } else {
-                        list[i].getElementsByClassName("alarm-remove")[0].addEventListener('click', removeAlarm);
-                    }
-                }
-            }
 
             orderAlarms();
 
