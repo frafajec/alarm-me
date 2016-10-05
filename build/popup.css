@@ -1,5 +1,21 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway);
 /*******  GLOBAL:start  *******/
+
+@keyframes spin { 100% { transform: rotate(360deg) translateZ(0); backface-visibility: hidden; } }
+@keyframes shake {
+    0% { transform: rotate(-15deg); } 8% { transform: rotate(15deg); } 10% { transform: rotate(-18deg); }
+    12% { transform: rotate(18deg); } 8% { transform: rotate(-22deg); } 10% { transform: rotate(22deg); }
+    12% { transform: rotate(-18deg); } 14% { transform: rotate(18deg); } 100%, 20% { transform: rotate(0deg); }
+}
+@keyframes ring {
+    0% { transform: rotate(-15deg); } 2% { transform: rotate(15deg); }
+    4% { transform: rotate(-18deg); } 6% { transform: rotate(18deg); }
+    8% { transform: rotate(-18deg); } 10% { transform: rotate(18deg); }
+    12% { transform: rotate(-18deg); } 14% { transform: rotate(18deg); }
+    16% { transform: rotate(-18deg); } 18% { transform: rotate(18deg); }
+    100%, 50% { transform: rotate(0deg); }
+}
+
 body {
     font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
     font-size: 100%;
@@ -289,41 +305,42 @@ body {
     width: 95%;
     padding-top: 10px;
 }
-#alarm-new #new-actions input {
-    width: 32px;
-    height: 32px;
-    vertical-align: middle;
-    border: 0;
-    outline: 0;
-    float: none;
+#alarm-new #new-actions i {
+    transition: all 0.2s ease-in;
+    border-radius: 50%;
+    height: 22px;
+    width: 22px;
+    display: inline-block;
+    position: relative;
+    padding: 8px 4px 1px 5px;
+    border: 1px solid #47c9af;
     cursor: pointer;
-    transition: ease 0.5s;
-    animation: ease 0.5s;
+    outline: none;
 }
-#alarm-new #new-actions #alarm-set:hover {
-    background-color: #00cd00 !important;
-    border-radius: 20px;
+#alarm-new #new-actions i#alarm-reset {
+    margin-right: 5px;
 }
-#alarm-new #new-actions #alarm-reset:hover {
-    background-color: #ffff00 !important;
-    border-radius: 20px;
+#alarm-new #new-actions i#alarm-reset:hover {
+    animation: spin 1.5s ease 0.1s;
+    background-color: #e78a00;
+    border: 1px solid #e78a00 !important;
+    color: white;
 }
-#alarm-new #new-actions #alarm-reset:active {
-    background-color: #cdcd00 !important;
-    border-radius: 20px;
+#alarm-new #new-actions i#alarm-reset:active {
+    background-color: #cd6f00;
+    border: 1px solid #cd6f00 !important;
 }
-#alarm-new #new-actions #alarm-set:active {
-    background-color: #009b00 !important;
-    border-radius: 20px;
+#alarm-new #new-actions i#alarm-set {
+    padding-right: 5px;
 }
-#alarm-new #new-actions #alarm-reset {
-    background: url("img/reset.png");
-    background-size: 32px 32px;
-    margin-right: 10px;
+#alarm-new #new-actions i#alarm-set:hover {
+    background-color: green;
+    border: 1px solid green !important;
+    color: white;
 }
-#alarm-new #new-actions #alarm-set {
-    background: url("img/ok.png");
-    background-size: 32px 32px;
+#alarm-new #new-actions i#alarm-set:active {
+    background-color: #006900;
+    border: 1px solid #006900 !important;
 }
 /********  ALARM-NEW:end  ********/
 
@@ -450,14 +467,6 @@ body {
 .alarm .alarm-options[state="closed"] .alarm-actions {
     width: 0;
 }
-
-
-@keyframes spin { 100% { transform: rotate(360deg) translateZ(0) translateY(0) scale(0.99); backface-visibility: hidden; filter: blur(0); -webkit-font-smoothing: antialiased; } }
-@keyframes shake {
-    0% { transform: rotate(-15deg); } 8% { transform: rotate(15deg); } 10% { transform: rotate(-18deg); }
-    12% { transform: rotate(18deg); } 8% { transform: rotate(-22deg); } 10% { transform: rotate(22deg); }
-    12% { transform: rotate(-18deg); } 14% { transform: rotate(18deg); } 100%, 20% { transform: rotate(0deg); }
-}
 .alarm .alarm-options i.alarm-options-toggle {
     float: right;
     vertical-align: middle;
@@ -508,14 +517,6 @@ body {
 .alarm .alarm-container[state="inactive"] .alarm-options i.alarm-change-state {
     color: #831515;
     left: 5px;
-}
-@keyframes ring {
-    0% { transform: rotate(-15deg); } 2% { transform: rotate(15deg); }
-    4% { transform: rotate(-18deg); } 6% { transform: rotate(18deg); }
-    8% { transform: rotate(-18deg); } 10% { transform: rotate(18deg); }
-    12% { transform: rotate(-18deg); } 14% { transform: rotate(18deg); }
-    16% { transform: rotate(-18deg); } 18% { transform: rotate(18deg); }
-    100%, 50% { transform: rotate(0deg); }
 }
 .alarm input.alarm-ring-cancel {
     background: url(img/cancel_ring.png);

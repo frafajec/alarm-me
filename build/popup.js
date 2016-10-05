@@ -1,3 +1,4 @@
+
 /*
  * GLOBALS
  */
@@ -12,6 +13,7 @@ var dateFormatList = [ "DD.MM.YYYY", "DD.MM.YY", "DD/MM/YYYY", "MM.DD.YYYY" ];
 //time-picker variables
 var timePicker;
 var datePicker;
+var alarmOptionsTimeouts = {};
 
 
 /*
@@ -112,6 +114,7 @@ loadOptions();
 
 /*
  * TODO: change how remove is done because it can close newer notify too soon
+ * TODO: change all text to be i18n
  * @Module - UI
  * Creates notify element and inserts it into element for display
  * WARNING: can only be called on container, not individual element!
@@ -426,23 +429,90 @@ function checkConstraints () {
     return fail;
 }
 
+/*
+ * @Module - UI
+ * Execution function for alarm options closure
+ * var key -> pushed into scope in fkc autoCloseOptions
+ */
+function autoCloseOptionsExe () {
+    var key = this.alarmID,
+        alarms = document.getElementsByClassName("alarm"),
+        alarm, options;
+
+    for (var i = 0; i < alarms.length; i++) {
+        if (alarms[i].getAttribute("key") === key) {
+            alarm = alarms[i];
+            break;
+        }
+    }
+        
+    options = alarm.getElementsByClassName("alarm-options")[0];
+    options.setAttribute("state", "closed");
+    options.removeEventListener("mouseout", autoCloseOptions);
+    options.removeEventListener("mouseover", resetAutoCloseOptions);
+}
+
 
 /*
  * @Module - UI
+ * Returns auto-closure state to default/null
+ * Occurs when mouse has returned to options field and timeout for auto-closure is no longer required
+ */
+function resetAutoCloseOptions () {
+
+    //remove old events
+    this.removeEventListener("mouseout", autoCloseOptions);
+    this.removeEventListener("mouseover", resetAutoCloseOptions);
+
+    //remove timeout for closing
+    var alarmID = this.parentElement.parentElement.getAttribute("key");
+    clearTimeout(alarmOptionsTimeouts[alarmID]);
+    delete alarmOptionsTimeouts[alarmID];
+
+    //subscribe to beginning
+    this.addEventListener("mouseout", autoCloseOptions);
+}
+
+
+/*
+ * @Module - UI
+ * Main function for auto-closure!
+ * Checks if mouse has left options field, and if so starts auto-closure procedure
+ * Connected to: resetAutoCloseOptions, autoCloseOptionsExe, toggleAlarmOptions
+ */
+function autoCloseOptions (e) {
+    var t = this,
+        c = e.relatedTarget;
+
+    while (c !== t && !(c.nodeName === "BODY" || c.nodeName === "HTML")) {
+        c = c.parentElement;
+    }
+    if (c === t) { return false; }
+
+    //if mouse is out, proceed to elimination
+    var alarmID = t.parentElement.parentElement.getAttribute("key");
+    this.addEventListener("mouseover", resetAutoCloseOptions);
+
+    alarmOptionsTimeouts[alarmID] = setTimeout(autoCloseOptionsExe.bind({ alarmID: alarmID }), 2000);
+}
+
+
+/*
+ * @Module - UI
+ * Connected to: autoCloseOptions
  */
 function toggleAlarmOptions () {
     var alarm_el = this.parentElement.parentElement.parentElement,
-        options = alarm_el.getElementsByClassName("alarm-options")[0],
-        container = alarm_el.getElementsByClassName("alarm-container")[0];
+        options = alarm_el.getElementsByClassName("alarm-options")[0];
 
     if (options.getAttribute("state") === "open") {
         options.setAttribute("state", "closed");
+        options.removeEventListener("mouseout", autoCloseOptions);
     }
     else {
         options.setAttribute("state", "open");
+        options.addEventListener("mouseout", autoCloseOptions);
     }
-
-    //TODO callback close
 }
 
 
@@ -456,23 +526,84 @@ function editAlarm () {
 
 /*
  * @Module - UI/Logic
+ * Changes state of alarm between active/inactive
+ * UI handled here, logic in background
  */
 function changeAlarmState () {
     var alarm_el = this.parentElement.parentElement.parentElement.parentElement,
         container = alarm_el.getElementsByClassName("alarm-container")[0],
         state = container.getAttribute("state"),
         toggle = alarm_el.getElementsByClassName("alarm-change-state")[0];
-    
-    //TODO:Implement logic
-    
-    
-    //do the UI
+
     if (state === "inactive") {
-        container.setAttribute("state", "active");
-        toggle.setAttribute("class", "fa fa-toggle-on fa-lg alarm-change-state");
+
+        var storage_callback = function (object) {
+            var alarms = object.AM_alarms,
+                key = alarm_el.getAttribute("key"),
+                alarm = {}, i;
+
+            for (i = 0; i < alarms.length; i++) {
+                if (key === alarms[i].key) {
+                    alarm = alarms[i];
+                    break;
+                }
+            }
+
+            //send data do background for calculation and alarm triggering
+            chrome.extension.sendMessage({set_active: true, alarm: alarm}, function (response) {
+
+                var alarm_list = document.getElementsByClassName('alarm');
+
+                //alarm successfully restored
+                if (response.alarm_active) {
+                    alarm = response.alarm;
+
+                    var template = createTemplate('alarm', { alarm: alarm, data: { options_opened: true } } );
+
+                    for (i = 0; i < alarm_list.length; i++) {
+                        if (alarm.key === alarm_list[i].getAttribute("key")) {
+                            alarm_list[i].remove();
+                            break;
+                        }
+                    }
+
+                    //to return to initial state!
+                    template.getElementsByClassName("alarm-options")[0].addEventListener("mouseout", autoCloseOptions);
+                    document.getElementById('alarm-list').appendChild(template);
+                    orderAlarms();
+
+                //alarm wasn't able to restore
+                } else {
+
+                    for (i = 0; i < alarm_list.length; i++) {
+                        if (alarm.key === alarm_list[i].getAttribute("key")) {
+                            alarm_list[i].notify("alarm not restored", "ALARM NOT RESTORED!", "error");
+                            break;
+                        }
+                    }
+
+                }
+
+                //save new alarm state
+                for (i = 0; i < alarms.length; i++) {
+                    if (alarm.key === alarms[i].key) {
+                        alarms[i] = alarm;
+                        break;
+                    }
+                }
+                chrome.storage.sync.set({'AM_alarms': alarms});
+
+            });
+
+
+        }.bind(alarm_el); //pushing variable alarm into scope!
+        chrome.storage.sync.get('AM_alarms', storage_callback);
+
+
     } else {
         container.setAttribute("state", "inactive");
         toggle.setAttribute("class", "fa fa-toggle-on fa-rotate-180 fa-lg alarm-change-state");
+        chrome.extension.sendMessage({set_inactive: true, key: alarm_el.getAttribute('key')});
     }
 }
 
@@ -791,27 +922,29 @@ function getAlarmList() {
     chrome.storage.sync.get('AM_alarms', function (object) {
         var alarms = object.AM_alarms || [],
             list = document.getElementById('alarm-list'),
-            alarm = null,
-            removed = false;
+            alarm = null, i;
 
 
+        //TODO LEGACY code when inactive didn't exist
+        //TODO change in options when alarm to be come inactive
+        //var removed = false;
         //checks age of alarm and removes if alarm "passed" - happens when PC turned off and alarm is "triggered"
-        for (var i = 0; i < alarms.length; i++) {
-
-            if (!alarms[i].repetitive && !alarms[i].ringing) {
-                if ( (alarms[i].time_set - (new Date()).getTime()) < 0 ) {
-                    alarms.splice(i, 1);
-                    removed = true;
-                }
-            }
-
-            /* HAX when notification is broken (not risen), then this will raise it, at least then popup is opened */
-            if(alarms[i].ringing) {
-                chrome.notifications.update(alarms[i].key, { requireInteraction: true });
-            }
-
-        }
-        if (removed) { chrome.storage.sync.set({'AM_alarms': alarms}); }
+        // for (var i = 0; i < alarms.length; i++) {
+        //
+        //     if (!alarms[i].repetitive && !alarms[i].ringing) {
+        //         if ( (alarms[i].time_set - (new Date()).getTime()) < 0 ) {
+        //             alarms.splice(i, 1);
+        //             removed = true;
+        //         }
+        //     }
+        //
+        //     /* HAX when notification is broken (not risen), then this will raise it, at least when popup is opened */
+        //     if(alarms[i].ringing) {
+        //         chrome.notifications.update(alarms[i].key, { requireInteraction: true });
+        //     }
+        //
+        // }
+        // if (removed) { chrome.storage.sync.set({'AM_alarms': alarms}); }
 
 
         for (i = 0; i < alarms.length; i++) {

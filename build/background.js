@@ -99,8 +99,8 @@ function alarm_sound (play) {
 function updateBadge(changes, area) {
 
     if (area === "sync" && changes.AM_alarms) {
-        var nbr = changes.AM_alarms.newValue.length,
-            text = nbr > 0 ? nbr.toString() : "";
+        var nbr = changes.AM_alarms.newValue.filter(function (e) { return e.active; }),
+            text = nbr.length > 0 ? nbr.length.toString() : "";
 
         chrome.browserAction.setBadgeBackgroundColor({color: "#000"});
         chrome.browserAction.setBadgeText({text: text });
@@ -108,6 +108,73 @@ function updateBadge(changes, area) {
 
 }
 chrome.storage.onChanged.addListener(updateBadge);
+
+
+/*
+ * @Module - Logic
+ * Sets given alarm key to be inactive, removes his alarm handler and saves state
+ *
+ * @param {string} key - alarm key
+ */
+function set_inactive (key) {
+
+    var storage_callback = function (object) {
+        var alarms = object.AM_alarms;
+
+        //stop alarm from triggering
+        chrome.alarms.clear(key);
+
+        //remove from storage
+        for (var i = 0; i < alarms.length; i++) {
+            if (key === alarms[i].key) {
+                alarms[i].active = false;
+                break;
+            }
+        }
+
+        //@param {object} - data object to be saved as JSON
+        chrome.storage.sync.set({'AM_alarms': alarms});
+
+    }.bind(key); //pushing variable alarm into scope!
+    chrome.storage.sync.get('AM_alarms', storage_callback);
+
+}
+
+
+/*
+ * @Module - Logic
+ * Returns alarm back into active state if possible
+ * Repetitive - always possible, normal - only when time has not "passed"
+ */
+function set_active (alarm, sender, sendResponse) {
+
+    //restore alarm if possible
+    //repetitive can always be restored, normal once only when not jet expired
+    var now = (new Date()).getTime();
+    if (alarm.repetitive) {
+
+        alarm = calc_repetitive(alarm);
+        alarm.active = true;
+        chrome.alarms.create(alarm.key, { delayInMinutes: (alarm.time_span / 60000) });
+
+        sendResponse({ alarm_active: true, alarm: alarm });
+
+    } else if (alarm.time_set > now) {
+
+        alarm.time_created = now;
+        alarm.time_span = alarm.time_set - alarm.time_created;
+        alarm.active = true;
+        chrome.alarms.create(alarm.key, { delayInMinutes: (alarm.time_span / 60000) });
+
+        sendResponse({ alarm_active: true, alarm: alarm });
+
+    } else {
+
+        sendResponse({ alarm_active: false, alarm: alarm });
+
+    }
+
+}
 
 
 /*
@@ -189,7 +256,7 @@ function snooze (key) {
 }
 
 
-/*
+/* TODO when canceled if not repetitive check options and set it to inactive
  * @Module - Logic
  * CANCELS alarm (onetime or repetitive)
  * Determines type of alarm and handles/removes it
@@ -337,6 +404,7 @@ function raise_notification (key) {
  * @Module - Logic
  * 1. When options changed in options menu, reload it here
  * 2. When alarm canceled from popup, proceed to termination
+ * 3. and 4. When alarm is set to be (in)active
  * Listener that waits for specific set of instructions
  */
 chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
@@ -352,6 +420,20 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
         delete notif_actions[request.key];
         delete notif_timeouts[request.key];
 
+    }
+
+    if (request.set_inactive) {
+        //prevention
+        alarm_sound(false);
+        chrome.notifications.clear(request.key);
+        delete notif_actions[request.key];
+        delete notif_timeouts[request.key];
+        //action
+        set_inactive(request.key);
+    }
+
+    if (request.set_active) {
+        set_active(request.alarm, sender, sendResponse);
     }
 
 });

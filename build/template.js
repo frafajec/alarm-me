@@ -22,7 +22,9 @@ function template (template, data) {
 
 
     //TEMPLATES
-    function alarmTemplate(alarm) {
+    function alarmTemplate(alarm, data) {
+
+        if (!data) { data = {}; }
 
         //FALLBACK from older version when alarms didn't have rep_days!
         if (!alarm.hasOwnProperty("repetitive")) {
@@ -97,67 +99,57 @@ function template (template, data) {
 
             container.appendChild(body);
 
-            //OPTIONS
-            var alarm_options = document.createElement("div");
-                alarm_options.setAttribute("class", "alarm-options");
-                alarm_options.setAttribute("state", "closed");
+            //OPTIONS or ACTION to cancel ring
+            if (alarm.ringing) {
 
-                var options_actions = document.createElement("div");
-                options_actions.setAttribute("class", "alarm-actions");
+                var alarm_ring = document.createElement("input");
+                    alarm_ring.setAttribute("class", "alarm-ring-cancel");
+                    alarm_ring.setAttribute("type", "button");
 
-                    // var action_remove = document.createElement("input");
-                    // action_remove.setAttribute("type", "button");
-                    // action_remove.setAttribute("class", "alarm-remove");
-                    // options_actions.appendChild(action_remove);
-                    var action_remove = document.createElement("i");
-                    action_remove.setAttribute("class", "fa fa-trash fa-lg alarm-remove");
-                    action_remove.setAttribute("aria-hidden", "true");
-                    options_actions.appendChild(action_remove);
-                    // <i class="fa fa-trash fa-lg" aria-hidden="true"></i>
+            } else {
 
-                    // var action_edit = document.createElement("input");
-                    // action_edit.setAttribute("type", "button");
-                    // action_edit.setAttribute("class", "alarm-edit");
-                    // options_actions.appendChild(action_edit);
-                    var action_edit = document.createElement("i");
-                    action_edit.setAttribute("class", "fa fa-pencil-square-o fa-lg alarm-edit");
-                    action_edit.setAttribute("aria-hidden", "true");
-                    options_actions.appendChild(action_edit);
-
-                    // var action_state = document.createElement("input");
-                    // action_state.setAttribute("type", "button");
-                    // action_state.setAttribute("class", "alarm-change-state");
-                    // options_actions.appendChild(action_state);
-                    var action_state = document.createElement("i");
-                    action_state.setAttribute("class", "fa fa-toggle-on fa-lg alarm-change-state");
-                    action_state.setAttribute("aria-hidden", "true");
-                    options_actions.appendChild(action_state);
+                var alarm_options = document.createElement("div");
+                    alarm_options.setAttribute("class", "alarm-options");
+                    alarm_options.setAttribute("state", data.options_opened ? "open" : "closed");
 
 
-                var alarm_action;
-                    if (alarm.ringing) {
-                        alarm_action = document.createElement("input");
-                        alarm_action.setAttribute("class", "alarm-ring-cancel");
-                        alarm_action.setAttribute("type", "button");
-                        container.appendChild(alarm_action);
-                    } else {
-                        alarm_options.appendChild(options_actions); //buttons for options from above
-                        alarm_action = document.createElement("i");
-                        alarm_action.setAttribute("class", "fa fa-cog alarm-options-toggle");
-                        alarm_action.setAttribute("aria-hidden", "true");
-                        alarm_options.appendChild(alarm_action); //adding action menu into alarm
+                    var options_actions = document.createElement("div");
+                        options_actions.setAttribute("class", "alarm-actions");
 
-                        container.appendChild(alarm_options);
-                    }
+                        var action_remove = document.createElement("i");
+                        action_remove.setAttribute("class", "fa fa-trash fa-lg alarm-remove");
+                        action_remove.setAttribute("aria-hidden", "true");
+                        options_actions.appendChild(action_remove);
+
+                        var action_edit = document.createElement("i");
+                        action_edit.setAttribute("class", "fa fa-pencil-square-o fa-lg alarm-edit");
+                        action_edit.setAttribute("aria-hidden", "true");
+                        options_actions.appendChild(action_edit);
+
+                        var action_state = document.createElement("i");
+                        action_state.setAttribute("class", "fa fa-toggle-on fa-lg "+ (alarm.active ? "" : "fa-rotate-180") +" alarm-change-state");
+                        action_state.setAttribute("aria-hidden", "true");
+                        options_actions.appendChild(action_state);
+
+                    alarm_options.appendChild(options_actions); //buttons for options from above
+
+                    var options_toggle = document.createElement("i");
+                        options_toggle.setAttribute("class", "fa fa-cog alarm-options-toggle");
+                        options_toggle.setAttribute("aria-hidden", "true");
+
+                    alarm_options.appendChild(options_toggle); //adding action menu into alarm
+
+            }
+
+            container.appendChild(alarm_ring || alarm_options);
 
         html.appendChild(container);
-
 
         return html;
     }
 
     //FORKING
-    if (template === 'alarm') { html = alarmTemplate(data.alarm); }
+    if (template === 'alarm') { html = alarmTemplate(data.alarm, data.data); }
 
     return html;
 }
