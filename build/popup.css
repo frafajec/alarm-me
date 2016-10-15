@@ -306,7 +306,7 @@ body {
     padding-top: 10px;
 }
 #alarm-new #new-actions i {
-    transition: all 0.2s ease-in;
+    transition: background-color 0.2s ease-in, color 0.2s ease-in, border 0.2s ease-in;
     border-radius: 50%;
     height: 22px;
     width: 22px;
@@ -342,6 +342,53 @@ body {
     background-color: #006900;
     border: 1px solid #006900 !important;
 }
+
+/* alarm new section on edit*/
+/*e78a00*/
+#alarm-new[state="edit"] #toggle-new-alarm,
+#alarm-new[state="edit"] #toggle-onetime-alarm,
+#alarm-new[state="edit"] #toggle-repetitive-alarm {
+    border: 1px solid #e78a00;
+    color: #e78a00;
+}
+#alarm-new[state="edit"] .alarm-type-active {
+     background: #e78a00!important;
+     color: #FFF !important;
+ }
+#alarm-new[state="edit"] #new-name-input,
+#alarm-new[state="edit"] #new-name-rep-input {
+    border: 1px solid #e78a00;
+}
+#alarm-new[state="edit"] #new-actions i {
+    border: 1px solid #e78a00;
+}
+#alarm-new[state="edit"] #alarm-reset {
+    visibility: hidden;
+}
+#alarm-new[state="edit"] #toggle-new-alarm:hover,
+#alarm-new[state="edit"] #toggle-onetime-alarm:hover,
+#alarm-new[state="edit"] #toggle-repetitive-alarm:hover {
+    color: #e78a00;
+    box-shadow: 0px 0px 2px #e78a00;
+    text-shadow: 0px 0px #cd6f00;
+}
+#alarm-new[state="edit"] #toggle-new-alarm:active,
+#alarm-new[state="edit"] #toggle-onetime-alarm:active,
+#alarm-new[state="edit"] #toggle-repetitive-alarm:active {
+    background: #c86f00;
+    color: #FFF !important;
+}
+#alarm-new[state="edit"] #new-rep-box-right .new-rep-box:last-child {
+    border-top: 1px solid #e78a00;
+}
+#alarm-new[state="edit"] #new-name-input:focus,
+#alarm-new[state="edit"] #new-name-rep-input:focus,
+#alarm-new[state="edit"] #new-desc-input:focus {
+    box-shadow: 0 0 3px #e78a00;
+    border: 1px solid #e78a00;
+}
+
+
 /********  ALARM-NEW:end  ********/
 
 
@@ -349,7 +396,7 @@ body {
 /********  ALARM-LIST:start  ********/
 #alarm-list {
     clear: both;
-    border-top: 1px solid #47c9af;
+    /*border-top: 1px solid #47c9af;*/
     margin-top: 5px;
 }
 

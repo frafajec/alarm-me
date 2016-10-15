@@ -20,7 +20,7 @@
 
         <div id="app-container">
 
-            <div id="header">
+            <div id="header" title=" __MSG_titleCurrentTime__ ">
 
                 <img id="logo" src="img/icon/AlarmMe_logo.png" alt="Alarm Me!" >
 
@@ -35,7 +35,7 @@
 
             <div id="alarm-new">
 
-                <input type="button" id="toggle-new-alarm" value="New alarm">
+                <input type="button" id="toggle-new-alarm" value=" __MSG_newAlarm__ ">
                 <input type="button" id="toggle-repetitive-alarm" value="__MSG_toggleRepetitive__" class="">
                 <input type="button" id="toggle-onetime-alarm" value="__MSG_toggleOnetime__" class="alarm-type-active">
 
@@ -43,17 +43,17 @@
 
                     <div id="alarm-new-left">
 
-                        <div id="new-time">
+                        <div id="new-time" title=" __MSG_titleAlarmTime__ ">
                             <input id="new-time-input" class="flatpickr" data-enabletime="true" data-time_24hr="true" data-nocalendar="true" data-inline="true">
                         </div>
 
-                        <div id="new-date">
+                        <div id="new-date" title=" __MSG_titleAlarmDate__ ">
                             <input id="new-date-input" class="flatpickr">
                         </div>
 
                         <div id="new-actions">
-                            <i class="fa fa-refresh fa-lg" id="alarm-reset" aria-hidden="true"></i>
-                            <i class="fa fa-check fa-lg" id="alarm-set" aria-hidden="true"></i>
+                            <i class="fa fa-refresh fa-lg" id="alarm-reset" aria-hidden="true" title = "__MSG_titleReset__" ></i>
+                            <i class="fa fa-check fa-lg" id="alarm-set" aria-hidden="true" title=" __MSG_titleSet__ "></i>
                         </div>
 
                     </div>

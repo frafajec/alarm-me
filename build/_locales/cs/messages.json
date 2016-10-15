@@ -4,101 +4,101 @@
     "description": "Extension name"
   },
   "minute": {
-    "message": "minuta(e)",
+    "message": "minut",
     "description": "Minutes display on form"
   },
   "hour": {
-    "message": "sat(i)",
+    "message": "hodin",
     "description": "Hour display on form"
   },
   "day": {
-    "message": "dan(i)",
+    "message": "dní",
     "description": "Day display on form."
   },
   "month": {
-    "message": "mesec(i)",
+    "message": "měsíců",
     "description": "Month display on form."
   },
   "year": {
-    "message": "godina(e)",
+    "message": "let",
     "description": "Year display on form."
   },
 
   "mon": {
-    "message": "Pon",
+    "message": "Po",
     "description": "Abbreviation of day of the week."
   },
   "tue": {
-    "message": "Uto",
+    "message": "Út",
     "description": "Abbreviation of day of the week."
   },
   "wed": {
-    "message": "Sri",
+    "message": "St",
     "description": "Abbreviation of day of the week."
   },
   "thu": {
-    "message": "Čet",
+    "message": "Čt",
     "description": "Abbreviation of day of the week."
   },
   "fri": {
-  "message": "Pet",
+  "message": "Pá",
   "description": "Abbreviation of day of the week."
   },
   "sat": {
-    "message": "Sub",
+    "message": "So",
     "description": "Abbreviation of day of the week."
   },
   "sun": {
-    "message": "Ned",
+    "message": "Ne",
     "description": "Abbreviation of day of the week."
   },
   "all": {
-    "message": "Svi",
+    "message": "Vždy",
     "description": "All."
   },
 
   "snooze": {
-    "message": "Odgodi",
+    "message": "Odložit",
     "description": "Label for snooze on notification"
   },
   "cancel_delete": {
-    "message": "Poništi (ukloni alarm)",
+    "message": "Zrušit (smazat připomínku)",
     "description": "Label for cancel on notification"
   },
   "newAlarm": {
-    "message": "Novi alarm",
+    "message": "Nová připomínka",
     "description": "Button label to open new alarm section"
   },
   "cancelAlarm": {
-    "message": "Poništi alarm",
+    "message": "Zrušit připomínku",
     "description": "Button label to close new alarm section"
   },
   "editAlarm": {
-    "message": "Prekini uređivanje",
+    "message": "Zrušit editaci",
     "description": "Button label to close new alarm section"
   },
   "toggleRepetitive": {
-    "message": "Ponavljajuč",
+    "message": "Opakovaná",
     "description": "Button value on alarm type switch."
   },
   "toggleOnetime": {
-    "message": "Jednokratni",
+    "message": "Normální",
     "description": "Button value on alarm type switch."
   },
   "alarmName": {
-    "message": "Naziv alarma",
+    "message": "Název připomínky",
     "description": "Popup placeholder"
   },
   "alarmDescription": {
-    "message": "Opis alarma",
+    "message": "Popis",
     "description": "Popup placeholder"
   },
   "linkOptions": {
-    "message": "Opcije",
+    "message": "Nastavení",
     "description": "Button link to options page"
   },
   "linkInstructions": {
-    "message": "Upute",
+    "message": "Instrukce",
     "description": "Button link to instructions page"
   },
 
@@ -107,48 +107,48 @@
 
 
   "ntfAlarmRing": {
-    "message": "Alarm će zvoniti za</br> ",
+    "message": "Připomínka zazvoní za</br> ",
     "description": "Time until alarm activation"
   },
   "ntfHistoryAlarm": {
-    "message": "Alarm je stavljen u prošlost!</br>Možda promjeniti datum?",
+    "message": "Čas připomínky je uložen v historii!</br>Přejete si změnit i datum?",
     "description": "Popup notify text for alarm that is set in 'history'"
   },
 
   "titleRemove": {
-    "message": "Ukloni",
+    "message": "Odstranit",
     "description": "Tooltip text"
   },
   "titleEdit": {
-    "message": "Uredi",
+    "message": "Editovat",
     "description": "Tooltip text"
   },
   "titleState": {
-    "message": "Ugasi / upali",
+    "message": "Vypnutí / zapnutí",
     "description": "Tooltip text"
   },
   "titleOptions": {
-    "message": "Opcije",
+    "message": "Možnosti",
     "description": "Tooltip text"
   },
   "titleReset": {
-    "message": "Resetiraj",
+    "message": "Resetovat",
     "description": "Tooltip text"
   },
   "titleSet": {
-    "message": "Potvrdi",
+    "message": "Potvrdit",
     "description": "Tooltip text"
   },
   "titleCurrentTime": {
-    "message": "Trenutno vreme",
+    "message": "Aktuální čas",
     "description": "Tooltip text"
   },
   "titleAlarmTime": {
-    "message": "Vreme alarma",
+    "message": "Alarm čas",
     "description": "Tooltip text"
   },
   "titleAlarmDate": {
-    "message": "Datum alarma",
+    "message": "Alarm datum",
     "description": "Tooltip text"
   },
 
@@ -157,160 +157,160 @@
 
 
   "optionsExt": {
-    "message": "Opcije - Alarm Me!",
+    "message": "Nastavení - Alarm Me!",
     "description": "Options page title"
   },
   "optInstructions": {
-    "message": "Upute",
+    "message": "Instrukce",
     "description": "Instructions anchor"
   },
   "optOptions": {
-    "message": "Opcije",
+    "message": "Nastavení",
     "description": "Options anchor"
   },
   "optSupport": {
-    "message": "Podrška",
+    "message": "Podpora",
     "description": "Support anchor"
   },
 
   "optLabelSnooze": {
-    "message": "Duljina odgode",
+    "message": "Délka odložení",
     "description": "Options label"
   },
   "optLabelSnoozeTooltip": {
-    "message": "* 0 = odgoda je onemogućena",
+    "message": "* 0 = odložení vypnuto",
     "description": "Options label tooltip"
   },
   "optLabelAlarmStop": {
-    "message": "Zaustavi zvonjavu nakon",
+    "message": "Připomínka se vypne za",
     "description": "Options label"
   },
   "optLabelAlarmStopTooltip": {
-    "message": "* 0 = alarm zvoni do korisničke akcije",
+    "message": "* 0 = připomínka je zapnuta do akce uživatele",
     "description": "Options label tooltip"
   },
   "optLabelTone": {
-    "message": "Ton alarma",
+    "message": "Tón připomínky",
     "description": "Options label"
   },
   "optLabelToneTooltip": {
-    "message": "Izaberite svoju zvonjavu alarma",
+    "message": "Zvolte tón připomínky",
     "description": "Options label tooltip"
   },
   "optLabelVolume": {
-    "message": "Glasnoća alarma",
+    "message": "Hlasitost připomínky",
     "description": "Options label"
   },
   "optLabelVolumeTooltip": {
-    "message": "* postotak (%)",
+    "message": "* procent (%)",
     "description": "Options label tooltip"
   },
   "optLabelDate": {
-    "message": "Format datuma",
+    "message": "Formát data",
     "description": "Options label"
   },
   "optLabelDateTooltip": {
-    "message": "Odaberite format datuma",
+    "message": "Zvolit formát data",
     "description": "Options label tooltip"
   },
   "optLabelMinutes": {
-    "message": "Minute",
+    "message": "Minuty",
     "description": "Options after-label"
   },
   "optLabelInactive": {
-    "message": "Zadano inaktivno",
+    "message": "Výchozí neaktivní",
     "description": "Options label"
   },
   "optLabelInactiveTooltip": {
-    "message": "* Postaje inaktivan, ne izbrisan",
+    "message": "* Neaktivní, nejsou odstraněny",
     "description": "Options label tooltip"
   },
 
   "optHintSaving": {
-    "message": "* Opcije su zabiležene odmah kako su promenjene",
+    "message": "* nastavení jsou uložena hned po změně",
     "description": "Options hint"
   },
   "optHintPlaying": {
-    "message": "* uvek možete kliknuti 'sviraj' kako bi ste čuli odabranu zvonjavu sa određenom glasnoćom",
+    "message": "* vždy je možné stiskem tlačidla hraj přehrát zvolený tón se zvolenou hlasitostí",
     "description": "Options hint"
   },
   "optHintSnoozing": {
-    "message": "* kada 'zaostavi zvonjavu nakon' vreme istekne alarm će da se odgodi za vreme postavljeno kod odgode",
+    "message": "* když skončí čas nastaven ve 'vypni připomínku za', připomínka se odloží o definovaný čas",
     "description": "Options hint"
   },
 
   "optBtnReset": {
-    "message": "Resetiraj",
+    "message": "Restart",
     "description": "Options button for reset"
   },
 
   "insSCR": {
-    "message": "Mala, kompaktna, dostupna",
+    "message": "Malá, kompaktní, dostupná",
     "description": "Instructions title"
   },
   "insSCRText1": {
-    "message": "Mala popup aplikacija koja će uvijek biti u dohvatu ruke. Kada se otvori zauzima malo mjesta i sve funkcionalnosti su udaljene par klika. Ako nema alarma, forma za novi alarm je ovorena automatski! </br> U podnoju su 'Upute' i 'Opcije' koje otvaraju sekciju za koniguraciju u bilo kojem trenutku.",
+    "message": "Malá popup aplikace která je vždy poruce. Když je otevřena, zabírá málo místa a všechny funkce jsou dostupné na pár kliků myši. Pokud neexistují žádné připomínky, okno s novou připomínkou se otevře automaticky! </br> V zápatí aplikace se nacházejí odkazy na 'Instrukce' a 'Nastavení', které kdykoliv otevřou příslušnou sekci.",
     "description": "Instructions text"
   },
   "insSCRText2": {
-    "message": "Moete birati između kreiranja jednokratkog alarma ili ponavljajućeg koji će se upaliti u isto vrijeme svaki dan koji ste označili! </br>Jednostavnim kreiranjem nekoliko alarma koji će biti vaši podsjetnici, spremni ste koristi aplikaciju!!",
+    "message": "Můžete si vybrat mezi vytvořením jednorázové připomínky anebo opakující se, která bude připomínána ve stejný čas každý ze zvolených dnů!</br>Jednoduchým vytvořením několika alarmu už nikdy na nic nezapomenete!",
     "description": "Instructions text"
   },
   "insCRAlarms": {
-    "message": "Kreiraj i ukloni alarme",
+    "message": "Vytvořit a smazat alarmy",
     "description": "Instructions title"
   },
   "insCRAlarmsText1": {
-    "message": "Kreiranje je jednostavno! Kada je forma otvorena jednostavno odaberite vrijeme, datum i tekst ukoliko želite više podataka.  Kada ste popunili, pristisnite gumb potvrde (zeleni gumb).",
+    "message": "Vytvoření je jednoduché! V okně zvolte datum, čas a text pokud chcete přidat připomínce nějakou poznámku. Pokud jste hotovi, pokračujte stiskem zeleného tlačítka.",
     "description": "Instructions text"
   },
   "insCRAlarmsText2": {
-    "message": "Odabir datuma za alarm nikada nije bilo jednostavnije! Jednostavno navigirajte kroz date, mjesece, možda čak i godine!",
+    "message": "Volení datumu z kalendáře nebylo nikdy jednodušší! Jednoduše postupujte přes dny, měsíce a roky!",
     "description": "Instructions text"
   },
   "insCRAlarmsText3": {
-    "message": "Kada je popup otvoren, alarmi su poredani jedan iza drugog. Jednostavnim pritiskom na obriši (crveni gumb) alarm će se ukloniti.",
+    "message": "Když je otevřeno vyskakovací okno, je zobrazen seznam připomínek jedna po druhé. Jednoduchým stiskem tlačidla smazat (červené tlačidlo) bude připomínka smazána.",
     "description": "Instructions text"
   },
   "insNotif": {
-    "message": "Notifikacije",
+    "message": "Notifikace",
     "description": "Instructions title"
   },
   "insNotifText": {
-    "message": "Notifikacije su podignute kada je vrijeme da alarm zvoni i prikazane su u donjem desnom kutu vašeg glavnog ekrana. </br>Kada je notifikacija podignuta, ton alarma selektiran u opcijama će svirati. </br>Alarm je također moguće ugasiti sa popup-a! Umjesto 'obriši', tamo će pokraj alarma biti ponuđeno 'poništi'!",
+    "message": "Notifikace se zobrazí, když nastane čas nastavený v připomínce a bude zobrazena v pravém dolním rohu hlavní obrazovky.</br>Dokud je notifikace aktivní, je přehráván tón zvolený v nastavení (Okno nastavení).</br>Připomínku je také možné zrušit z vyskakovacího okna! Místo 'smazat' je zde napsáno 'zrušit'!",
     "description": "Instructions title"
   },
 
   "suppAbout": {
-    "message": "O aplikaciji",
+    "message": "O produktu",
     "description": "Support title"
   },
   "suppAboutText": {
-    "message": "Ovo je lagana, jednostavna i korisnički prijateljska ekstenzija za Google Chrome koju je vrlo lako instalirati i koristiti! Glavna namjena je omogućniti korisnicima alam/notifikacije koje mogu koristiti sa samo par klika, svugdje, na bilo kojem uređaju (sa Chromom).</br>Ekstenzija je kreirana zbog autorove osobne potrebe za takvom funkcionalnošću i zato nije profitabilna niti stvara prihode na bilo koji način.",
+    "message": "Toto je odlehčené, jednoduché a uživatelsky přívětivé rozšíření pro aplikaci Google Chrome. Instalace a používání je extrémně jednoduché! Jeho hlavním účelem je poskytnout uživatelům připomínky/notifikace, které je možné nastavit a používat pomocí pár kliků kdekoliv na jakémkoliv zařízení (s nainstalovaným prohlížečem Google Chrome).</br>Rozšíření bylo vytvořeno výhradně z vývojářovy osobní potřeby a z tohoto důvodu z něj vývojáři neplyne žádný profit.",
     "description": "Support text"
   },
   "suppLib": {
-    "message": "Biblioteke",
+    "message": "Knihovny",
     "description": "Support title"
   },
   "suppLibText1": {
-    "message": "Lagana i moćna biblioteka za odabir datuma i vremena koja se korisni na pop-upu alarma.",
+    "message": "Odlehčený a přesto vynikající nástroj na výběr datumu s kterého využitím můžete jednoduše manipulovat s datumem a časem připomínky.",
     "description": "Support text"
   },
   "suppLibText2": {
-    "message": "Dodatne funkcionalnosti na HTML select elemntu.",
+    "message": "Přídavná funkcionalita nad HTML elementem Select. Rozšiřte aplikaci o zajímavé chování!",
     "description": "Support text"
   },
   "suppLibText3": {
-    "message": "Što više reči nego da dodaje zakon stvari!",
+    "message": "Co ještě říci, kromě že je přidat awesomeness do aplikace!",
     "description": "Support text"
   },
   "suppSupport": {
-    "message": "Podrška",
+    "message": "Podpora",
     "description": "Support title"
   },
   "suppSupportText": {
-    "message": "Ukoliko pronađete neke greške ili imate prijedlog za poboljšanje slobodnokontaktirajte autora! </br> I naravno ukoliko vam se sviđa, ocjenite apikaciju u Chrome dućanu kako bi i drugi mogli uživati u ovoj aplikaciji. :)",
+    "message": "Jestli jste našli chybu anebo máte připomínky či vylepšení, neváhejte autora kontaktovat! </br> A samozřejmě, pokud se Vám rozšíření líbí, ohodnoťte ho přímo v chrome store a umožněte tak i ostatním objevit tuto aplikaci. :)",
     "description": "Support text"
   }
 

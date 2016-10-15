@@ -1,12 +1,8 @@
 {
-
   "extName": {
     "message": "Alarm Me!",
     "description": "Extension name"
   },
-
-
-
   "minute": {
     "message": "minút",
     "description": "Minutes display on form"
@@ -61,8 +57,6 @@
     "description": "All."
   },
 
-
-
   "snooze": {
     "message": "Odložiť",
     "description": "Label for snooze on notification"
@@ -71,16 +65,16 @@
     "message": "Zrušiť (zmazať pripomienku)",
     "description": "Label for cancel on notification"
   },
-
-
-
-
   "newAlarm": {
     "message": "Nová pripomienka",
     "description": "Button label to open new alarm section"
   },
   "cancelAlarm": {
-    "message": "Zahoď pripomienku",
+    "message": "Zrušenie budíka",
+    "description": "Button label to close new alarm section"
+  },
+  "editAlarm": {
+    "message": "Zrušiť editáciu",
     "description": "Button label to close new alarm section"
   },
   "toggleRepetitive": {
@@ -88,7 +82,7 @@
     "description": "Button value on alarm type switch."
   },
   "toggleOnetime": {
-    "message": "Jednorázová",
+    "message": "Normálne",
     "description": "Button value on alarm type switch."
   },
   "alarmName": {
@@ -108,6 +102,10 @@
     "description": "Button link to instructions page"
   },
 
+
+
+
+
   "ntfAlarmRing": {
     "message": "Pripomienka za</br> ",
     "description": "Time until alarm activation"
@@ -117,11 +115,42 @@
     "description": "Popup notify text for alarm that is set in 'history'"
   },
 
-
-
-
-
-
+  "titleRemove": {
+    "message": "Odstrániť",
+    "description": "Tooltip text"
+  },
+  "titleEdit": {
+    "message": "Editovať",
+    "description": "Tooltip text"
+  },
+  "titleState": {
+    "message": "Vypnutie / zapnutie",
+    "description": "Tooltip text"
+  },
+  "titleOptions": {
+    "message": "Možnosti",
+    "description": "Tooltip text"
+  },
+  "titleReset": {
+    "message": "Reštartovať",
+    "description": "Tooltip text"
+  },
+  "titleSet": {
+    "message": "Potvrdiť",
+    "description": "Tooltip text"
+  },
+  "titleCurrentTime": {
+    "message": "Aktuálny čas",
+    "description": "Tooltip text"
+  },
+  "titleAlarmTime": {
+    "message": "Čas budíka",
+    "description": "Tooltip text"
+  },
+  "titleAlarmDate": {
+    "message": "Dátum alarm",
+    "description": "Tooltip text"
+  },
 
 
 
@@ -188,6 +217,14 @@
     "message": "Minút",
     "description": "Options after-label"
   },
+  "optLabelInactive": {
+    "message": "Predvolené neaktívne",
+    "description": "Options label"
+  },
+  "optLabelInactiveTooltip": {
+    "message": "* Neaktívne, nie sú odstránené",
+    "description": "Options label tooltip"
+  },
 
   "optHintSaving": {
     "message": "* nastavenia budú uložené ihneď po zmene",
@@ -206,9 +243,6 @@
     "message": "Reštart",
     "description": "Options button for reset"
   },
-
-
-
 
   "insSCR": {
     "message": "Malý, kompaktný, dostupný",
@@ -247,9 +281,6 @@
     "description": "Instructions title"
   },
 
-
-
-
   "suppAbout": {
     "message": "O programe",
     "description": "Support title"
@@ -268,6 +299,10 @@
   },
   "suppLibText2": {
     "message": "Dodatočná funkcionalita nad HTML elementom 'select'. Je možné rozšíriť o skvelé funkcie!",
+    "description": "Support text"
+  },
+  "suppLibText3": {
+    "message": "Čo ešte povedať, okrem že je pridať awesomeness do aplikácie!",
     "description": "Support text"
   },
   "suppSupport": {

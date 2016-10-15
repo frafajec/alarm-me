@@ -10,7 +10,7 @@
   },
   "author": "Filip Rafajec",
   "contributors": ["Jakub Rumanovsky", "Ceren Sadic"],
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/frafajec/AlarmMe/issues"
   },
@@ -21,7 +21,6 @@
     "grunt-contrib-compress": "^1.2.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^1.0.1",
-    "grunt-contrib-imagemin": "^1.0.1",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-uglify": "^1.0.1",
     "grunt-string-replace": "^1.2.1",

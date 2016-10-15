@@ -144,7 +144,8 @@ function defaultOptions (save, change) {
         stop_after: 10,
         tone: 0,
         volume: 100,
-        date_format: 0
+        date_format: 0,
+        inactive: true
     };
 
     if (save) {
@@ -155,6 +156,7 @@ function defaultOptions (save, change) {
         document.getElementById('alarm-snooze').value = options.snooze;
         document.getElementById('alarm-stop').value = options.stop_after;
         document.getElementById('alarm-volume').value = options.volume;
+        document.getElementById('alarm-inactive').checked = options.inactive;
         window.toneSelect._changeOption(options.tone);
         window.dateSelect._changeOption(options.date_format);
     }
@@ -202,6 +204,7 @@ function save_options () {
     options.tone = document.getElementById('song-list').getElementsByClassName('cs-select')[1].selectedIndex - 1;
     options.date_format = document.getElementById('date-list').getElementsByClassName('cs-select')[1].selectedIndex - 1;
     options.volume = document.getElementById('alarm-volume').value;
+    options.inactive = document.getElementById('alarm-inactive').checked;
 
     //persist options to storage
     chrome.storage.sync.set({'AM_options': options});
@@ -354,6 +357,8 @@ document.addEventListener("DOMContentLoaded", function() {
     dateSelect = new SelectFx(dateList, { onChange: save_options });
     window.dateSelect = dateSelect;
 
+    document.getElementById("alarm-inactive").addEventListener('click', save_options);
+
 
     //LOAD and SET options
     chrome.storage.sync.get('AM_options', function (object) {
@@ -376,6 +381,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('alarm-snooze').value = options.snooze;
         document.getElementById('alarm-stop').value = options.stop_after;
         document.getElementById('alarm-volume').value = options.volume;
+        document.getElementById('alarm-inactive').checked = options.inactive;
         window.toneSelect._changeOption(options.tone);
         window.dateSelect._changeOption(options.date_format);
 

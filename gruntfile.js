@@ -11,7 +11,7 @@ module.exports = function(grunt) {
                 curly: true,
                 eqeqeq: true,
                 immed: false,
-                latedef: true,
+                latedef: false,
                 newcap: false,
                 noarg: true,
                 sub: true,
@@ -49,7 +49,7 @@ module.exports = function(grunt) {
         // productions setups
         uglify: {
             options: {
-                banner: '/*! Alarm Me! Chrome extension\n copyright Filip Rafajec\n <%= grunt.template.today("yyyy-mm-dd") %> */\n' //TODO licence!
+                banner: '/*! Alarm Me! Chrome extension\n copyright Filip Rafajec\n <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
                 files: {

@@ -305,11 +305,14 @@ function initHelpers () {
  * @Module - UI
  * Changes visibility of new alarm section
  */
-function toggleNewAlarm () {
+function toggleNewAlarm (show) {
 
     var hidden = document.getElementById("alarm-new-container").className.length;
 
-    if (!hidden) {
+    if (!hidden && (show !== true)) {
+        document.getElementById("alarm-new").setAttribute("state", "");
+        document.getElementById("alarm-new").setAttribute("key", "");
+
         document.getElementById("alarm-new-container").className = "hidden";
         document.getElementById("toggle-new-alarm").value = chrome.i18n.getMessage("newAlarm");
 
@@ -517,10 +520,72 @@ function toggleAlarmOptions () {
 
 
 /*
- * @Module - Logic
+ * @Module - UI
+ * Takes alarm and places it in "new alarm" section to be edited
+ * Doesn't do any heavy lifting, all done by confirmAlarm
  */
 function editAlarm () {
+    var alarm_key = this.parentElement.parentElement.parentElement.parentElement.getAttribute("key");
 
+    var storage_callback = function (object) {
+        var alarms = object.AM_alarms,
+            alarm = {}, i;
+
+        for (i = 0; i < alarms.length; i++) {
+            if (alarm_key === alarms[i].key) {
+                alarm = alarms[i];
+                break;
+            }
+        }
+
+        document.getElementById("new-name-input").value = alarm.name;
+        document.getElementById("new-desc-input").value = alarm.desc;
+        if (alarm.repetitive) {
+            document.getElementById("toggle-repetitive-alarm").setAttribute("class", "alarm-type-active");
+            document.getElementById("toggle-onetime-alarm").setAttribute("class", "");
+            document.getElementById("new-desc").className = "hidden";
+            document.getElementById("new-rep").className = "";
+
+            var rep_dates = document.getElementsByClassName("new-rep-date"),
+                all_check_btn = document.getElementById("new-rep-all"),
+                all_check = 0;
+
+            for (i = 0; i < alarm.rep_days.length; i++) {
+
+                rep_dates[i].checked = alarm.rep_days[i] ? true : false;
+                all_check = alarm.rep_days[i] ? all_check++ : all_check;
+
+            }
+            all_check_btn.checked = all_check === rep_dates.length;
+        } else {
+            document.getElementById("toggle-repetitive-alarm").setAttribute("class", "");
+            document.getElementById("toggle-onetime-alarm").setAttribute("class", "alarm-type-active");
+            document.getElementById("new-desc").className = "";
+            document.getElementById("new-rep").className = "hidden";
+        }
+
+        //create time one minute ahead of now
+        var t = new Date( alarm.time_set );
+        var pad = function (n) {
+            if (n > 9) { return n; }
+            else { return "0" + n; }
+        };
+        document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value = pad(t.getHours());
+        document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value = pad(t.getMinutes());
+
+        document.getElementById("new-date-input").value = displayTime(t).date;
+        datePicker.setDate(t);
+
+        /* Changing new alarm section to edit - ESSENTIAL! */
+        var alarm_section = document.getElementById("alarm-new");
+        alarm_section.setAttribute("state", "edit");
+        alarm_section.setAttribute("key", alarm.key);
+        toggleNewAlarm(true);
+        document.getElementById("toggle-new-alarm").value = chrome.i18n.getMessage("editAlarm");
+
+
+    }.bind(alarm_key); //pushing variable alarm into scope!
+    chrome.storage.sync.get('AM_alarms', storage_callback);
 }
 
 
@@ -609,7 +674,6 @@ function changeAlarmState () {
 
 
 /*
- * TODO: if UI changed, change THIS!!
  * @Module - Logic
  * EVENT for removing alarm
  * activated when button is pressed on alarm list
@@ -719,6 +783,212 @@ function orderAlarms () {
 
 
 /*
+ * @Module - UI
+ * Resets data in new alarm section
+ */
+function resetAlarm() {
+
+    document.getElementById("alarm-new").setAttribute("state", "");
+    document.getElementById("alarm-new").setAttribute("key", "");
+
+    document.getElementById('new-name-input').value = '';
+    document.getElementById('new-desc-input').value = '';
+
+    //create time one minute ahead of now
+    var t = new Date( new Date().getTime() + 60000 );
+    document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value = t.getHours();
+    document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value = t.getMinutes();
+
+    document.getElementById("new-date-input").value = displayTime(t).date;
+    datePicker.setDate(t);
+
+    document.getElementById('new-rep-all').checked = false;
+    var dates = document.getElementsByClassName("new-rep-date");
+    for (var i = 0; i < dates.length; i++) {
+        dates[i].checked = false;
+    }
+
+    //select current day
+    //sunday is 0 but in html is 7th in order, so we swap with array
+    var day_now = (new Date()).getDay();
+    dates[ day_now === 0 ? 6 : day_now - 1 ].checked = true;
+
+}
+
+
+/*
+ * @Module - Logic
+ * Contains all data for alarm creation
+ * Connected to: confirmAlarm
+ */
+function createAlarm () {
+
+    //random key generator
+    //6 character alphanumeric string
+    function make_key() {
+        return Math.random().toString(36).substring(2,8);
+    }
+
+    /*
+     * ALARM object
+     * @param {string} key - 6-char alphanumeric string used as identifier
+     * @param {int} time_created - time at which alarm was created (ms from 1970)
+     * @param {int} time_set - time when alarm was supposed to activate (ms from 1970)
+     * @param {int} time_span - difference between current time and time when alarm is to be activated (ms)
+     * @param {bool} repetitive - checker if alarm is one time or will be repeated
+     * @param {int} time_rep - original time at which alarm will be repeated (only time taken, date dropped)
+     * @param {array} rep_days - true/false entries on days that are repeated/not repeated
+     * @param {bool} ringing - when alarm activated in background its saved to be ringing for fault prevention
+     * @param {bool} active - switch for alarm status
+     */
+    return {
+        key: make_key(),
+        name: "",
+        desc: "",
+        time_created: new Date().getTime(),
+        time_set: "",
+        time_span: "",
+        repetitive: false,
+        time_rep: "",
+        rep_days: [0, 0, 0, 0, 0, 0, 0],
+        ringing: false,
+        active: true
+    };
+
+}
+
+
+/*
+ * @Module - UI
+ * Pulls all data from UI and fills object
+ */
+function collectAlarmData (alarm) {
+    alarm = alarm || {};
+
+    var input_date = document.getElementById("new-date-input").value,
+        input_h = document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value,
+        input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value;
+    alarm.name = document.getElementById('new-name-input').value;
+    alarm.desc = document.getElementById('new-desc-input').value;
+    alarm.time_set = revertTime(input_date, input_h + ":" + input_min + ":00").getTime();
+    alarm.repetitive = document.getElementById("toggle-repetitive-alarm").getAttribute("class").length > 0;
+
+    //repetitive alarm additions
+    if (alarm.repetitive) {
+        var rep_days = document.getElementsByClassName("new-rep-box");
+
+        for (var i = 0; i < rep_days.length - 1; i++) {
+            alarm.rep_days[i] = rep_days[i].getElementsByTagName("input")[0].checked;
+        }
+        alarm.time_rep = alarm.time_set;
+
+        var true_rep = false;
+        for (i = 0; alarm.rep_days.length; i++) {
+            if (alarm.rep_days[i]) { true_rep = true; break; }
+        }
+        if(!true_rep) { alarm.repetitive = false; }
+    }
+
+    return alarm;
+}
+
+
+/*
+ * @Module - Logic
+ * On user action "confirm" processes alarm
+ * Two branches: create and edit alarm
+ */
+function confirmAlarm () {
+
+    //constraints before action
+    if ( checkConstraints() ) { return false; }
+
+    //calculates how much time is till alarm
+    function timeToAlarm (t) {
+        var s = parseInt(t / 1000); //ignore milliseconds, round seconds
+        var d = parseInt(s / 86400);
+        var h = parseInt((s / 3600) % 24);
+        var m = parseInt((s / 60) % 60);
+
+        return (d > 0 ? d + " "+ chrome.i18n.getMessage("day") +" " : "") + (h > 0 ? h + " "+ chrome.i18n.getMessage("hour") +" " : "") + m + " "+ chrome.i18n.getMessage("minute") +"!" ;
+    }
+
+    //CREATE alarm shell
+    var alarm = createAlarm();
+
+    //DATA collect
+    alarm = collectAlarmData(alarm);
+
+    //ALARM TIME - calculate when alarm will trigger
+    alarm.time_span = alarm.time_set - alarm.time_created;
+
+    //CHECK if alarm is in EDIT mode or CREATE mode
+    var edit = document.getElementById("alarm-new").getAttribute("state") === "edit",
+        edit_key = document.getElementById("alarm-new").getAttribute("key");
+
+    //CREATE or MODIFY alarm
+    var storage_callback = function (object) {
+        var alarms = object.AM_alarms,
+            alarm_list = document.getElementById("alarm-list"),
+            alarms_html = alarm_list.getElementsByClassName("alarm"),
+            i;
+
+
+        /* MODIFY only removes alarm from all sources and keeps key */
+        if (edit) {
+            alarm.key = edit_key;
+            chrome.alarms.clear(alarm.key);
+
+            for (i = 0; i < alarms.length; i++) {
+                if (alarms[i].key === alarm.key) {
+                    alarms.splice(i, 1);
+                    break;
+                }
+            }
+
+            for (i = 0; i < alarms_html.length; i++) {
+                if (alarms_html[i].getAttribute("key") === alarm.key) {
+                    alarms_html[i].remove();
+                    break;
+                }
+            }
+
+        }
+
+
+        //save new alarm to alarm list
+        alarms.push(alarm);
+        chrome.storage.sync.set({'AM_alarms': alarms});
+
+
+        //CREATE template and add to list
+        var alarm_element = createTemplate('alarm', { alarm: alarm } );
+        document.getElementById('alarm-list').appendChild(alarm_element);
+
+
+        //notify user that alarm is created and will be processed in X minutes
+        alarms_html = alarm_list.getElementsByClassName("alarm");
+        for (i = 0; i < alarms_html.length; i++) {
+            if (alarms_html[i].getAttribute("key") === alarm.key) {
+                alarms_html[i].notify("alarm created", chrome.i18n.getMessage("ntfAlarmRing") + timeToAlarm(alarm.time_span));
+            }
+        }
+
+        //CREATE ALARM trigger -> 1 minute = 60,000 milliseconds
+        chrome.alarms.create(alarm.key, { delayInMinutes: (alarm.time_span / 60000) });
+
+        orderAlarms();
+
+    }.bind({alarm: alarm, edit: edit, edit_key: edit_key});
+    chrome.storage.sync.get('AM_alarms', storage_callback);
+
+    resetAlarm();
+    toggleNewAlarm();
+
+}
+
+
+/*
  * @Module - Logic
  * APP CORE
  * EVENT setter and functions for "New alarm" section
@@ -731,166 +1001,12 @@ function orderAlarms () {
  * @returns {null}
  *
  */
-function initNewAlarm() {
+function initAlarm() {
 
-    /*
-     * Resets data in new alarm section
-     */
-    function resetNA() {
+    //new alarm buttons init
+    document.getElementById('alarm-reset').addEventListener('click', resetAlarm);
+    document.getElementById('alarm-set').addEventListener('click', confirmAlarm);
 
-        document.getElementById('new-name-input').value = '';
-        document.getElementById('new-desc-input').value = '';
-
-        //create time one minute ahead of now
-        var t = new Date( new Date().getTime() + 60000 );
-        document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value = t.getHours();
-        document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value = t.getMinutes();
-
-        document.getElementById("new-date-input").value = displayTime(t).date;
-        datePicker.setDate(t);
-
-        document.getElementById('new-rep-all').checked = false;
-        var dates = document.getElementsByClassName("new-rep-date");
-        for (var i = 0; i < dates.length; i++) {
-            dates[i].checked = false;
-        }
-
-        //select current day
-        //sunday is 0 but in html is 7th in order, so we swap with array
-        var day_now = (new Date()).getDay();
-        dates[ day_now === 0 ? 6 : day_now - 1 ].checked = true;
-
-    }
-    document.getElementById('alarm-reset').addEventListener('click', resetNA);
-
-
-    /*
-     * KEY function for extension
-     * creates new alarm, creates key and takes data from popup UI that user entered
-     * calculates difference between current time and alarm time and stores data to new object
-     * async call to storage to store new alarm, creates template for UI and creates alarm based on data given
-     * resets new alarm fields
-     *
-     * Most delicate part is calculation of alarm
-     *
-     * @returns {null}
-     */
-    function setNA() {
-
-        //constraints before creating new alarm
-        if ( checkConstraints() ) { return false; }
-
-        //random key generator
-        //6 character alphanumeric string
-        function make_key() {
-            return Math.random().toString(36).substring(2,8);
-        }
-
-        //calculates how much time is till alarm
-        function timeToAlarm (t) {
-            var s = parseInt(t / 1000); //ignore milliseconds, round seconds
-            var d = parseInt(s / 86400);
-            var h = parseInt((s / 3600) % 24);
-            var m = parseInt((s / 60) % 60);
-
-            return (d > 0 ? d + " "+ chrome.i18n.getMessage("day") +" " : "") + (h > 0 ? h + " "+ chrome.i18n.getMessage("hour") +" " : "") + m + " "+ chrome.i18n.getMessage("minute") +"!" ;
-        }
-
-        /*
-         * ALARM object
-         * @param {string} key - 6-char alphanumeric string used as identifier
-         * @param {int} time_created - time at which alarm was created (ms from 1970)
-         * @param {int} time_set - time when alarm was supposed to activate (ms from 1970)
-         * @param {int} time_span - difference between current time and time when alarm is to be activated (ms)
-         * @param {bool} repetitive - checker if alarm is one time or will be repeated
-         * @param {int} time_rep - original time at which alarm will be repeated (only time taken, date dropped)
-         * @param {array} rep_days - true/false entries on days that are repeated/not repeated
-         */
-        var alarm = {
-            key: make_key(),
-            name: document.getElementById('new-name-input').value,
-            desc: document.getElementById('new-desc-input').value,
-            time_created: new Date().getTime(),
-            time_set: "",
-            time_span: "",
-            repetitive: false,
-            time_rep: "",
-            rep_days: [0, 0, 0, 0, 0, 0, 0],
-            ringing: false,
-            active: true
-        };
-
-
-        //DATA collect
-        //time is taken from picker that has date object
-        //when seconds set to something, picker will change date object but action itself returns time in milliseconds
-        var input_date = document.getElementById("new-date-input").value,
-            input_h = document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value,
-            input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value;
-        alarm.time_set = revertTime(input_date, input_h + ":" + input_min + ":00").getTime();
-        alarm.repetitive = document.getElementById("toggle-repetitive-alarm").getAttribute("class").length > 0;
-
-        //repetitive alarm additions
-        if (alarm.repetitive) {
-            var rep_days = document.getElementsByClassName("new-rep-box"),
-                i, d;
-
-            for (i = 0; i < rep_days.length - 1; i++) {
-                d = rep_days[i].getElementsByTagName("input")[0];
-                alarm.rep_days[i] = d.checked;
-            }
-            alarm.time_rep = alarm.time_set;
-
-            var true_rep = false;
-            for (i = 0; alarm.rep_days.length; i++) {
-                if (alarm.rep_days[i]) { true_rep = true; break; }
-            }
-            
-            if(!true_rep) { alarm.repetitive = false; }
-        }
-
-
-        //ALARM TIME - calculate when alarm will trigger
-        alarm.time_span = alarm.time_set - alarm.time_created;
-
-
-        //ASYNC!
-        //get alarm list and add new alarm
-        var storage_callback = function (object) {
-            var alarms = object.AM_alarms;
-
-            //save new alarm to alarm list
-            alarms.push(alarm);
-            chrome.storage.sync.set({'AM_alarms': alarms});
-
-            //add alarm to list
-            var alarm_element = createTemplate('alarm', { alarm: alarm } );
-            document.getElementById('alarm-list').appendChild(alarm_element);
-
-            //notify user that alarm is created and will be processed in X minutes
-            var alarm_list = document.getElementById("alarm-list").getElementsByClassName("alarm");
-            for (var i = 0; i < alarm_list.length; i++) {
-                if (alarm_list[i].getAttribute("key") === alarm.key) {
-                    alarm_list[i].notify("alarm created", chrome.i18n.getMessage("ntfAlarmRing") + timeToAlarm(alarm.time_span));
-                }
-            }
-
-            orderAlarms();
-
-        }.bind(alarm); //pushing variable alarm into scope!
-        chrome.storage.sync.get('AM_alarms', storage_callback);
-
-
-        //create alarm -> 1 minute = 60,000 milliseconds
-        chrome.alarms.create(alarm.key, { delayInMinutes: (alarm.time_span / 60000) });
-
-        resetNA();
-        toggleNewAlarm();
-    }
-
-
-
-    document.getElementById('alarm-set').addEventListener('click', setNA);
 
     //toggles visibility of new alarm section
     document.getElementById("toggle-new-alarm").addEventListener('click', toggleNewAlarm);
@@ -909,7 +1025,6 @@ function initNewAlarm() {
 }
 
 
-
 /*
  * @Module - Logic
  * Gets alarms from storage and via template adds to popup DOM
@@ -923,29 +1038,6 @@ function getAlarmList() {
         var alarms = object.AM_alarms || [],
             list = document.getElementById('alarm-list'),
             alarm = null, i;
-
-
-        //TODO LEGACY code when inactive didn't exist
-        //TODO change in options when alarm to be come inactive
-        //var removed = false;
-        //checks age of alarm and removes if alarm "passed" - happens when PC turned off and alarm is "triggered"
-        // for (var i = 0; i < alarms.length; i++) {
-        //
-        //     if (!alarms[i].repetitive && !alarms[i].ringing) {
-        //         if ( (alarms[i].time_set - (new Date()).getTime()) < 0 ) {
-        //             alarms.splice(i, 1);
-        //             removed = true;
-        //         }
-        //     }
-        //
-        //     /* HAX when notification is broken (not risen), then this will raise it, at least when popup is opened */
-        //     if(alarms[i].ringing) {
-        //         chrome.notifications.update(alarms[i].key, { requireInteraction: true });
-        //     }
-        //
-        // }
-        // if (removed) { chrome.storage.sync.set({'AM_alarms': alarms}); }
-
 
         for (i = 0; i < alarms.length; i++) {
             //create alarm HTML template and add to DOM
@@ -1027,6 +1119,6 @@ document.addEventListener('DOMContentLoaded', function() {
     //inserts existing alarms in popup
     getAlarmList();
     //adds section for new alarm in popup
-    initNewAlarm();
+    initAlarm();
 
 });

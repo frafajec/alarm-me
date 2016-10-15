@@ -111,6 +111,36 @@ chrome.storage.onChanged.addListener(updateBadge);
 
 
 /*
+ * TODO: wrong calculation... REWORK!
+ * @Module - Logic
+ * Calculates repeat alarm time
+ * sets alarm to be repeated on next step
+ * @param {string} key - key of alarm to be snoozed
+ * @returns {null}
+ */
+function calc_repetitive (alarm) {
+    var alarm_time = (new Date(alarm.time_rep)),
+        alarm_next,
+        i = alarm_time.getDay(),
+        next = -1,
+        diff = 0;
+
+    do {
+        diff++;
+        if (alarm.rep_days[i]) {  next = i; } //search for next day through array
+        else if (i++ === 6) { i = 0; } //if end of array, return search from monday
+    } while (next === -1);
+
+    alarm_next = (new Date(alarm_time.getTime() + (60000 * 60 * 24 * diff) ) ).getTime();
+    alarm.time_span = alarm_next - alarm.time_set;
+    alarm.time_set = alarm_next;
+    alarm.time_rep = alarm_next;
+
+    return alarm;
+}
+
+
+/*
  * @Module - Logic
  * Sets given alarm key to be inactive, removes his alarm handler and saves state
  *
@@ -179,35 +209,6 @@ function set_active (alarm, sender, sendResponse) {
 
 /*
  * @Module - Logic
- * Calculates repeat alarm time
- * sets alarm to be repeated on next step
- * @param {string} key - key of alarm to be snoozed
- * @returns {null}
- */
-function calc_repetitive (alarm) {
-    var alarm_time = (new Date(alarm.time_rep)),
-        alarm_next,
-        i = alarm_time.getDay(),
-        next = -1,
-        diff = 0;
-
-    do {
-        diff++;
-        if (alarm.rep_days[i]) {  next = i; } //search for next day through array
-        else if (i++ === 6) { i = 0; } //if end of array, return search from monday
-    } while (next === -1);
-
-    alarm_next = (new Date(alarm_time.getTime() + (60000 * 60 * 24 * diff) ) ).getTime();
-    alarm.time_span = alarm_next - alarm.time_set;
-    alarm.time_set = alarm_next;
-    alarm.time_rep = alarm_next;
-
-    return alarm;
-}
-
-
-/*
- * @Module - Logic
  * SNOOZE alarm
  * postpones alarm for given period of time
  * @param {string} key - key of alarm to be snoozed
@@ -256,8 +257,7 @@ function snooze (key) {
 }
 
 
-/* TODO when canceled if not repetitive check options and set it to inactive
- * @Module - Logic
+/* @Module - Logic
  * CANCELS alarm (onetime or repetitive)
  * Determines type of alarm and handles/removes it
  * @param {string} key - key of alarm to be snoozed
@@ -295,8 +295,14 @@ function cancel_alarm (key) {
         //NORMAL section
         } else {
 
-            //calls popup where listener is set to receive action (if UI open)
-            chrome.extension.sendMessage({remove: true, key: key});
+            if (options.inactive) {
+                alarm.active = false;
+                alarms.push(alarm);
+                chrome.extension.sendMessage({remove: true, update: true, key: key, alarm: alarm});
+            } else {
+                //calls popup where listener is set to receive action (if UI open)
+                chrome.extension.sendMessage({remove: true, key: key});
+            }
 
         }
 

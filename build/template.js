@@ -100,34 +100,37 @@ function template (template, data) {
             container.appendChild(body);
 
             //OPTIONS or ACTION to cancel ring
+            var alarm_ring, alarm_options;
             if (alarm.ringing) {
 
-                var alarm_ring = document.createElement("input");
-                    alarm_ring.setAttribute("class", "alarm-ring-cancel");
-                    alarm_ring.setAttribute("type", "button");
+                alarm_ring = document.createElement("input");
+                alarm_ring.setAttribute("class", "alarm-ring-cancel");
+                alarm_ring.setAttribute("type", "button");
 
             } else {
 
-                var alarm_options = document.createElement("div");
-                    alarm_options.setAttribute("class", "alarm-options");
-                    alarm_options.setAttribute("state", data.options_opened ? "open" : "closed");
-
+                alarm_options = document.createElement("div");
+                alarm_options.setAttribute("class", "alarm-options");
+                alarm_options.setAttribute("state", data.options_opened ? "open" : "closed");
 
                     var options_actions = document.createElement("div");
                         options_actions.setAttribute("class", "alarm-actions");
 
                         var action_remove = document.createElement("i");
                         action_remove.setAttribute("class", "fa fa-trash fa-lg alarm-remove");
+                        action_remove.setAttribute("title", chrome.i18n.getMessage("titleRemove"));
                         action_remove.setAttribute("aria-hidden", "true");
                         options_actions.appendChild(action_remove);
 
                         var action_edit = document.createElement("i");
                         action_edit.setAttribute("class", "fa fa-pencil-square-o fa-lg alarm-edit");
+                        action_edit.setAttribute("title", chrome.i18n.getMessage("titleEdit"));
                         action_edit.setAttribute("aria-hidden", "true");
                         options_actions.appendChild(action_edit);
 
                         var action_state = document.createElement("i");
                         action_state.setAttribute("class", "fa fa-toggle-on fa-lg "+ (alarm.active ? "" : "fa-rotate-180") +" alarm-change-state");
+                        action_state.setAttribute("title", chrome.i18n.getMessage("titleState"));
                         action_state.setAttribute("aria-hidden", "true");
                         options_actions.appendChild(action_state);
 
@@ -135,6 +138,7 @@ function template (template, data) {
 
                     var options_toggle = document.createElement("i");
                         options_toggle.setAttribute("class", "fa fa-cog alarm-options-toggle");
+                        options_toggle.setAttribute("title", chrome.i18n.getMessage("titleOptions"));
                         options_toggle.setAttribute("aria-hidden", "true");
 
                     alarm_options.appendChild(options_toggle); //adding action menu into alarm

@@ -1,12 +1,8 @@
 {
-
   "extName": {
     "message": "Alarm Me!",
     "description": "Extension name"
   },
-
-
-
   "minute": {
     "message": "minute(s)",
     "description": "Minutes display on form"
@@ -61,8 +57,6 @@
     "description": "All."
   },
 
-
-
   "snooze": {
     "message": "Snooze",
     "description": "Label for snooze on notification"
@@ -71,16 +65,16 @@
     "message": "Cancel (delete alarm)",
     "description": "Label for cancel on notification"
   },
-
-
-
-
   "newAlarm": {
     "message": "New alarm",
     "description": "Button label to open new alarm section"
   },
   "cancelAlarm": {
     "message": "Cancel alarm",
+    "description": "Button label to close new alarm section"
+  },
+  "editAlarm": {
+    "message": "Cancel editing",
     "description": "Button label to close new alarm section"
   },
   "toggleRepetitive": {
@@ -108,6 +102,10 @@
     "description": "Button link to instructions page"
   },
 
+
+
+
+
   "ntfAlarmRing": {
     "message": "Alarm will ring in</br> ",
     "description": "Time until alarm activation"
@@ -117,11 +115,42 @@
     "description": "Popup notify text for alarm that is set in 'history'"
   },
 
-
-
-
-
-
+  "titleRemove": {
+    "message": "Remove",
+    "description": "Tooltip text"
+  },
+  "titleEdit": {
+    "message": "Edit",
+    "description": "Tooltip text"
+  },
+  "titleState": {
+    "message": "Turn off/on",
+    "description": "Tooltip text"
+  },
+  "titleOptions": {
+    "message": "Options",
+    "description": "Tooltip text"
+  },
+  "titleReset": {
+    "message": "Reset",
+    "description": "Tooltip text"
+  },
+  "titleSet": {
+    "message": "Confirm",
+    "description": "Tooltip text"
+  },
+  "titleCurrentTime": {
+    "message": "Current time",
+    "description": "Tooltip text"
+  },
+  "titleAlarmTime": {
+    "message": "Alarm time",
+    "description": "Tooltip text"
+  },
+  "titleAlarmDate": {
+    "message": "Alarm date",
+    "description": "Tooltip text"
+  },
 
 
 
@@ -188,6 +217,14 @@
     "message": "Minutes",
     "description": "Options after-label"
   },
+  "optLabelInactive": {
+    "message": "Default inactive",
+    "description": "Options label"
+  },
+  "optLabelInactiveTooltip": {
+    "message": "* Becomes inactive, not deleted",
+    "description": "Options label tooltip"
+  },
 
   "optHintSaving": {
     "message": "* options are saved as soon as they are changed",
@@ -206,9 +243,6 @@
     "message": "Reset",
     "description": "Options button for reset"
   },
-
-
-
 
   "insSCR": {
     "message": "Small, compact, reachable",
@@ -247,9 +281,6 @@
     "description": "Instructions title"
   },
 
-
-
-
   "suppAbout": {
     "message": "About",
     "description": "Support title"
@@ -268,6 +299,10 @@
   },
   "suppLibText2": {
     "message": "Additional functionality on top of a select HTML element. Extends to some cool behavior!",
+    "description": "Support text"
+  },
+  "suppLibText3": {
+    "message": "What else to say beside that is add awesomeness to the app!",
     "description": "Support text"
   },
   "suppSupport": {
