@@ -253,23 +253,23 @@
     "description": "Instructions text"
   },
   "insSCRText2": {
-    "message": "You can choose between creating one-time alarm or repetitive alarm that will trigger at same time at every day you select!</br>By simply creating your few alarms that will be your reminders, you are good to go!",
+    "message": "You can choose between creating one-time alarm or repetitive alarm that will trigger at same time at every day you select!</br>Alarm can be created by setting its time and date and pressing 'Confirm' button!</br>By simply creating your few alarms that will be your reminders, you are good to go!",
     "description": "Instructions text"
   },
-  "insCRAlarms": {
-    "message": "Create & remove alarms",
+  "insERAlarms": {
+    "message": "Edit & remove alarms",
     "description": "Instructions title"
   },
-  "insCRAlarmsText1": {
-    "message": "Creating is easy! When form is opened simply set date and time and text if you want some context on alarm. When done, press check-mark button (green button).",
+  "insERAlarmsText1": {
+    "message": "Editing is easy! Navigate to options of alarm and press 'Edit' button. That will open editing form where if you press 'Confirm' alarm will be changed!",
     "description": "Instructions text"
   },
-  "insCRAlarmsText2": {
+  "insERAlarmsText2": {
     "message": "Picking a date for calendar was never easier! Simply navigate through days, months, maybe even years!",
     "description": "Instructions text"
   },
-  "insCRAlarmsText3": {
-    "message": "When popup is opened, alarms are listed one after another. By simply pressing delete (red button) alarm will be removed.",
+  "insERAlarmsText3": {
+    "message": "When popup is opened, alarms are listed one after another. By simply opening options and pressing 'Remove' button, alarm will be deleted.",
     "description": "Instructions text"
   },
   "insNotif": {

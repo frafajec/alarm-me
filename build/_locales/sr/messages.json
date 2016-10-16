@@ -253,23 +253,23 @@
     "description": "Instructions text"
   },
   "insSCRText2": {
-    "message": "Moete birati između kreiranja jednokratkog alarma ili ponavljajućeg koji će se upaliti u isto vrijeme svaki dan koji ste označili! </br>Jednostavnim kreiranjem nekoliko alarma koji će biti vaši podsjetnici, spremni ste koristi aplikaciju!!",
+    "message": "Možete birati između kreiranja jednokratkog alarma ili ponavljajućeg koji će se upaliti u isto vrijeme svaki dan koji ste označili! </br>Alarm će biti kreiran postavljanjem na vremena i datuma te klikom na 'Potvrdi'.</br> i Jednostavnim kreiranjem nekoliko alarma koji će biti vaši podsjetnici, spremni ste koristi aplikaciju!!",
     "description": "Instructions text"
   },
-  "insCRAlarms": {
-    "message": "Kreiraj i ukloni alarme",
+  "insERAlarms": {
+    "message": "Editiraj i ukloni alarme",
     "description": "Instructions title"
   },
-  "insCRAlarmsText1": {
-    "message": "Kreiranje je jednostavno! Kada je forma otvorena jednostavno odaberite vrijeme, datum i tekst ukoliko želite više podataka.  Kada ste popunili, pristisnite gumb potvrde (zeleni gumb).",
+  "insERAlarmsText1": {
+    "message": "Uređivanje je jednostavno! Otvorite opcije alarma i kliknite 'Uređivanje'. To će otvoriti formu za uređivanja gde nakon klika na 'Potvrdi' alarm će da bude promenjen.",
     "description": "Instructions text"
   },
-  "insCRAlarmsText2": {
+  "insERAlarmsText2": {
     "message": "Odabir datuma za alarm nikada nije bilo jednostavnije! Jednostavno navigirajte kroz date, mjesece, možda čak i godine!",
     "description": "Instructions text"
   },
-  "insCRAlarmsText3": {
-    "message": "Kada je popup otvoren, alarmi su poredani jedan iza drugog. Jednostavnim pritiskom na obriši (crveni gumb) alarm će se ukloniti.",
+  "insERAlarmsText3": {
+    "message": "Kada je popup otvoren, alarmi su poredani jedan iza drugog. Jednostavnim otvarnanjem opcija i klikom na 'Ukloni', alarm će se ukloniti.",
     "description": "Instructions text"
   },
   "insNotif": {

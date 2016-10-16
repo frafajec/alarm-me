@@ -253,23 +253,23 @@
     "description": "talimat metni"
   },
   "insSCRText2": {
-    "message": "Tek seferlik alarm ya da seçtiðin günler ayný saatte harekete geçeçek tekrarlý alarm oluþturmayý seçebilirsin!</br> hatýrlatýcýn olarak birkaç alarm oluþturarak, hazýrsýn!",
+    "message": "Seçtiğiniz her gün aynı anda tetikler kerelik alarmı ya da yineleyici alarm oluşturma arasında seçim yapabilirsiniz! </ Br> Alarm zamanı ve tarihi ayarlama ve 'Onayla' butonuna basarak oluşturulabilir! </ Br> tarafından sadece hatırlatmalar olacak birkaç alarmları oluştururken, sen gitmek iyidir!",
     "description": "talimat metni"
   },
-  "insCRAlarms": {
-    "message": "Alarmlarý oluþtur ve kaldýr",
+  "insERAlarms": {
+    "message": "Düzenlemek ve alarmları kaldırmak",
     "description": "Talimat baþlýðý"
   },
-  "insCRAlarmsText1": {
-    "message": "Oluþturmak kolaydýr! eðer alarmda ekstra baðlam istersen form açýlýnca tarih, saat ve metni kolaylýkla ayarla. bittiðinde, onay tuþuna bas (yeþil tuþ).",
+  "insERAlarmsText1": {
+    "message": "Düzenleme kolay! alarm ve basın 'Edit' butonuna seçeneklerine gidin. Yani 'Onayla' alarmı değişmiş olacak basarsanız düzenleme formu açılacaktır!",
     "description": "talimat metni"
   },
-  "insCRAlarmsText2": {
+  "insERAlarmsText2": {
     "message": "Takvimde gün seçmek daha kolay olmamýþtý!günler, aylar hatta yýllar içinde koalylýkla yolunu bul!",
     "description": "talimat metni"
   },
-  "insCRAlarmsText3": {
-    "message": "Pencere açýlýnca, alarmlar sýralanacak. sil tuþuna basarak (kýrmýzý tuþ) alarm kaldýrýlacak.",
+  "insERAlarmsText3": {
+    "message": "When popup is opened, alarms are listed one after another. By simply opening options and pressing 'Remove' button, alarm will be deleted.",
     "description": "talimat metni"
   },
   "insNotif": {

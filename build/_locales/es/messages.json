@@ -253,23 +253,23 @@
     "description": "Instructions text"
   },
   "insSCRText2": {
-    "message": "Puedes elegir entre crear una 'alarma que suenan una vez' o una alarma repetitiva que suenará en el mismo tiempo cada día que elegiste !</br>By simply creating your few alarms that will be your reminders, you are good to go!",
+    "message": "Se puede elegir entre crear alarma de una sola vez o alarma repetitiva que activará al mismo tiempo en todos los días de seleccionar! </ Br> alarma se puede crear mediante el establecimiento de su hora y fecha y pulsando el botón 'Confirmar'! </ Br> Por la simple creación de sus pocas alarmas que serán sus recordatorios, que son buenos para ir!",
     "description": "Instructions text"
   },
-  "insCRAlarms": {
-    "message": "Crear & eliminar alarmas",
+  "insERAlarms": {
+    "message": "Editar y eliminar las alarmas",
     "description": "Instructions title"
   },
-  "insCRAlarmsText1": {
-    "message": "Creando es fácil! When form is opened simply set date and time and text if you want some context on alarm. When done, press check-mark button (green button).",
+  "insERAlarmsText1": {
+    "message": "La edición es fácil! Navegue a las opciones de alarma y pulse el botón 'Editar'. Eso abrirá formulario de edición en la que si se pulsa se cambiará de alarma 'Confirmar'!",
     "description": "Instructions text"
   },
-  "insCRAlarmsText2": {
+  "insERAlarmsText2": {
     "message": "Selección de una fecha para el calendario nunca fue más fácil! Basta con navegar a través de días, meses, incluso años!",
     "description": "Instructions text"
   },
-  "insCRAlarmsText3": {
-    "message": "Cuando se abre emergente, las alarmas se enumeran uno tras otro. Simplemente pulsando Eliminar alarma (botón rojo) serán eliminados.",
+  "insERAlarmsText3": {
+    "message": "Cuando se abre emergente, las alarmas se enumeran uno tras otro. Con sólo abrir las opciones y pulsar el botón 'Eliminar', se borrará la alarma.",
     "description": "Instructions text"
   },
   "insNotif": {

@@ -249,27 +249,27 @@
     "description": "Instructions title"
   },
   "insSCRText1": {
-    "message": "Malá popup aplikácia, ktorú budete mať vždy poruke. Spustená zaberá málo miesta a všetky funkcie sú dostupné na pár kliknutí. Ak nie sú uložené žiadne pripomienky, okno vytvorenia novej pripomienky sa spustí automaticky! </br> V zápätí sa nachádzajú linky vedúce k 'inštrukciám' a 'nastaveniam', pomocou ktorých je možné sa kedykoľvek dostať k zvolenej sekcii.",
+    "message": "enky sa spustí automaticky! </br> V zápätí sa nachádzajú linky vedúce k 'inštrukciám' a 'nastaveniam', pomocou ktorých je možné sa kedykoľvek dostať k zvolenej sekcii.",
     "description": "Instructions text"
   },
   "insSCRText2": {
-    "message": "Je možné si vybrať medzi vytvorením jednorázovej alebo opakovanej pripomienky ktorá sa pripomenie každý z vybraných dní!</br>Jednoduchým vytvorením zopár pripomienok je práca hotová!",
+    "message": "Môžete si vybrať medzi vytvorením jednorazový budík alebo opakovaný budík, ktorá spustí v rovnakom čase na každý deň vybrať! </ Br> Zabezpečovacie zariadenie môže byť vytvorený nastavením jeho čas a dátum a stlačením tlačidla Potvrdiť! </ Br> Podľa jednoducho vytvárať niekoľko alarmov, ktoré budú vaše pripomenutie, tie sú dobré ísť!",
     "description": "Instructions text"
   },
-  "insCRAlarms": {
-    "message": "Vytvoriť a zmazať pripomienky",
+  "insERAlarms": {
+    "message": "Úprava a odstrániť alarmy",
     "description": "Instructions title"
   },
-  "insCRAlarmsText1": {
-    "message": "Vytvoriť pripomienku je jednoduché! Po otvorení okna jendnoducho nastavíte dátum, čas a pokiaľ chcete aj sprievodný text. Ak je všetko hotové, pokračujte kliknutím na zelené tlačidlo.",
+  "insERAlarmsText1": {
+    "message": "Editácia je jednoduché! Prejdite k možnostiam alarmu a stlačte tlačidlo 'Upraviť'. Ktoré sa otvorí editačné formulár, kde Ak stlačíte alarm 'Potvrdiť' sa zmení!",
     "description": "Instructions text"
   },
-  "insCRAlarmsText2": {
+  "insERAlarmsText2": {
     "message": "Zvolenie dátumu z kalendára nebolo nikdy jednoduchšie! Jednoducho prechádzajte medzi dňami, mesiacmi dokonca rokmi!",
     "description": "Instructions text"
   },
-  "insCRAlarmsText3": {
-    "message": "Ak je okno otvorené, pripomienky sú zobrazené jedna po druhej. Jednoduchým kliknutím na tlačidlo 'zmazať' (červené tlačidlo) je možné pripomienku zmazať.",
+  "insERAlarmsText3": {
+    "message": "Pri otvorení pop-up, alarmy sú uvedené jeden po druhom. Jednoduchým otvorením možností a stlačením tlačidla 'Odstrániť' tlačidla sa alarm bude zmazaný.",
     "description": "Instructions text"
   },
   "insNotif": {

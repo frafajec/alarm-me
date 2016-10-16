@@ -253,23 +253,23 @@
     "description": "Instructions text"
   },
   "insSCRText2": {
-    "message": "Můžete si vybrat mezi vytvořením jednorázové připomínky anebo opakující se, která bude připomínána ve stejný čas každý ze zvolených dnů!</br>Jednoduchým vytvořením několika alarmu už nikdy na nic nezapomenete!",
+    "message": "Můžete si vybrat mezi vytvořením jednorázový budík nebo opakovaný budík, která spustí ve stejnou dobu na každý den vybrat! </ Br> Zabezpečovací zařízení může být vytvořen nastavením jeho čas a datum a stiskem tlačítka Potvrdit! </ Br> Podle jednoduše vytvářet několik alarmů, které budou vaše připomenutí, ty jsou dobré jít!",
     "description": "Instructions text"
   },
-  "insCRAlarms": {
-    "message": "Vytvořit a smazat alarmy",
+  "insERAlarms": {
+    "message": "Úprava a odstranit alarmy",
     "description": "Instructions title"
   },
-  "insCRAlarmsText1": {
-    "message": "Vytvoření je jednoduché! V okně zvolte datum, čas a text pokud chcete přidat připomínce nějakou poznámku. Pokud jste hotovi, pokračujte stiskem zeleného tlačítka.",
+  "insERAlarmsText1": {
+    "message": "Editace je snadné! Přejděte k možnostem alarmu a stiskněte tlačítko 'Upravit'. Které se otevře editační formulář, kde Stisknete-li alarm 'Potvrdit' se změní!",
     "description": "Instructions text"
   },
-  "insCRAlarmsText2": {
+  "insERAlarmsText2": {
     "message": "Volení datumu z kalendáře nebylo nikdy jednodušší! Jednoduše postupujte přes dny, měsíce a roky!",
     "description": "Instructions text"
   },
-  "insCRAlarmsText3": {
-    "message": "Když je otevřeno vyskakovací okno, je zobrazen seznam připomínek jedna po druhé. Jednoduchým stiskem tlačidla smazat (červené tlačidlo) bude připomínka smazána.",
+  "insERAlarmsText3": {
+    "message": "Při otevření pop-up, alarmy jsou uvedeny jeden po druhém. Pouhým otevřením možností a stisknutím tlačítka 'Odstranit' tlačítka se alarm bude smazán.",
     "description": "Instructions text"
   },
   "insNotif": {
