@@ -1,6 +1,3 @@
-/*
- * GLOBALS
- */
 //embedded and libraries
 var chrome = chrome || undefined;
 
@@ -12,15 +9,9 @@ var toneList = [
 ];
 var alarmTone;
 
-//currently processed notification, HAX in order to persist notifications
-var notif_actions = {}; //object that contains alarm keys where user reacted to notification
-var notif_timeouts = {}; //object for alarm notification duration (if longer than in options, auto-cancellation of notification and snooze)
-
-var snoozed_alarms = {}; //when alarm snoozed for not taking more than one action, popped from object when snooze finished
-var removed_alarms = {}; //when alarm is to be canceled for not taking more than one action, after handling alarm canceled and popped from object
+var alarm_timeouts = {}; //when alarm occurs registers its timeout and if triggered snoozes/disables alarm
 
 var options;
-
 
 
 /*
@@ -148,11 +139,11 @@ function calc_repetitive (alarm) {
  */
 function set_inactive (key) {
 
+    //stop alarm from triggering
+    chrome.alarms.clear(key);
+
     var storage_callback = function (object) {
         var alarms = object.AM_alarms;
-
-        //stop alarm from triggering
-        chrome.alarms.clear(key);
 
         //remove from storage
         for (var i = 0; i < alarms.length; i++) {
@@ -318,6 +309,22 @@ function cancel_alarm (key) {
 
 /*
  * @Module - Logic
+ * Removes notification and snoozes alarm when user inactive
+ * @param {string} key - binded when called
+ */
+function alarm_timeout () {
+    var key = this.key;
+
+    chrome.notifications.clear(key);
+    if (parseFloat(options.snooze) > 0) {
+        snooze(key);
+    }
+    delete alarm_timeouts[key];
+}
+
+
+/*
+ * @Module - Logic
  * When alarm is created he is updated so that UI will be able to shut down ringing
  * FIX when notification is not "shown" for some unknown reason...
  */
@@ -338,6 +345,11 @@ function register_ringing (key) {
 
     //get list of alarms to raise notification
     chrome.storage.sync.get('AM_alarms', storage_callback);
+
+    //create timeout for notification
+    if (parseFloat(options.stop_after) > 0) {
+        alarm_timeouts[key] = setTimeout(alarm_timeout.bind({ key: key }), options.stop_after * 60000);
+    }
 
 }
 
@@ -420,21 +432,12 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
     }
 
     if (request.cancel_ringing) {
-        alarm_sound(false);
-        cancel_alarm(request.key);
         chrome.notifications.clear(request.key);
-        delete notif_actions[request.key];
-        delete notif_timeouts[request.key];
-
+        cancel_alarm(request.key);
     }
 
     if (request.set_inactive) {
-        //prevention
-        alarm_sound(false);
         chrome.notifications.clear(request.key);
-        delete notif_actions[request.key];
-        delete notif_timeouts[request.key];
-        //action
         set_inactive(request.key);
     }
 
@@ -463,7 +466,7 @@ chrome.alarms.onAlarm.addListener(function( alarm_event ) {
     //@param {string} key
     register_ringing(alarm_event.name);
     //put alarm into currently active ones and set its creation time
-    notif_timeouts[alarm_event.name] = new Date().getTime();
+    // notif_timeouts[alarm_event.name] = new Date().getTime();
 
 
 });
@@ -485,73 +488,38 @@ chrome.alarms.onAlarm.addListener(function( alarm_event ) {
 chrome.notifications.onButtonClicked.addListener(function(key, btnIdx) {
 
     if (btnIdx === 0 && parseInt(options.snooze) > 0) {
-        //add alarm to snooze list (when button is pressed sometimes delete can occur)
-        snoozed_alarms[key] = true;
         //@param {string} key - notification key for alarm to change
         snooze(key);
         //@param {string} key - notification key for notification to be terminated
         chrome.notifications.clear(key);
     } else if (btnIdx === 1 || parseInt(options.snooze) === 0) {
-        //add alarm to remove list (when button is pressed sometimes actions taken are doubled)
-        removed_alarms[key] = true;
         //@param {string} key - notification key for alarm to turn off and delete or repeat
         cancel_alarm(key);
         //@param {string} key - notification key for notification to be terminated
         chrome.notifications.clear(key);
     }
 
-    notif_actions[key] = true;
-
 });
 
 
 /*
  * @Module - Logic
- * Closing of notification by non-default action
- * Notification length is 8 seconds!
  *
  * the small 'x' on the top right corner - x_close
- * buttons action on notification - special closure
+ * buttons action on notification - special closure (handled on 'onButtonClicked'
  * timeout period of notification - auto closure
  *
  * @param {string} key - notification key
- * @param {boolean} x_close - control weather user closed or timeout
+ * @param {boolean} x_close - control weather user closed
  * @returns {null}
 */
 chrome.notifications.onClosed.addListener(function(key, x_close) {
 
-    //user closed notification
-    //if key in notification actions, remove it and consider handled
-    if (notif_actions[key] || x_close) {
-        alarm_sound(false);
+    alarm_sound(false);
+    clearTimeout(alarm_timeouts[key]);
 
-        //when notification is closed via buttons then "cancel_alarm" is triggered there and would be here
-        if (!snoozed_alarms[key] && !removed_alarms[key]) {
-            cancel_alarm(key);
-        } else {
-            delete snoozed_alarms[key];
-            delete removed_alarms[key];
-        }
-
-        chrome.notifications.clear(key);
-        delete notif_actions[key];
-        delete notif_timeouts[key];
-    }
-    //auto closure, re-raise notification
-    //if length of notification is exceeded by one in settings stop alarm
-    else {
-        var notif_alive = new Date().getTime() - notif_timeouts[key];
-
-        if (options.stop_after > 0 && (options.stop_after * 60000) > notif_alive ) {
-            raise_notification(key);
-        } else {
-            alarm_sound(false);
-            snooze(key);
-            chrome.notifications.clear(key);
-            delete notif_actions[key];
-            delete notif_timeouts[key];
-        }
-
+    if (x_close) {
+        cancel_alarm(key);
     }
 
 });
