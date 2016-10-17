@@ -106,13 +106,29 @@
 
 
 
-  "ntfAlarmRing": {
-    "message": "Alarm will ring in</br> ",
-    "description": "Time until alarm activation"
+  "ntf01Head": {
+    "message": "Alarm created",
+    "description": "Notify header text"
   },
-  "ntfHistoryAlarm": {
-    "message": "Alarm time is set in history!</br>Maybe change date?",
-    "description": "Popup notify text for alarm that is set in 'history'"
+  "ntf01Body": {
+    "message": "Created alarm will ring in: ",
+    "description": "Notify body text"
+  },
+  "ntf02Head": {
+    "message": "Warning",
+    "description": "Notify header text"
+  },
+  "ntf02Body": {
+    "message": "Alarm can't be set in history! Change time and/or date.",
+    "description": "Notify body text"
+  },
+  "ntf03Head": {
+    "message": "Warning",
+    "description": "Notify header text"
+  },
+  "ntf03Body": {
+    "message": "Alarm can't be restored because its already passed! Consider 'Edit'.",
+    "description": "Notify body text"
   },
 
   "titleRemove": {

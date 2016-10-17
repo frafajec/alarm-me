@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d55bc229-75f7-4893-8c80-1990bce07e56" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/background.js" afterPath="$PROJECT_DIR$/build/background.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/_locales/cs/messages.json" afterPath="$PROJECT_DIR$/build/_locales/cs/messages.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/_locales/en/messages.json" afterPath="$PROJECT_DIR$/build/_locales/en/messages.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/_locales/es/messages.json" afterPath="$PROJECT_DIR$/build/_locales/es/messages.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/_locales/hr/messages.json" afterPath="$PROJECT_DIR$/build/_locales/hr/messages.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/_locales/sk/messages.json" afterPath="$PROJECT_DIR$/build/_locales/sk/messages.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/_locales/sr/messages.json" afterPath="$PROJECT_DIR$/build/_locales/sr/messages.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/_locales/tr/messages.json" afterPath="$PROJECT_DIR$/build/_locales/tr/messages.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/popup.css" afterPath="$PROJECT_DIR$/build/popup.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/popup.html" afterPath="$PROJECT_DIR$/build/popup.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/popup.js" afterPath="$PROJECT_DIR$/build/popup.js" />
     </list>
     <ignored path="chromeapp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -22,35 +31,7 @@
     <favorites_list name="chromeapp" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="background.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/build/background.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding>
-                <element signature="n#!!block;n#setDefaults#0" expanded="false" />
-                <element signature="n#!!block;n#loadOptions#0" expanded="false" />
-                <element signature="n#!!block;n#alarm_sound#0" expanded="false" />
-                <element signature="n#!!block;n#updateBadge#0" expanded="false" />
-                <element signature="n#!!block;n#calc_repetitive#0" expanded="false" />
-                <element signature="n#!!block;n#set_inactive#0" expanded="false" />
-                <element signature="n#!!block;n#set_active#0" expanded="false" />
-                <element signature="n#!!block;n#snooze#0" expanded="false" />
-                <element signature="n#!!block;n#cancel_alarm#0" expanded="false" />
-                <element signature="n#!!block;n#alarm_timeout#0" expanded="false" />
-                <element signature="n#!!block;n#register_ringing#0" expanded="false" />
-                <element signature="n#!!block;n#raise_notification#0" expanded="false" />
-                <element signature="e#12386#12796#0" expanded="false" />
-                <element signature="e#13107#13420#0" expanded="false" />
-                <element signature="e#13943#14532#0" expanded="false" />
-                <element signature="e#14934#15055#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -89,25 +70,25 @@
         <option value="$PROJECT_DIR$/build/manifest.json" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/build/libs/fontawesome/font-awesome.min.css" />
-        <option value="$PROJECT_DIR$/build/popup.css" />
-        <option value="$PROJECT_DIR$/build/popup.html" />
         <option value="$PROJECT_DIR$/build/options/options.css" />
         <option value="$PROJECT_DIR$/build/options/options.js" />
         <option value="$PROJECT_DIR$/build/template.js" />
-        <option value="$PROJECT_DIR$/build/popup.js" />
         <option value="$PROJECT_DIR$/gruntfile.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/build/_locales/cz/messages.json" />
         <option value="$PROJECT_DIR$/build/options/options.html" />
+        <option value="$PROJECT_DIR$/build/background.js" />
+        <option value="$PROJECT_DIR$/build/_locales/en/messages.json" />
+        <option value="$PROJECT_DIR$/build/popup.css" />
+        <option value="$PROJECT_DIR$/build/popup.html" />
+        <option value="$PROJECT_DIR$/build/popup.js" />
         <option value="$PROJECT_DIR$/build/_locales/cs/messages.json" />
         <option value="$PROJECT_DIR$/build/_locales/es/messages.json" />
         <option value="$PROJECT_DIR$/build/_locales/hr/messages.json" />
         <option value="$PROJECT_DIR$/build/_locales/sr/messages.json" />
-        <option value="$PROJECT_DIR$/build/_locales/en/messages.json" />
         <option value="$PROJECT_DIR$/build/_locales/sk/messages.json" />
         <option value="$PROJECT_DIR$/build/_locales/tr/messages.json" />
-        <option value="$PROJECT_DIR$/build/background.js" />
       </list>
     </option>
   </component>
@@ -290,7 +271,7 @@
       <workItem from="1475574902456" duration="18720000" />
       <workItem from="1475853668119" duration="447000" />
       <workItem from="1476348812527" duration="28927000" />
-      <workItem from="1476611269348" duration="8519000" />
+      <workItem from="1476611269348" duration="25450000" />
     </task>
     <task id="LOCAL-00001" summary="Grunt init">
       <created>1461157848223</created>
@@ -310,7 +291,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="205297000" />
+    <option name="totallyTimeSpent" value="222228000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -322,10 +303,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14172813" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14172813" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30010384" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -381,7 +362,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="56" />
+      <option name="time" value="57" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -638,21 +619,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/popup.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="96" column="1" selection-start-line="96" selection-start-column="1" selection-end-line="96" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/popup.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="26" column="35" selection-start-line="26" selection-start-column="35" selection-end-line="26" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build/options/options.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -679,62 +645,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="35" column="26" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/_locales/cs/messages.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="259" column="43" selection-start-line="259" selection-start-column="43" selection-end-line="259" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/_locales/es/messages.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="577">
-          <caret line="270" column="23" selection-start-line="270" selection-start-column="23" selection-end-line="270" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/_locales/sr/messages.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="569">
-          <caret line="271" column="151" selection-start-line="271" selection-start-column="151" selection-end-line="271" selection-end-column="151" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/_locales/hr/messages.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="579">
-          <caret line="271" column="151" selection-start-line="271" selection-start-column="16" selection-end-line="271" selection-end-column="151" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/_locales/sk/messages.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="266" column="23" selection-start-line="266" selection-start-column="23" selection-end-line="266" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/_locales/tr/messages.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="271" column="63" selection-start-line="271" selection-start-column="63" selection-end-line="271" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build/_locales/en/messages.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="271" column="153" selection-start-line="271" selection-start-column="16" selection-end-line="271" selection-end-column="153" />
           <folding />
         </state>
       </provider>
@@ -770,52 +680,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build/popup.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1090">
-          <caret line="498" column="66" selection-start-line="498" selection-start-column="47" selection-end-line="498" selection-end-column="66" />
-          <folding>
-            <element signature="e#1#18#0" expanded="false" />
-            <element signature="n#!!block;n#pickrDateFormat#0" expanded="false" />
-            <element signature="n#!!block;n#initTimePickers#0" expanded="false" />
-            <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
-            <element signature="n#!!block;n#loadOptions#0" expanded="false" />
-            <element signature="n#!!block;n#initNotify#0" expanded="false" />
-            <element signature="n#!!block;n#removeNotify#0" expanded="false" />
-            <element signature="n#!!block;n#displayTime#0" expanded="false" />
-            <element signature="n#!!block;n#revertTime#0" expanded="false" />
-            <element signature="n#!!block;n#popupClock#0" expanded="false" />
-            <element signature="n#!!block;n#initLinks#0" expanded="false" />
-            <element signature="n#!!block;n#initHelpers#0" expanded="false" />
-            <element signature="n#!!block;n#toggleNewAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#toggleAlarmType#0" expanded="false" />
-            <element signature="n#!!block;n#dateCheck#0" expanded="false" />
-            <element signature="n#!!block;n#allCheck#0" expanded="false" />
-            <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
-            <element signature="n#!!block;n#toggleAlarmOptions#0" expanded="false" />
-            <element signature="n#!!block;n#editAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#changeAlarmState#0" expanded="false" />
-            <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#cancelRingAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#createTemplate#0" expanded="false" />
-            <element signature="n#!!block;n#orderAlarms#0" expanded="false" />
-            <element signature="n#!!block;n#resetAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#createAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#collectAlarmData#0" expanded="false" />
-            <element signature="n#!!block;n#confirmAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#timeToAlarm#0;n#!!block;n#confirmAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#initAlarm#0" expanded="false" />
-            <element signature="n#!!block;n#getAlarmList#0" expanded="false" />
-            <element signature="e#34543#35410#0" expanded="false" />
-            <element signature="e#35624#35855#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/build/background.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="-2329">
+          <caret line="1" column="33" selection-start-line="1" selection-start-column="33" selection-end-line="1" selection-end-column="33" />
           <folding>
             <element signature="n#!!block;n#setDefaults#0" expanded="false" />
             <element signature="n#!!block;n#loadOptions#0" expanded="false" />
@@ -834,6 +702,120 @@
             <element signature="e#13943#14532#0" expanded="false" />
             <element signature="e#14934#15055#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="208" column="0" selection-start-line="208" selection-start-column="0" selection-end-line="208" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="71" column="55" selection-start-line="71" selection-start-column="55" selection-end-line="71" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/popup.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="1063" column="18" selection-start-line="1063" selection-start-column="18" selection-end-line="1063" selection-end-column="18" />
+          <folding>
+            <element signature="n#!!block;n#pickrDateFormat#0" expanded="false" />
+            <element signature="n#!!block;n#initTimePickers#0" expanded="false" />
+            <element signature="n#!!block;n#localizeHtmlPage#0" expanded="false" />
+            <element signature="n#!!block;n#loadOptions#0" expanded="false" />
+            <element signature="n#!!block;n#initNotify#0" expanded="false" />
+            <element signature="n#!!block;n#displayTime#0" expanded="false" />
+            <element signature="n#!!block;n#revertTime#0" expanded="false" />
+            <element signature="n#!!block;n#popupClock#0" expanded="false" />
+            <element signature="n#!!block;n#initLinks#0" expanded="false" />
+            <element signature="n#!!block;n#initHelpers#0" expanded="false" />
+            <element signature="n#!!block;n#toggleAlarmType#0" expanded="false" />
+            <element signature="n#!!block;n#dateCheck#0" expanded="false" />
+            <element signature="n#!!block;n#allCheck#0" expanded="false" />
+            <element signature="n#!!block;n#checkConstraints#0" expanded="false" />
+            <element signature="n#!!block;n#autoCloseOptionsExe#0" expanded="false" />
+            <element signature="n#!!block;n#resetAutoCloseOptions#0" expanded="false" />
+            <element signature="n#!!block;n#autoCloseOptions#0" expanded="false" />
+            <element signature="n#!!block;n#toggleAlarmOptions#0" expanded="false" />
+            <element signature="n#!!block;n#editAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#changeAlarmState#0" expanded="false" />
+            <element signature="n#!!block;n#removeAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#cancelRingAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#createTemplate#0" expanded="false" />
+            <element signature="n#!!block;n#orderAlarms#0" expanded="false" />
+            <element signature="n#!!block;n#resetAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#createAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#collectAlarmData#0" expanded="false" />
+            <element signature="n#!!block;n#confirmAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#timeToAlarm#0;n#!!block;n#confirmAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#initAlarm#0" expanded="false" />
+            <element signature="n#!!block;n#getAlarmList#0" expanded="false" />
+            <element signature="e#36032#36899#0" expanded="false" />
+            <element signature="e#37113#37344#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/_locales/cs/messages.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="565">
+          <caret line="129" column="89" selection-start-line="129" selection-start-column="89" selection-end-line="129" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/_locales/es/messages.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="560">
+          <caret line="128" column="16" selection-start-line="128" selection-start-column="16" selection-end-line="128" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/_locales/hr/messages.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="103">
+          <caret line="108" column="2" selection-start-line="108" selection-start-column="2" selection-end-line="131" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/_locales/sr/messages.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="637">
+          <caret line="131" column="4" selection-start-line="131" selection-start-column="4" selection-end-line="131" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/_locales/en/messages.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="108" column="2" selection-start-line="108" selection-start-column="2" selection-end-line="131" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/_locales/sk/messages.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="129" column="85" selection-start-line="129" selection-start-column="85" selection-end-line="129" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build/_locales/tr/messages.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="127" column="4" selection-start-line="127" selection-start-column="4" selection-end-line="127" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>

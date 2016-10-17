@@ -106,13 +106,29 @@
 
 
 
-  "ntfAlarmRing": {
-    "message": "Alarm će zvoniti za</br> ",
-    "description": "Time until alarm activation"
+  "ntf01Head": {
+    "message": "Alarm kreiran",
+    "description": "Notify header text"
   },
-  "ntfHistoryAlarm": {
-    "message": "Alarm je stavljen u prošlost!</br>Možda promjeniti datum?",
-    "description": "Popup notify text for alarm that is set in 'history'"
+  "ntf01Body": {
+    "message": "Kreirani alarm će zvoniti za: ",
+    "description": "Notify body text"
+  },
+  "ntf02Head": {
+    "message": "Upozorenje",
+    "description": "Notify header text"
+  },
+  "ntf02Body": {
+    "message": "Alarm ne može biti kreiran u prošlosti! Promjenite vrijeme i/ili datum.",
+    "description": "Notify body text"
+  },
+  "ntf03Head": {
+    "message": "Upozorenje",
+    "description": "Notify header text"
+  },
+  "ntf03Body": {
+    "message": "Alarm ne može biti aktiviran jer je već prošao! Koristite 'Uređivanje'.",
+    "description": "Notify body text"
   },
 
   "titleRemove": {

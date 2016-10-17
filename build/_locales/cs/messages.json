@@ -106,13 +106,29 @@
 
 
 
-  "ntfAlarmRing": {
-    "message": "Připomínka zazvoní za</br> ",
-    "description": "Time until alarm activation"
+  "ntf01Head": {
+    "message": "Alarm vytvořil",
+    "description": "Notify header text"
   },
-  "ntfHistoryAlarm": {
-    "message": "Čas připomínky je uložen v historii!</br>Přejete si změnit i datum?",
-    "description": "Popup notify text for alarm that is set in 'history'"
+  "ntf01Body": {
+    "message": "Vytvořil alarm bude zvonit v:",
+    "description": "Notify body text"
+  },
+  "ntf02Head": {
+    "message": "Varování",
+    "description": "Notify header text"
+  },
+  "ntf02Body": {
+    "message": "Alarm nelze nastavit v historii! Změnit čas a / nebo datum.",
+    "description": "Notify body text"
+  },
+  "ntf03Head": {
+    "message": "Varování",
+    "description": "Notify header text"
+  },
+  "ntf03Body": {
+    "message": "Alarm nelze obnovit, protože je to již prošel! Vezměme si na 'Upravit'.",
+    "description": "Notify body text"
   },
 
   "titleRemove": {

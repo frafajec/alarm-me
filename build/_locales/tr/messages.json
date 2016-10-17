@@ -106,13 +106,29 @@
 
 
 
-  "ntfAlarmRing": {
-    "message": "Alarm </dk> içinde çalacak",
-    "description": "Time until alarm activation"
+  "ntf01Head": {
+    "message": "Alarm oluşturuldu",
+    "description": "Notify header text"
   },
-  "ntfHistoryAlarm": {
-    "message": "Alarm saati tarihte ayarlandý!</dk> belki tarihi deðiþtirirsin?",
-    "description": "Popup notify text for alarm that is set in 'history'"
+  "ntf01Body": {
+    "message": "Düzenlendi alarmı çalacak:",
+    "description": "Notify body text"
+  },
+  "ntf02Head": {
+    "message": "Uyarı",
+    "description": "Notify header text"
+  },
+  "ntf02Body": {
+    "message": "Alarm tarihinin ayarlanamaz! zaman ve / veya tarihi değiştirmek.",
+    "description": "Notify body text"
+  },
+  "ntf03Head": {
+    "message": "Uyarı",
+    "description": "Notify header text"
+  },
+  "ntf03Body": {
+    "message": "Zaten geçti çünkü alarm geri alınamaz! 'Düzenle' düşünün.",
+    "description": "Notify body text"
   },
 
   "titleRemove": {

@@ -1,7 +1,3 @@
-
-/*
- * GLOBALS
- */
 //embedded and libraries
 var chrome = chrome || undefined;
 var flatpickr = flatpickr || undefined;
@@ -113,45 +109,40 @@ loadOptions();
 
 
 /*
- * TODO: change how remove is done because it can close newer notify too soon
- * TODO: change all text to be i18n
  * @Module - UI
  * Creates notify element and inserts it into element for display
  * WARNING: can only be called on container, not individual element!
  *
  * @param {html} element - html object of element where tooltip will be inserted
- * @param {string} title - text that will be displayed in title (short)
- * @param {string} content - text that will be inserted into body of tooltip
- * @param {string} type - additional class that differentiates notifications
+ * @param {string} code - code of text to be displayed
+ * @param {object} data.type - for class addition to notify
+ *                 data.content - for text addition
  */
 function initNotify () {
 
-    Element.prototype.notify = function(title, content, type) {
-        var el = this;
+    /*
+     * CODES
+     * 01 - alarm created, time to alarm (+data)
+     * 02 - warning, alarm in history
+     * 03 - warning, alarm not restored because already passed
+     */
+    Element.prototype.notify = function(code, data) {
 
-        var ntf = document.createElement("span");
-        ntf.setAttribute("class", "notify");
-        if (type) {
-            ntf.setAttribute("class", "notify " + type);
-        }
-        var ntf_title = document.createElement("h6");
-        ntf_title.innerHTML = title.toUpperCase();
-        ntf.appendChild( ntf_title );
-        var ntf_body = document.createElement("p");
-        ntf_body.innerHTML = content;
-        ntf.appendChild( ntf_body );
+        var parent = this,
+            notif = document.createElement("span"),
+            notifHead = document.createElement("h6"),
+            notifBody = document.createElement("p");
 
-        var ntfSelfRemove = function () {
-            var ttps = el.getElementsByClassName("notify");
-            for (var i = 0; i < ttps.length; i++) {
-                ttps[i].remove();
-            }
-        }.bind(el);
+        notif.setAttribute("class", "notify " + (data.type ? data.type : "") );
+        notifHead.innerHTML = chrome.i18n.getMessage("ntf" + code + "Head");
+        notifBody.innerHTML = chrome.i18n.getMessage("ntf" + code + "Body") + "" + (data.content ? data.content : "");
 
-        ntf.addEventListener("click", ntfSelfRemove);
-        this.insertBefore(ntf, this.firstChild);
-        setTimeout(ntfSelfRemove, 5000);
+        notif.appendChild(notifHead);
+        notif.appendChild(notifBody);
+        parent.insertBefore(notif, parent.firstChild);
 
+        notif.addEventListener('click', function () { this.remove(); });
+        setTimeout(function () { this.remove(); }.bind(notif), 5000);
     };
 
 }
@@ -301,29 +292,69 @@ function initHelpers () {
 }
 
 
+function animate (object, property, start_value, end_value, time) {
+    var frame_rate = 0.06; // 60 FPS
+    var frame = 0;
+    var delta = (end_value - start_value) / time / frame_rate;
+    console.log(delta);
+    console.log(start_value);
+    var handle = setInterval(function() {
+        frame++;
+        var value = start_value + delta * frame;
+//      console.log(value);
+        object.style[property] = value + "px";
+        if (value == end_value) {
+            clearInterval(handle);
+        }
+    }, 1 / frame_rate);
+
+    // var delta = 120 / 1000 / 0.06;
+    //
+    // var id = setInterval(frame, 5);
+    // function frame() {
+    //     if (start_value == end_value) {
+    //         clearInterval(id);
+    //     } else {
+    //         start_value++;
+    //         object.style.height = start_value + 'px';
+    //     }
+    // }
+}
+
 /*
  * @Module - UI
  * Changes visibility of new alarm section
  */
 function toggleNewAlarm (show) {
 
-    var hidden = document.getElementById("alarm-new-container").className.length;
+    var state = document.getElementById("alarm-new-container").className;
 
-    if (!hidden && (show !== true)) {
+    if ( (state.indexOf('closed') === -1) && (show !== true) ) {
         document.getElementById("alarm-new").setAttribute("state", "");
         document.getElementById("alarm-new").setAttribute("key", "");
 
-        document.getElementById("alarm-new-container").className = "hidden";
+        document.getElementById("alarm-new-container").className = "closed";
         document.getElementById("toggle-new-alarm").value = chrome.i18n.getMessage("newAlarm");
 
-        document.getElementById("toggle-repetitive-alarm").style.display = "none";
-        document.getElementById("toggle-onetime-alarm").style.display = "none";
+        document.getElementById("toggle-repetitive-alarm").style.transitionDelay = "0s";
+        document.getElementById("toggle-onetime-alarm").style.transitionDelay = "0s";
+        document.getElementById("toggle-repetitive-alarm").style.opacity = "0";
+        document.getElementById("toggle-onetime-alarm").style.opacity = "0";
+        document.getElementById("toggle-repetitive-alarm").style.visibility = "hidden";
+        document.getElementById("toggle-onetime-alarm").style.visibility = "hidden";
+
+
     } else {
         document.getElementById("alarm-new-container").className = "";
         document.getElementById("toggle-new-alarm").value = chrome.i18n.getMessage("cancelAlarm");
 
         document.getElementById("toggle-repetitive-alarm").style.display = "block";
         document.getElementById("toggle-onetime-alarm").style.display = "block";
+
+        document.getElementById("toggle-repetitive-alarm").style.visibility = "visible";
+        document.getElementById("toggle-onetime-alarm").style.visibility = "visible";
+        document.getElementById("toggle-repetitive-alarm").style.opacity = "1";
+        document.getElementById("toggle-onetime-alarm").style.opacity = "1";
     }
 
     removeNotify();
@@ -412,7 +443,7 @@ function checkConstraints () {
         now = new Date();
 
     if (alarm_time.getTime() <= now.getTime()) {
-        document.getElementById("new-time").notify("warning", chrome.i18n.getMessage("ntfHistoryAlarm"), "warning" );
+        document.getElementById("new-time").notify("02", {  type: "warning" });
 
         //error class
         var clsTime = document.getElementById("new-time").getElementsByClassName("flatpickr-calendar")[0];
@@ -642,7 +673,7 @@ function changeAlarmState () {
 
                     for (i = 0; i < alarm_list.length; i++) {
                         if (alarm.key === alarm_list[i].getAttribute("key")) {
-                            alarm_list[i].notify("alarm not restored", "ALARM NOT RESTORED!", "error");
+                            alarm_list[i].notify("03", { type: "warning" });
                             break;
                         }
                     }
@@ -970,7 +1001,7 @@ function confirmAlarm () {
         alarms_html = alarm_list.getElementsByClassName("alarm");
         for (i = 0; i < alarms_html.length; i++) {
             if (alarms_html[i].getAttribute("key") === alarm.key) {
-                alarms_html[i].notify("alarm created", chrome.i18n.getMessage("ntfAlarmRing") + timeToAlarm(alarm.time_span));
+                alarms_html[i].notify("01", { content: timeToAlarm(alarm.time_span) });
             }
         }
 
@@ -1046,11 +1077,13 @@ function getAlarmList() {
         }
 
         if (alarms.length === 0) {
-            toggleNewAlarm();
+            toggleNewAlarm(true);
         } else {
             orderAlarms();
-            document.getElementById("toggle-repetitive-alarm").style.display = "none";
-            document.getElementById("toggle-onetime-alarm").style.display = "none";
+            document.getElementById("toggle-repetitive-alarm").style.opacity = "0";
+            document.getElementById("toggle-onetime-alarm").style.opacity = "0";
+            document.getElementById("toggle-repetitive-alarm").style.visibility = "hidden";
+            document.getElementById("toggle-onetime-alarm").style.visibility = "hidden";
         }
 
     });

@@ -106,13 +106,29 @@
 
 
 
-  "ntfAlarmRing": {
-    "message": "Esta alarma está definida para dentro de</br>desde ahora ",
-    "description": "Time until alarm activation"
+  "ntf01Head": {
+    "message": "Alarma creada",
+    "description": "Notify header text"
   },
-  "ntfHistoryAlarm": {
-    "message": "¡Tiempo de alarma esta guardado!</br>¿Cambiar la fecha?",
-    "description": "Popup notify text for alarm that is set in 'history'"
+  "ntf01Body": {
+    "message": "Creado alarma sonará en:",
+    "description": "Notify body text"
+  },
+  "ntf02Head": {
+    "message": "Advertencia",
+    "description": "Notify header text"
+  },
+  "ntf02Body": {
+    "message": "La alarma no se puede ajustar en la historia! Cambiar el tiempo y / o fecha.",
+    "description": "Notify body text"
+  },
+  "ntf03Head": {
+    "message": "Advertencia",
+    "description": "Notify header text"
+  },
+  "ntf03Body": {
+    "message": "La alarma no se puede restaurar porque ya ha pasado! Considere 'Editar'.",
+    "description": "Notify body text"
   },
 
   "titleRemove": {
