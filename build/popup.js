@@ -1,5 +1,6 @@
 //embedded and libraries
 var chrome = chrome || undefined;
+
 var flatpickr = flatpickr || undefined;
 var template = template || undefined;
 
@@ -291,35 +292,6 @@ function initHelpers () {
     initLinks();
 }
 
-
-function animate (object, property, start_value, end_value, time) {
-    var frame_rate = 0.06; // 60 FPS
-    var frame = 0;
-    var delta = (end_value - start_value) / time / frame_rate;
-    console.log(delta);
-    console.log(start_value);
-    var handle = setInterval(function() {
-        frame++;
-        var value = start_value + delta * frame;
-//      console.log(value);
-        object.style[property] = value + "px";
-        if (value == end_value) {
-            clearInterval(handle);
-        }
-    }, 1 / frame_rate);
-
-    // var delta = 120 / 1000 / 0.06;
-    //
-    // var id = setInterval(frame, 5);
-    // function frame() {
-    //     if (start_value == end_value) {
-    //         clearInterval(id);
-    //     } else {
-    //         start_value++;
-    //         object.style.height = start_value + 'px';
-    //     }
-    // }
-}
 
 /*
  * @Module - UI
@@ -780,7 +752,6 @@ function createTemplate (templateName, templateData) {
 /*
  * @Module - Logic
  * takes alarms in UI and orders them by date
- * TODO: add effects (maybe)
  *
  * returns {null}
  */
@@ -902,7 +873,7 @@ function collectAlarmData (alarm) {
     alarm.name = document.getElementById('new-name-input').value;
     alarm.desc = document.getElementById('new-desc-input').value;
     alarm.time_set = revertTime(input_date, input_h + ":" + input_min + ":00").getTime();
-    alarm.repetitive = document.getElementById("toggle-repetitive-alarm").getAttribute("class").length > 0;
+    alarm.repetitive = document.getElementById("toggle-repetitive-alarm").getAttribute("class").indexOf("alarm-type-active") !== -1;
 
     //repetitive alarm additions
     if (alarm.repetitive) {
