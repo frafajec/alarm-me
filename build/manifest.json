@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "__MSG_extName__",
   "short_name": "__MSG_extName__",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "author": "Filip Rafajec",
 
   "offline_enabled": true,

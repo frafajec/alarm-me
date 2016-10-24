@@ -24,6 +24,8 @@ API is entirely on Chrome browser platform, however some additional libraries ar
 
 **1.3.0** Added locales, reduced permissions, added sounds, edit/inactive alarms, UI rework
 
+**1.3.1** Calendar overflow bugfix
+
 ## License
 
 MIT License

@@ -205,7 +205,7 @@ body {
 }
 #alarm-new-container {
     clear: both;
-    overflow: hidden;
+    /*overflow: hidden;*/ /* HAS to be disabled because date calendar is faulty! */
 
     animation: containerDown 0.2s ease backwards;
     animation-fill-mode: backwards;
