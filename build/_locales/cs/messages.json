@@ -229,6 +229,14 @@
     "message": "Zvolit formát data",
     "description": "Options label tooltip"
   },
+  "optLabelTime": {
+    "message": "Časový formát",
+    "description": "Options label"
+  },
+  "optLabelTimeTooltip": {
+    "message": "Zvolit formát času",
+    "description": "Options label tooltip"
+  },
   "optLabelMinutes": {
     "message": "Minuty",
     "description": "Options after-label"
@@ -238,7 +246,7 @@
     "description": "Options label"
   },
   "optLabelInactiveTooltip": {
-    "message": "* Neaktivní, nejsou odstraněny",
+    "message": "* Alarm neaktivní, nejsou odstraněny",
     "description": "Options label tooltip"
   },
 

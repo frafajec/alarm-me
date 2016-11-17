@@ -1,16 +1,45 @@
 //embedded and libraries
-var chrome = chrome || undefined;
+// var chrome = chrome || undefined;
 
-var flatpickr = flatpickr || undefined;
-var template = template || undefined;
+// var flatpickr = flatpickr || undefined;
+// var template = template || undefined;
 
 var options = {};
 //lists for drop-down selection
 var dateFormatList = [ "DD.MM.YYYY", "DD.MM.YY", "DD/MM/YYYY", "MM.DD.YYYY" ];
+var timeFormatList = [ 24, 12 ];
 //time-picker variables
 var timePicker;
 var datePicker;
 var alarmOptionsTimeouts = {};
+
+
+
+/*
+ * @Module - Init
+ * LOAD options
+ * date-time pickers can cause problems when not loaded after options
+ * however, there is a chance that options will be loaded before DOM, then simply move load options into DOMContentLoaded
+ */
+function loadOptions () {
+    chrome.storage.sync.get('AM_options', function (object) {
+
+        options = object.AM_options;
+
+        //override index value with real value
+        options.date_format = dateFormatList[options.date_format];
+
+        if (!options.time_format) {
+            options.time_format = 0;
+            chrome.storage.sync.set({'AM_options': options});
+        }
+        options.time_format = timeFormatList[options.time_format];
+
+        initTimePickers();
+
+    });
+}
+loadOptions();
 
 
 /*
@@ -21,7 +50,7 @@ function pickrDateFormat () {
     var format = options.date_format,
         final = [];
 
-    var split = format.split(".");
+    var split = format.indexOf(".") > -1 ? format.split(".") : format.split("/");
 
     final[0] = split[0][0].toLowerCase();
     final[1] = split[1][0].toLowerCase();
@@ -40,9 +69,13 @@ function initTimePickers () {
 
     flatpickr.init.prototype.l10n.firstDayOfWeek = 1;
 
+    if (options.time_format !== 24) {
+        document.getElementById("new-time-input").removeAttribute("data-time_24hr");
+    }
+
     timePicker = flatpickr("#new-time-input", {
-        minDate: new Date(new Date().getTime() + 60000),
-        defaultDate: new Date(new Date().getTime() + 60000),
+        // minDate: new Date(new Date().getTime() + 60000),
+        // defaultDate: new Date(new Date().getTime() + 60000),
 
         timeFormat: "H:i",
         minuteIncrement: 1
@@ -53,12 +86,37 @@ function initTimePickers () {
             document.getElementById('new-time-input').value = (" " + now.getHours() + ":" + now.getMinutes()).toString();
         }
     });
+    setTimePicker( (new Date()).getTime() + 60000 );
 
     datePicker = flatpickr("#new-date-input", {
         minDate: new Date(),
         defaultDate: new Date(),
         dateFormat: pickrDateFormat()
     });
+
+}
+
+
+/*
+ *
+ */
+function setTimePicker (time) {
+
+    var t = new Date(time),
+        addZero = function (n) {
+            var x = n.toString();
+            if (x.length < 2) { return '0' + x; }
+            else { return x; }
+        };
+
+    if (options.time_format === 12) {
+        document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value = addZero((t.getHours() + 11) % 12 + 1);
+        document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value = addZero(t.getMinutes());
+        document.getElementById("new-time").getElementsByClassName("flatpickr-am-pm")[0].innerHTML = (t.getHours() >= 12 ? "PM":"AM");
+    } else {
+        document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value = addZero(t.getHours());
+        document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value = addZero(t.getMinutes());
+    }
 
 }
 
@@ -86,27 +144,6 @@ function localizeHtmlPage() {
         if(valNewH !== valStrH) { obj.innerHTML = valNewH; }
     }
 }
-
-
-/*
- * @Module - Init
- * LOAD options
- * date-time pickers can cause problems when not loaded after options
- * however, there is a chance that options will be loaded before DOM, then simply move load options into DOMContentLoaded
- */
-function loadOptions () {
-    chrome.storage.sync.get('AM_options', function (object) {
-
-        options = object.AM_options;
-
-        //override index value with real value
-        options.date_format = dateFormatList[options.date_format];
-
-        initTimePickers();
-
-    });
-}
-loadOptions();
 
 
 /*
@@ -181,7 +218,14 @@ function displayTime (ex) {
             else { return x; }
         };
 
-    var time = addZero( t.getHours() ) + ":" + addZero( t.getMinutes() );
+    var time;
+    switch(options.time_format) {
+        case 12:
+            time = addZero((t.getHours() + 11) % 12 + 1) + ":" + addZero( t.getMinutes()) + " " + (t.getHours() >= 12 ? "PM":"AM");
+            break;
+        default:
+            time = addZero( t.getHours() ) + ":" + addZero( t.getMinutes() );
+    }
 
     var date;
     switch(options.date_format) {
@@ -215,6 +259,14 @@ function displayTime (ex) {
 function revertTime (date, time) {
     time = time || "00:00:00";
     var revert, s;
+
+    if (options.time_format === 12) {
+        var tmp = time.split(" "),
+            tm = tmp[0].split(":"),
+            fx = tmp[1];
+
+
+    }
 
     switch(options.date_format) {
         case "DD.MM.YY":
@@ -286,10 +338,14 @@ function initLinks () {
  * Initializes helper functions and widgets
  */
 function initHelpers () {
-    //runs clock in background of popup
-    popupClock();
-    //event for opening options from popup
-    initLinks();
+    if (options.time_format) {
+        //runs clock in background of popup
+        popupClock();
+        //event for opening options from popup
+        initLinks();
+    } else {
+        setTimeout(initHelpers, 50);
+    }
 }
 
 
@@ -409,9 +465,10 @@ function checkConstraints () {
     // CONSTRAINT 1 - alarm in past
     var input_date = document.getElementById("new-date-input").value,
         input_h = document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value,
-        input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value;
+        input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value,
+        input_pa = document.getElementById("new-time").getElementsByClassName("flatpickr-am-pm");
 
-    var alarm_time = revertTime(input_date, input_h + ":" + input_min + ":00"),
+    var alarm_time = revertTime(input_date, input_h + ":" + input_min + ":00" + (input_pa.length > 0 ? (" " + input_pa[0].innerHTML) : "")),
         now = new Date();
 
     if (alarm_time.getTime() <= now.getTime()) {
@@ -567,14 +624,8 @@ function editAlarm () {
             document.getElementById("new-rep").className = "hidden";
         }
 
-        //create time one minute ahead of now
-        var t = new Date( alarm.time_set );
-        var pad = function (n) {
-            if (n > 9) { return n; }
-            else { return "0" + n; }
-        };
-        document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value = pad(t.getHours());
-        document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value = pad(t.getMinutes());
+        var t = new Date( new Date( alarm.time_set ).getTime() );
+        setTimePicker(t.getTime());
 
         document.getElementById("new-date-input").value = displayTime(t).date;
         datePicker.setDate(t);
@@ -798,8 +849,7 @@ function resetAlarm() {
 
     //create time one minute ahead of now
     var t = new Date( new Date().getTime() + 60000 );
-    document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value = t.getHours();
-    document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value = t.getMinutes();
+    setTimePicker(t.getTime());
 
     document.getElementById("new-date-input").value = displayTime(t).date;
     datePicker.setDate(t);
@@ -869,10 +919,11 @@ function collectAlarmData (alarm) {
 
     var input_date = document.getElementById("new-date-input").value,
         input_h = document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value,
-        input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value;
+        input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value,
+        input_pa = document.getElementById("new-time").getElementsByClassName("flatpickr-am-pm");
     alarm.name = document.getElementById('new-name-input').value;
     alarm.desc = document.getElementById('new-desc-input').value;
-    alarm.time_set = revertTime(input_date, input_h + ":" + input_min + ":00").getTime();
+    alarm.time_set = revertTime(input_date, input_h + ":" + input_min + ":00" + (input_pa.length > 0 ? (" " + input_pa[0].innerHTML) : "")).getTime();
     alarm.repetitive = document.getElementById("toggle-repetitive-alarm").getAttribute("class").indexOf("alarm-type-active") !== -1;
 
     //repetitive alarm additions

@@ -229,6 +229,14 @@
     "message": "Tarih formatýný seç",
     "description": "Options label tooltip"
   },
+  "optLabelTime": {
+    "message": "Zaman formatı",
+    "description": "Options label"
+  },
+  "optLabelTimeTooltip": {
+    "message": "Saat biçimini seçin",
+    "description": "Options label tooltip"
+  },
   "optLabelMinutes": {
     "message": "Dakikalar",
     "description": "Options after-label"
@@ -238,7 +246,7 @@
     "description": "Options label"
   },
   "optLabelInactiveTooltip": {
-    "message": "* inaktif, silinmez Oldu",
+    "message": "* Alarm etkin değil, silinmedi",
     "description": "Options label tooltip"
   },
 

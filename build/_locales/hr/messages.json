@@ -229,6 +229,14 @@
     "message": "Odaberite format datuma",
     "description": "Options label tooltip"
   },
+  "optLabelTime": {
+    "message": "Format vremena",
+    "description": "Options label"
+  },
+  "optLabelTimeTooltip": {
+    "message": "Odaberite format vremena",
+    "description": "Options label tooltip"
+  },
   "optLabelMinutes": {
     "message": "Minute",
     "description": "Options after-label"
@@ -238,7 +246,7 @@
     "description": "Options label"
   },
   "optLabelInactiveTooltip": {
-    "message": "* Postaje neaktiva, ne izbrisan",
+    "message": "* Alarm neaktivan, ne izbrisan",
     "description": "Options label tooltip"
   },
 

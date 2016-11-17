@@ -1,5 +1,5 @@
 //embedded and libraries
-var chrome = chrome || undefined;
+// var chrome = chrome || undefined;
 
 var toneList = [
     new Audio("tones/light.mp3"),
@@ -102,7 +102,6 @@ chrome.storage.onChanged.addListener(updateBadge);
 
 
 /*
- * TODO: wrong calculation... REWORK!
  * @Module - Logic
  * Calculates repeat alarm time
  * sets alarm to be repeated on next step

@@ -229,6 +229,14 @@
     "message": "Elige formato de fecha",
     "description": "Options label tooltip"
   },
+  "optLabelTime": {
+    "message": "Formato de tiempo",
+    "description": "Options label"
+  },
+  "optLabelTimeTooltip": {
+    "message": "Elija el formato de hora",
+    "description": "Options label tooltip"
+  },
   "optLabelMinutes": {
     "message": "Minutos",
     "description": "Options after-label"
@@ -238,7 +246,7 @@
     "description": "Options label"
   },
   "optLabelInactiveTooltip": {
-    "message": "* Se vuelve inactiva, no se eliminan",
+    "message": "* Alarma inactiva, no eliminada",
     "description": "Options label tooltip"
   },
 

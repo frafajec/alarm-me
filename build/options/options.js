@@ -2,8 +2,8 @@
  * GLOBALS
  */
 //embedded and libraries
-var chrome = chrome || undefined;
-var SelectFx = SelectFx || undefined;
+// var chrome = chrome || undefined;
+// var SelectFx = SelectFx || undefined;
 
 var toneList = [
     new Audio("../../tones/light.mp3"),
@@ -15,6 +15,7 @@ var alarmTone;
 var timeOut;
 
 var toneSelect;
+var timeSelect;
 var dateSelect;
 
 
@@ -145,6 +146,7 @@ function defaultOptions (save, change) {
         tone: 0,
         volume: 100,
         date_format: 0,
+        time_format: 0,
         inactive: true
     };
 
@@ -158,6 +160,7 @@ function defaultOptions (save, change) {
         document.getElementById('alarm-volume').value = options.volume;
         document.getElementById('alarm-inactive').checked = options.inactive;
         window.toneSelect._changeOption(options.tone);
+        window.timeSelect._changeOption(options.time_format);
         window.dateSelect._changeOption(options.date_format);
     }
 
@@ -202,6 +205,7 @@ function save_options () {
     options.snooze = document.getElementById('alarm-snooze').value;
     options.stop_after = document.getElementById('alarm-stop').value;
     options.tone = document.getElementById('song-list').getElementsByClassName('cs-select')[1].selectedIndex - 1;
+    options.time_format = document.getElementById('time-list').getElementsByClassName('cs-select')[1].selectedIndex - 1;
     options.date_format = document.getElementById('date-list').getElementsByClassName('cs-select')[1].selectedIndex - 1;
     options.volume = document.getElementById('alarm-volume').value;
     options.inactive = document.getElementById('alarm-inactive').checked;
@@ -353,6 +357,10 @@ document.addEventListener("DOMContentLoaded", function() {
     toneSelect = new SelectFx(songList, { onChange: save_options });
     window.toneSelect = toneSelect;
 
+    var timeList = document.getElementById('time-list').getElementsByTagName('select')[0];
+    timeSelect = new SelectFx(timeList, { onChange: save_options });
+    window.timeSelect = timeSelect;
+
     var dateList = document.getElementById('date-list').getElementsByTagName('select')[0];
     dateSelect = new SelectFx(dateList, { onChange: save_options });
     window.dateSelect = dateSelect;
@@ -383,6 +391,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('alarm-volume').value = options.volume;
         document.getElementById('alarm-inactive').checked = options.inactive;
         window.toneSelect._changeOption(options.tone);
+        window.timeSelect._changeOption(options.time_format);
         window.dateSelect._changeOption(options.date_format);
 
     });

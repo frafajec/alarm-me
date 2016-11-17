@@ -229,6 +229,14 @@
     "message": "Choose date format",
     "description": "Options label tooltip"
   },
+  "optLabelTime": {
+    "message": "Time format",
+    "description": "Options label"
+  },
+  "optLabelTimeTooltip": {
+    "message": "Choose time format",
+    "description": "Options label tooltip"
+  },
   "optLabelMinutes": {
     "message": "Minutes",
     "description": "Options after-label"
@@ -238,7 +246,7 @@
     "description": "Options label"
   },
   "optLabelInactiveTooltip": {
-    "message": "* Becomes inactive, not deleted",
+    "message": "* Alarm inactive, not deleted",
     "description": "Options label tooltip"
   },
 

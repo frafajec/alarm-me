@@ -23,7 +23,11 @@ module.exports = function(grunt) {
                 loopfunc: true,
                 globals: {
                     jQuery: false,
-                    debug: true
+                    debug: true,
+                    chrome: true,
+                    flatpickr: true,
+                    template: true,
+                    selectFX: true,
                 }
             },
             files: {
