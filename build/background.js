@@ -1,6 +1,3 @@
-//embedded and libraries
-// var chrome = chrome || undefined;
-
 var toneList = [
     new Audio("tones/light.mp3"),
     new Audio("tones/notification.mp3"),
@@ -8,9 +5,7 @@ var toneList = [
     new Audio("tones/analog.mp3")
 ];
 var alarmTone;
-
 var alarm_timeouts = {}; //when alarm occurs registers its timeout and if triggered snoozes/disables alarm
-
 var options;
 
 
@@ -32,7 +27,8 @@ function setDefaults () {
         stop_after: 10,
         tone: 0,
         volume: 100,
-        date_format: 0
+        date_format: 0,
+        time_format: 0
     };
     chrome.storage.sync.set({ 'AM_options': options });
 

@@ -27,7 +27,7 @@ module.exports = function(grunt) {
                     chrome: true,
                     flatpickr: true,
                     template: true,
-                    selectFX: true,
+                    SelectFx: true
                 }
             },
             files: {

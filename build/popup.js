@@ -1,16 +1,12 @@
-//embedded and libraries
-// var chrome = chrome || undefined;
-
-// var flatpickr = flatpickr || undefined;
-// var template = template || undefined;
-
 var options = {};
 //lists for drop-down selection
 var dateFormatList = [ "DD.MM.YYYY", "DD.MM.YY", "DD/MM/YYYY", "MM.DD.YYYY" ];
 var timeFormatList = [ 24, 12 ];
+
 //time-picker variables
 var timePicker;
 var datePicker;
+
 var alarmOptionsTimeouts = {};
 
 
@@ -259,14 +255,6 @@ function displayTime (ex) {
 function revertTime (date, time) {
     time = time || "00:00:00";
     var revert, s;
-
-    if (options.time_format === 12) {
-        var tmp = time.split(" "),
-            tm = tmp[0].split(":"),
-            fx = tmp[1];
-
-
-    }
 
     switch(options.date_format) {
         case "DD.MM.YY":

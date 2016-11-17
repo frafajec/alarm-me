@@ -1,10 +1,3 @@
-/*
- * GLOBALS
- */
-//embedded and libraries
-// var chrome = chrome || undefined;
-// var SelectFx = SelectFx || undefined;
-
 var toneList = [
     new Audio("../../tones/light.mp3"),
     new Audio("../../tones/notification.mp3"),

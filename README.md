@@ -26,6 +26,8 @@ API is entirely on Chrome browser platform, however some additional libraries ar
 
 **1.3.1** Calendar overflow bugfix
 
+**1.4.0** Added time format for app
+
 ## License
 
 MIT License
