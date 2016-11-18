@@ -378,6 +378,15 @@ document.addEventListener("DOMContentLoaded", function() {
             options = defaultOptions(true, false);
         }
 
+        //legacy
+        if (!('time_format' in options)) {
+            options.time_format = 0;
+        }
+        if (!('date_format' in options)) {
+            options.date_format = 0;
+        }
+        save_options();
+
         //UI selection of elements
         document.getElementById('alarm-snooze').value = options.snooze;
         document.getElementById('alarm-stop').value = options.stop_after;
