@@ -32,6 +32,8 @@ API is entirely on Chrome browser platform, however some additional libraries ar
 
 **1.4.2** Fallback scenarios for time and date formats
 
+**1.4.3-4** Options self invocation and popup wait for loading options
+
 ## License
 
 MIT License

@@ -22,19 +22,16 @@ function loadOptions () {
 
         options = object.AM_options;
 
-        //override index value with real value
-        if (!options.date_format) {
+        //check for some sensitive options
+        if (options.date_format === undefined) {
             options.date_format = 0;
             chrome.storage.sync.set({'AM_options': options});
         }
 
-        if (!options.time_format) {
+        if (options.time_format === undefined) {
             options.time_format = 0;
             chrome.storage.sync.set({'AM_options': options});
         }
-
-        // options.date_format = dateFormatList[options.date_format];
-        // options.time_format = timeFormatList[options.time_format];
 
         initTimePickers();
 
@@ -75,9 +72,6 @@ function initTimePickers () {
     }
 
     timePicker = flatpickr("#new-time-input", {
-        // minDate: new Date(new Date().getTime() + 60000),
-        // defaultDate: new Date(new Date().getTime() + 60000),
-
         timeFormat: "H:i",
         minuteIncrement: 1
     });
@@ -331,14 +325,10 @@ function initLinks () {
  * Initializes helper functions and widgets
  */
 function initHelpers () {
-    if (options.time_format) {
-        //runs clock in background of popup
-        popupClock();
-        //event for opening options from popup
-        initLinks();
-    } else {
-        setTimeout(initHelpers, 50);
-    }
+    //runs clock in background of popup
+    popupClock();
+    //event for opening options from popup
+    initLinks();
 }
 
 
@@ -1162,11 +1152,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //localise HTML
     localizeHtmlPage();
-    //initializes helpers and widgets for UI
-    initHelpers();
-    //inserts existing alarms in popup
-    getAlarmList();
-    //adds section for new alarm in popup
-    initAlarm();
+
+    (function load () {
+
+        if (!Object.keys(options).length) {
+            setTimeout(load, 50);
+        } else {
+            //initializes helpers and widgets for UI
+            initHelpers();
+            //inserts existing alarms in popup
+            getAlarmList();
+            //adds section for new alarm in popup
+            initAlarm();
+        }
+    })();
 
 });
