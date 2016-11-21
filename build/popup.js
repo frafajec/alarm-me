@@ -27,13 +27,14 @@ function loadOptions () {
             options.date_format = 0;
             chrome.storage.sync.set({'AM_options': options});
         }
-        options.date_format = dateFormatList[options.date_format];
 
         if (!options.time_format) {
             options.time_format = 0;
             chrome.storage.sync.set({'AM_options': options});
         }
-        options.time_format = timeFormatList[options.time_format];
+
+        // options.date_format = dateFormatList[options.date_format];
+        // options.time_format = timeFormatList[options.time_format];
 
         initTimePickers();
 
@@ -47,7 +48,7 @@ loadOptions();
  * Renders date format for datePicker
  */
 function pickrDateFormat () {
-    var format = options.date_format ? options.date_format : "DD.MM.YYYY",
+    var format = options.date_format ? dateFormatList[options.date_format] : "DD.MM.YYYY",
         final = [];
 
     var split = format.indexOf(".") > -1 ? format.split(".") : format.split("/");
@@ -69,7 +70,7 @@ function initTimePickers () {
 
     flatpickr.init.prototype.l10n.firstDayOfWeek = 1;
 
-    if (options.time_format !== 24) {
+    if (timeFormatList[options.time_format] !== 24) {
         document.getElementById("new-time-input").removeAttribute("data-time_24hr");
     }
 
@@ -109,7 +110,7 @@ function setTimePicker (time) {
             else { return x; }
         };
 
-    if (options.time_format === 12) {
+    if (timeFormatList[options.time_format] === 12) {
         document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value = addZero((t.getHours() + 11) % 12 + 1);
         document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value = addZero(t.getMinutes());
         document.getElementById("new-time").getElementsByClassName("flatpickr-am-pm")[0].innerHTML = (t.getHours() >= 12 ? "PM":"AM");
@@ -219,7 +220,7 @@ function displayTime (ex) {
         };
 
     var time;
-    switch(options.time_format) {
+    switch(timeFormatList[options.time_format]) {
         case 12:
             time = addZero((t.getHours() + 11) % 12 + 1) + ":" + addZero( t.getMinutes()) + " " + (t.getHours() >= 12 ? "PM":"AM");
             break;
@@ -228,7 +229,7 @@ function displayTime (ex) {
     }
 
     var date;
-    switch(options.date_format) {
+    switch(dateFormatList[options.date_format]) {
         case "DD.MM.YY":
             date = addZero( t.getDate() ) + "." + addZero( t.getMonth() + 1 ) + "." + addZero( t.getFullYear().toString().substring(2) );
             break;
@@ -260,7 +261,7 @@ function revertTime (date, time) {
     time = time || "00:00:00";
     var revert, s;
 
-    switch(options.date_format) {
+    switch(dateFormatList[options.date_format]) {
         case "DD.MM.YY":
             s = date.split(".");
             revert = new Date ( "20" + s[2] + "/" + s[1] + "/" + s[0] + " " + time );
