@@ -23,6 +23,10 @@ function loadOptions () {
         options = object.AM_options;
 
         //override index value with real value
+        if (!options.date_format) {
+            options.date_format = 0;
+            chrome.storage.sync.set({'AM_options': options});
+        }
         options.date_format = dateFormatList[options.date_format];
 
         if (!options.time_format) {
@@ -43,7 +47,7 @@ loadOptions();
  * Renders date format for datePicker
  */
 function pickrDateFormat () {
-    var format = options.date_format,
+    var format = options.date_format ? options.date_format : "DD.MM.YYYY",
         final = [];
 
     var split = format.indexOf(".") > -1 ? format.split(".") : format.split("/");

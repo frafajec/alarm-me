@@ -28,6 +28,10 @@ API is entirely on Chrome browser platform, however some additional libraries ar
 
 **1.4.0** Added time format for app
 
+**1.4.1** Bugfix for date format
+
+**1.4.2** Fallback scenarios for time and date formats
+
 ## License
 
 MIT License
