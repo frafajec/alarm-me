@@ -1,6 +1,6 @@
 {
   "name": "alarmme",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Chrome extension for notifications",
   "keywords": ["chrome", "alarm", "webstore"],
   "main": "background.js",

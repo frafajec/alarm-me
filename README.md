@@ -34,6 +34,8 @@ API is entirely on Chrome browser platform, however some additional libraries ar
 
 **1.4.3-4** Options self invocation and popup wait for loading options
 
+**1.4.5** Added new format option for date
+
 ## License
 
 MIT License

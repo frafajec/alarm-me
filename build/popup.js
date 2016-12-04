@@ -1,6 +1,6 @@
 var options = {};
 //lists for drop-down selection
-var dateFormatList = [ "DD.MM.YYYY", "DD.MM.YY", "DD/MM/YYYY", "MM.DD.YYYY" ];
+var dateFormatList = [ "DD.MM.YYYY", "DD.MM.YY", "MM.DD.YYYY", "DD/MM/YYYY", "YYYY/MM/DD" ];
 var timeFormatList = [ 24, 12 ];
 
 //time-picker variables
@@ -45,16 +45,20 @@ loadOptions();
  * Renders date format for datePicker
  */
 function pickrDateFormat () {
-    var format = options.date_format ? dateFormatList[options.date_format] : "DD.MM.YYYY",
-        final = [];
+    var final = "",
+        format = dateFormatList[options.date_format];
 
-    var split = format.indexOf(".") > -1 ? format.split(".") : format.split("/");
+    if (format === "DD.MM.YYYY") { final = "d.m.Y"; }
+    else if (format === "DD.MM.YY") { final = "d.m.y"; }
+    else if (format === "MM.DD.YYYY") { final = "m.d.Y"; }
+    else if (format === "DD/MM/YYYY") { final = "d/m/Y"; }
+    else if (format === "YYYY/MM/DD") { final = "Y/m/d"; }
+    else {
+        final = "d.m.Y";
+        console.log("error setting date format!");
+    }
 
-    final[0] = split[0][0].toLowerCase();
-    final[1] = split[1][0].toLowerCase();
-    final[2] = split[2].length > 2 ? "Y" : "y";
-
-    return format.split(".").length > 1 ? final.join(".") : final.join("/");
+    return final;
 }
 
 
@@ -233,6 +237,9 @@ function displayTime (ex) {
         case "MM.DD.YYYY":
             date = addZero( t.getMonth() + 1 ) + "." + addZero( t.getDate() ) + "." + addZero( t.getFullYear() );
             break;
+        case "YYYY/MM/DD":
+            date = addZero( t.getFullYear() ) + "/" + addZero( t.getMonth() + 1 ) + "/" + addZero( t.getDate() );
+            break;
         default:
             //case "DD.MM.YYYY":
             date = addZero( t.getDate() ) + "." + addZero( t.getMonth() + 1 ) + "." + addZero( t.getFullYear() );
@@ -267,6 +274,10 @@ function revertTime (date, time) {
         case "MM.DD.YYYY":
             s = date.split(".");
             revert = new Date ( s[2] + "/" + s[0] + "/" + s[1] + " " + time );
+            break;
+        case "YYYY/MM/DD":
+            s = date.split("/");
+            revert = new Date ( s[0] + "/" + s[1] + "/" + s[2] + " " + time );
             break;
         default:
             //case "DD.MM.YYYY":
