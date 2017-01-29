@@ -47,7 +47,8 @@ Temporary Items
 .apdisk
 .idea/workspace.xml
 
-# Grunt dependencies
+# Dependencies and custom
+.idea
 node_modules
 dist
 tmp

@@ -55,7 +55,6 @@ function pickrDateFormat () {
     else if (format === "YYYY/MM/DD") { final = "Y/m/d"; }
     else {
         final = "d.m.Y";
-        console.log("error setting date format!");
     }
 
     return final;

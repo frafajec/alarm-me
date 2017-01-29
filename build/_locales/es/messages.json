@@ -246,7 +246,15 @@
     "description": "Options label"
   },
   "optLabelInactiveTooltip": {
-    "message": "* Alarma inactiva, no eliminada",
+    "message": "* La alarma terminada se vuelve inactiva",
+    "description": "Options label tooltip"
+  },
+  "optLabelCountdown": {
+    "message": "Alarma de cuenta regresiva",
+    "description": "Options label"
+  },
+  "optLabelCountdownTooltip": {
+    "message": "* La insignia muestra el tiempo hasta la siguiente alarma",
     "description": "Options label tooltip"
   },
 
@@ -311,6 +319,14 @@
   },
   "suppAboutText": {
     "message": "Esta es ligero, sencillo y extensión de uso fácil para Google Chrome que extremadamente fácil de instalar y usar! Su principal objetivo es dar a los usuarios / alarmas de notificaciones que pueden utilizar con sólo unos pocos clics, en cualquier lugar, para cada dispositivo (cromado).</br>Extensión fue creado a partir de los autores necesidad personal de algo como esto y por lo tanto no es rentable o ingreso ganancias de ninguna manera.",
+    "description": "Support text"
+  },
+  "suppHelp": {
+    "message": "Ayuda",
+    "description": "Support title"
+  },
+  "suppHelpText": {
+    "message": "Windows OS se prueba y funciona bien, pero osX tiene problemas con las notificaciones. Aunque Chrome dijo que están trabajando en la integración de notificaciones con osX, por ahora funciona parcialmente. Para algunos usuarios, ingresar <span class='mono'>chrome://flags/#enable-native-notifications</span> en la barra de direcciones y habilitarlo, activa las notificaciones.",
     "description": "Support text"
   },
   "suppLib": {

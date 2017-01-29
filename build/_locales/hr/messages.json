@@ -246,7 +246,15 @@
     "description": "Options label"
   },
   "optLabelInactiveTooltip": {
-    "message": "* Alarm neaktivan, ne izbrisan",
+    "message": "* Gotov alarm postaje neaktivan",
+    "description": "Options label tooltip"
+  },
+  "optLabelCountdown": {
+    "message": "Odbrojavaj alarm",
+    "description": "Options label"
+  },
+  "optLabelCountdownTooltip": {
+    "message": "* Badge pokazuje vrijeme do alarma",
     "description": "Options label tooltip"
   },
 
@@ -311,6 +319,14 @@
   },
   "suppAboutText": {
     "message": "Ovo je lagana, jednostavna i korisnički prijateljska ekstenzija za Google Chrome koju je vrlo lako instalirati i koristiti! Glavna namjena je omogućniti korisnicima alam/notifikacije koje mogu koristiti sa samo par klika, svugdje, na bilo kojem uređaju (sa Chromom).</br>Ekstenzija je kreirana zbog autorove osobne potrebe za takvom funkcionalnošću i zato nije profitabilna niti stvara prihode na bilo koji način.",
+    "description": "Support text"
+  },
+  "suppHelp": {
+    "message": "Pomoc",
+    "description": "Support title"
+  },
+  "suppHelpText": {
+    "message": "Windows OS je testiran i radi, medutim osX ima probleme sa notifikacijama. Iako je Chrome izjavio da rade na integraciji notifikacija sa osX, za sada rade dijelomicno. for now it works partially. Nekim korisnicima ukljucenje <span class='mono'>chrome://flags/#enable-native-notifications</span> aktivira notifikacije.",
     "description": "Support text"
   },
   "suppLib": {

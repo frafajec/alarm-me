@@ -246,7 +246,15 @@
     "description": "Options label"
   },
   "optLabelInactiveTooltip": {
-    "message": "* Alarm etkin değil, silinmedi",
+    "message": "* Bitmiş alarm devre dışı kalır",
+    "description": "Options label tooltip"
+  },
+  "optLabelCountdown": {
+    "message": "Geri sayım alarmı",
+    "description": "Options label"
+  },
+  "optLabelCountdownTooltip": {
+    "message": "* Rozet, bir sonraki alarmın saatini gösterir",
     "description": "Options label tooltip"
   },
 
@@ -312,6 +320,14 @@
   "suppAboutText": {
     "message": "Bu hafif, basit ve kullanýcý dostu Google Chrome eklentisini kurmak ve kullanmak aþýrý kolay! temel amacý kullanýcýlara birkaç týkla her yerde, her (crome'lu) cihazla kullanabilecekleri alarm/bildirim vermektir.</br> Eklenti yazarlarýn bunun gibi kiþisel ihtiyaçlarý için oluþturuldu ve bu yüzden hiçbir þekilde kar elde etmez veya gelir saðlamaz.",
     "description": "destek metni"
+  },
+  "suppHelp": {
+    "message": "Yardım et",
+    "description": "Support title"
+  },
+  "suppHelpText": {
+    "message": "Windows OS test edilmiş ve iyi çalışıyor, ancak osX'in bildirimlerle ilgili sorunları var. Chrome, bildirimleri osX ile entegre etmeye çalıştıklarını belirtmesine rağmen şimdilik kısmen çalışıyor. Bazı kullanıcılar için <span class='mono'>chrome://flags/#enable-native-notifications</span> adres çubuğuna girip etkinleştirerek bildirimleri etkinleştirir.",
+    "description": "Support text"
   },
   "suppLib": {
     "message": "Kütüphaneler",

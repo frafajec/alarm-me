@@ -279,7 +279,8 @@ h2.box-line-title {
     vertical-align: top;
 }
 
-#alarm-inactive {
+#alarm-inactive,
+#alarm-countdown {
     width: 25px;
     height: 25px;
     margin-right: 175px;
@@ -298,6 +299,10 @@ h2.box-line-title {
 }
 p.box-line-text {
     padding: 0 10px;
+}
+p span.mono {
+    font-family: monospace;
+    background-color: #cacaca;
 }
 .text-center {
     text-align: center;

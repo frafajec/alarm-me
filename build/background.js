@@ -7,6 +7,7 @@ var toneList = [
 var alarmTone;
 var alarm_timeouts = {}; //when alarm occurs registers its timeout and if triggered snoozes/disables alarm
 var options;
+var badgeCount = null;
 
 
 /*
@@ -76,6 +77,37 @@ function alarm_sound (play) {
 
 /*
  * @Module - Logic
+ * Updates chrome badge icon after countdown calculation
+ * triggered every 1 second
+ *
+ * @param {int} closest - milliseconds to alarm
+ * @returns {null}
+ */
+function countDown (countdown) {
+    var closest = countdown || this;
+
+    // Check if lesser than 99 minutes
+    var now = (new Date()).getTime();
+    var closest_min = (closest - now) / (60000); // conversion from milisec to min
+    var text = "";
+
+    if (closest_min > 99) {
+        text = "99+";
+    } else if (closest_min <= 0) {
+        text = "bzz";
+    } else if (closest_min <= 1) {
+        text = "<1";
+    } else {
+        text = "~" + String( Math.round(closest_min) );
+    }
+
+    chrome.browserAction.setBadgeBackgroundColor({color: "#000"});
+    chrome.browserAction.setBadgeText({text: text });
+}
+
+
+/*
+ * @Module - Logic
  * Updates chrome badge icon
  * triggered on any storage change
  *
@@ -89,8 +121,67 @@ function updateBadge(changes, area) {
         var nbr = changes.AM_alarms.newValue.filter(function (e) { return e.active; }),
             text = nbr.length > 0 ? nbr.length.toString() : "";
 
-        chrome.browserAction.setBadgeBackgroundColor({color: "#000"});
-        chrome.browserAction.setBadgeText({text: text });
+        if (badgeCount) { clearInterval(badgeCount); }
+
+        // If in settings enabled to count down
+        if (options.countdown && nbr.length > 0) {
+            var closest = changes.AM_alarms.newValue.length ? changes.AM_alarms.newValue[0].time_set : 0;
+            for (var i = 1; i < changes.AM_alarms.newValue.length; i++) {
+                if (changes.AM_alarms.newValue[i].time_set < closest) {
+                    closest = changes.AM_alarms.newValue[i].time_set;
+                }
+            }
+
+            // if (badgeCount) { clearInterval(badgeCount); }
+            badgeCount = setInterval(countDown.bind(closest), 1000); // 1 sec
+            countDown(closest);
+        } else {
+            chrome.browserAction.setBadgeBackgroundColor({color: "#000"});
+            chrome.browserAction.setBadgeText({text: text });
+        }
+    }
+
+    if (area === "sync" && changes.AM_options) {
+
+        for (var o in changes.AM_options.newValue) {
+            options[o] = changes.AM_options.newValue[o];
+        }
+
+        if (changes.AM_options.oldValue.countdown !== changes.AM_options.newValue.countdown) {
+            var storage_callback = function (object) {
+                var alarms = object.AM_alarms,
+                    i = null,
+                    nbr = alarms.filter(function (e) { return e.active; }),
+                    text = nbr.length > 0 ? nbr.length.toString() : "";
+
+                // this mimics code from updateBadge
+                if (this.countdown) {
+                    if (nbr.length > 0) {
+                        var closest = alarms.length ? alarms[0].time_set : 0;
+                        for (i = 1; i < alarms.length; i++) {
+                            if (alarms[i].time_set < closest) {
+                                closest = alarms[i].time_set;
+                            }
+                        }
+
+                        // if (badgeCount) { clearInterval(badgeCount); }
+                        badgeCount = setInterval(countDown.bind(closest), 1000); // 1 sec
+                        countDown(closest);
+                    } else {
+                        chrome.browserAction.setBadgeBackgroundColor({color: "#000"});
+                        chrome.browserAction.setBadgeText({text: text });
+                    }
+                } else {
+                    if (badgeCount) { clearInterval(badgeCount); }
+                    chrome.browserAction.setBadgeBackgroundColor({color: "#000"});
+                    chrome.browserAction.setBadgeText({text: text });
+                }
+
+            }.bind({countdown: changes.AM_options.newValue.countdown}); //pushing variable alarm into scope!
+            chrome.storage.sync.get('AM_alarms', storage_callback);
+
+        }
+
     }
 
 }

@@ -140,7 +140,8 @@ function defaultOptions (save, change) {
         volume: 100,
         date_format: 0,
         time_format: 0,
-        inactive: true
+        inactive: true,
+        countdown: false
     };
 
     if (save) {
@@ -152,6 +153,7 @@ function defaultOptions (save, change) {
         document.getElementById('alarm-stop').value = options.stop_after;
         document.getElementById('alarm-volume').value = options.volume;
         document.getElementById('alarm-inactive').checked = options.inactive;
+        document.getElementById('alarm-countdown').checked = options.countdown;
         window.toneSelect._changeOption(options.tone);
         window.timeSelect._changeOption(options.time_format);
         window.dateSelect._changeOption(options.date_format);
@@ -202,6 +204,7 @@ function save_options () {
     options.date_format = document.getElementById('date-list').getElementsByClassName('cs-select')[1].selectedIndex - 1;
     options.volume = document.getElementById('alarm-volume').value;
     options.inactive = document.getElementById('alarm-inactive').checked;
+    options.countdown = document.getElementById('alarm-countdown').checked;
 
     //persist options to storage
     chrome.storage.sync.set({'AM_options': options});
@@ -359,6 +362,7 @@ document.addEventListener("DOMContentLoaded", function() {
     window.dateSelect = dateSelect;
 
     document.getElementById("alarm-inactive").addEventListener('click', save_options);
+    document.getElementById("alarm-countdown").addEventListener('click', save_options);
 
 
     //LOAD and SET options
@@ -392,6 +396,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('alarm-stop').value = options.stop_after;
         document.getElementById('alarm-volume').value = options.volume;
         document.getElementById('alarm-inactive').checked = options.inactive;
+        document.getElementById('alarm-countdown').checked = options.countdown;
         window.toneSelect._changeOption(options.tone);
         window.timeSelect._changeOption(options.time_format);
         window.dateSelect._changeOption(options.date_format);

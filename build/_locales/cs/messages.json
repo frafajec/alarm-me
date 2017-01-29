@@ -246,7 +246,15 @@
     "description": "Options label"
   },
   "optLabelInactiveTooltip": {
-    "message": "* Alarm neaktivní, nejsou odstraněny",
+    "message": "* Hotový alarm neaktivní",
+    "description": "Options label tooltip"
+  },
+  "optLabelCountdown": {
+    "message": "Odpočítávání alarm",
+    "description": "Options label"
+  },
+  "optLabelCountdownTooltip": {
+    "message": "* Odznak ukazují čas do dalšího poplachu",
     "description": "Options label tooltip"
   },
 
@@ -311,6 +319,14 @@
   },
   "suppAboutText": {
     "message": "Toto je odlehčené, jednoduché a uživatelsky přívětivé rozšíření pro aplikaci Google Chrome. Instalace a používání je extrémně jednoduché! Jeho hlavním účelem je poskytnout uživatelům připomínky/notifikace, které je možné nastavit a používat pomocí pár kliků kdekoliv na jakémkoliv zařízení (s nainstalovaným prohlížečem Google Chrome).</br>Rozšíření bylo vytvořeno výhradně z vývojářovy osobní potřeby a z tohoto důvodu z něj vývojáři neplyne žádný profit.",
+    "description": "Support text"
+  },
+  "suppHelp": {
+    "message": "Pomoc",
+    "description": "Support title"
+  },
+  "suppHelpText": {
+    "message": "OS Windows je testován a funguje dobře, ale OSX má problémy s oznámeními. Ačkoli Chrome uvedla, že pracují na integraci oznámení s OSX, teď to funguje částečně. Pro některé uživatele, kteří vstoupili <span class='mono'>chrome://flags/#enable-native-notifications</span> do adresního řádku a umožnit mu, aktivuje oznámení.",
     "description": "Support text"
   },
   "suppLib": {
