@@ -1,9 +1,14 @@
-@import url(http://fonts.googleapis.com/css?family=Raleway);
+@import url('https://fonts.googleapis.com/css?family=Lato:300i,400,400i');
 
 html,body {
     height:100%;
     margin:0;
     padding:0;
+}
+
+input, p, span, a, textarea, label, td {
+    font-family: 'Lato', sans-serif;
+    color: #595959;
 }
 
 .container {
@@ -157,6 +162,9 @@ html,body {
     font-size: 18px;
     vertical-align: middle;
     margin: 18px 0 18px 20%;
+    font-weight: bold;
+    font-style: italic;
+    user-select: none;
 }
 .box-line input {
     font-size: 18px;
@@ -179,8 +187,9 @@ html,body {
     padding: 0;
     margin: 0 0 0 5px;
     font-style: italic;
-    color: gray;
     font-size: 18px;
+    font-weight: 300;
+    user-select: none;
 }
 .box-line .help input.toggle-sound {
     width: 30px;
@@ -207,6 +216,7 @@ html,body {
     font-style: italic;
     color: grey;
     float: left;
+    user-select: none;
 }
 .box-footer {
     margin-top: 15px;
@@ -215,6 +225,7 @@ html,body {
 .box-footer p {
     text-align: left;
     margin: 0;
+    user-select: none;
 }
 .box-footer .footer-hints {
     width: 75%;
@@ -322,6 +333,7 @@ div.box table.grid-3 tr td:nth-child(1) {
 div.box table.grid-3 tr td:nth-child(2) {
     text-align: left;
     padding-left: 5px;
+    font-style: italic;
 }
 a.out-link {
     text-decoration: none;

@@ -159,7 +159,7 @@ function updateBadge(changes, area) {
                     if (nbr.length > 0) {
                         var closest = alarms.length ? alarms[0].time_set : 0;
                         for (i = 1; i < alarms.length; i++) {
-                            if (alarms[i].time_set < closest) {
+                            if (alarms[i].active && alarms[i].time_set < closest) {
                                 closest = alarms[i].time_set;
                             }
                         }
