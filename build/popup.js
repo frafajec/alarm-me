@@ -605,7 +605,7 @@ function editAlarm () {
 
             for (i = 0; i < alarm.rep_days.length; i++) {
 
-                rep_dates[i].checked = alarm.rep_days[i] ? true : false;
+                rep_dates[i].checked = !!alarm.rep_days[i];
                 all_check = alarm.rep_days[i] ? all_check++ : all_check;
 
             }
@@ -1166,7 +1166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     (function load () {
 
         if (!Object.keys(options).length) {
-            setTimeout(load, 50);
+            setTimeout(load, 0);
         } else {
             //initializes helpers and widgets for UI
             initHelpers();

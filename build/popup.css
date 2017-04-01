@@ -1,4 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Raleway);
+/*@import url('https://fonts.googleapis.com/css?family=Lato');*/
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
 /*******  GLOBAL:start  *******/
 
 @keyframes spin { 100% { transform: rotate(360deg) translateZ(0); backface-visibility: hidden; } }
@@ -16,18 +17,30 @@
     100%, 50% { transform: rotate(0deg); }
 }
 
+html {
+    /*position: static;*/
+    /*top: 0;*/
+    /*right: 0*/
+}
+
 body {
-    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+    font-family: 'Lato', sans-serif;
     font-size: 100%;
     width: 280px;
     height: 100%;
 }
+
+input, p, span, a, textarea, label {
+    font-family: 'Lato', sans-serif;
+    color: #595959;
+}
+
 #app-container {
     width: 100%;
     height: 100%;
 }
 .error {
-    box-shadow: 0px 0px 10px red;
+    box-shadow: 0 0 10px red;
     transition: all 0.3s ease;
 }
 .clear {
@@ -92,9 +105,6 @@ body {
 .flatpickr-wrapper .flatpickr-calendar table td .flatpickr-day {
     line-height: 17px;
 }
-.flatpickr-wrapper {
-    width: auto;
-}
 .flatpickr-wrapper.open {
     width: 100%;
 }
@@ -121,12 +131,12 @@ body {
 #header #datetime {
     display: inline-block;
     vertical-align: top;
-    margin-bottom: -2px;
-    margin-left: 25px;
-    padding: 2px 5px;
+    margin: 0 0 -2px 25px;
+    padding: 1px 5px 2px;
     border: 1px solid #47c9af;
     border-radius: 5px;
     float: right;
+    user-select: none;
 }
 
 
@@ -137,7 +147,7 @@ body {
 }
 #header #datetime #time {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
 }
 #header #datetime #date {
     font-size: 14px;
@@ -172,8 +182,8 @@ body {
 #alarm-new #toggle-onetime-alarm:hover,
 #alarm-new #toggle-repetitive-alarm:hover {
     color: #47c9af;
-    box-shadow: 0px 0px 2px #47c9af;
-    text-shadow: 0px 0px #27503b;
+    box-shadow: 0 0 2px #47c9af;
+    text-shadow: 0 0 #27503b;
 }
 #alarm-new #toggle-new-alarm:active,
 #alarm-new #toggle-onetime-alarm:active,
@@ -209,6 +219,7 @@ body {
 
     animation: containerDown 0.2s ease backwards;
     animation-fill-mode: backwards;
+    user-select: none;
 }
 
 @keyframes containerUp {
@@ -218,8 +229,6 @@ body {
 #alarm-new-container.closed {
     animation: containerUp 0.2s ease forwards !important;
     animation-fill-mode: forwards;
-    /*height: 0;*/
-    /*animation-fill-mode: backwards;*/
 }
 .initial {
     display: none;
@@ -253,6 +262,10 @@ body {
 #alarm-new #new-time .flatpickr-minute {
     font-size: 25px;
 }
+#alarm-new #new-time .flatpickr-hour,
+#alarm-new #new-time .flatpickr-minute {
+    width: 32px;
+}
 
 #alarm-new #new-date {
     width: 190px;
@@ -269,7 +282,6 @@ body {
     padding: 2px;
     width: 80px;
     text-align: center;
-    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
 }
 #alarm-new #new-name-input,
 #alarm-new #new-name-rep-input{
@@ -277,15 +289,13 @@ body {
     border-radius: 10px;
     margin: 4px 0;
     padding: 5px;
-    font-size: 17px;
+    font-size: 15px;
     width: 95%;
     outline: none;
-    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
 }
 #alarm-new #new-name-input::-webkit-input-placeholder,
 #alarm-new #new-name-rep-input::-webkit-input-placeholder{
-    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
 }
 #alarm-new #new-name-input:focus,
 #alarm-new #new-name-rep-input:focus {
@@ -308,7 +318,6 @@ body {
     border-top: 1px solid #47c9af;
 }
 #alarm-new #new-rep label {
-    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
     position: relative;
     top: -3px;
 }
@@ -327,12 +336,11 @@ body {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
-    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
     min-height: 85px;
     max-height: 85px;
 }
 #alarm-new #new-desc-input::-webkit-input-placeholder {
-    font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+    font-size: 12px;
 }
 #alarm-new #new-desc-input:focus {
     box-shadow: 0 0 3px #47c9af;
@@ -408,8 +416,8 @@ body {
 #alarm-new[state="edit"] #toggle-onetime-alarm:hover,
 #alarm-new[state="edit"] #toggle-repetitive-alarm:hover {
     color: #e78a00;
-    box-shadow: 0px 0px 2px #e78a00;
-    text-shadow: 0px 0px #cd6f00;
+    box-shadow: 0 0 2px #e78a00;
+    text-shadow: 0 0 #cd6f00;
 }
 #alarm-new[state="edit"] #toggle-new-alarm:active,
 #alarm-new[state="edit"] #toggle-onetime-alarm:active,
@@ -476,6 +484,8 @@ body {
 }
 .alarm .alarm-body .datetime {
     width: 25%;
+    padding-top: 2px;
+    user-select: none;
 }
 .alarm .alarm-body .alarm-meta {
     width: 70%;
@@ -493,7 +503,7 @@ body {
 
 .alarm .alarm-body .datetime .time {
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
 }
 .alarm .alarm-body .datetime .date {
     font-size: 12px;
@@ -504,22 +514,28 @@ body {
     font-size: 9px;
 }
 .alarm .alarm-body .alarm-name {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 14px;
-    padding-top: 1px;
+    padding: 1px 12px 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .alarm .alarm-body .alarm-desc {
     font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .alarm .alarm-body .alarm-days span {
     padding-right: 2px;
-    font-size: 10px;
-    color: #8c8c8c;
-    font-family: "Helvetica"; /*to break default*/
+    font-size: 11px;
+    color: #c5c5c5;
+    user-select: none;
 }
 .alarm .alarm-body .alarm-days span.active {
     color: black;
-    font-weight: bold;
+    font-weight: 700;
 }
 .alarm .alarm-options {
     position: absolute;
@@ -562,6 +578,7 @@ body {
     width: initial;
     height: initial;
     top: 0;
+    color: #595959;
 }
 .alarm .alarm-options i.alarm-options-toggle:hover {
     animation: spin 4s linear infinite;
@@ -624,6 +641,8 @@ body {
 #footer {
     border-top: 1px solid #47c9af;
     clear: both;
+    height: 10px;
+    padding-top: 3px;
 }
 #footer #link-instructions,
 #footer #link-options {
@@ -631,6 +650,8 @@ body {
     text-decoration: none;
     font-size: 12px;
     transition: all 0.2s ease;
+    user-select: none;
+    cursor: pointer;
 }
 #footer #link-instructions:hover,
 #footer #link-options:hover {

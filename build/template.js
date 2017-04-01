@@ -13,14 +13,6 @@ var chrome = chrome || undefined;
 function template (template, data) {
     var html = "";
 
-
-    //helper functions
-    function reviseLength(txt, n) {
-        if (txt.length > n) { txt = txt.substr(0, n - 3) + "..."; }
-        return txt;
-    }
-
-
     //TEMPLATES
     function alarmTemplate(alarm, data) {
 
@@ -69,14 +61,14 @@ function template (template, data) {
                 body_name.setAttribute("class", "alarm-meta");
                     var alarm_name = document.createElement("p");
                     alarm_name.setAttribute("class", "alarm-name");
-                    alarm_name.innerHTML = reviseLength(alarm.name, 22);
+                    alarm_name.innerHTML = alarm.name;
                 body_name.appendChild(alarm_name);
 
 
                 if (!alarm.repetitive) {
                     var alarm_desc = document.createElement("p");
                     alarm_desc.setAttribute("class", "alarm-desc");
-                    alarm_desc.innerHTML = reviseLength(alarm.desc, 35);
+                    alarm_desc.innerHTML = alarm.desc;
                     body_name.appendChild(alarm_desc);
                 } else {
                     var alarm_rep = document.createElement("p");
