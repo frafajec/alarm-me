@@ -167,6 +167,10 @@
     "message": "Dátum alarm",
     "description": "Tooltip text"
   },
+  "alarmInactive": {
+    "message": "Alarm je neaktívny",
+    "description": "Tooltip text"
+  },
 
 
 

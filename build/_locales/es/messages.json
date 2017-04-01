@@ -167,6 +167,10 @@
     "message": "Fecha de la alarma",
     "description": "Tooltip text"
   },
+  "alarmInactive": {
+    "message": "La alarma está inactiva",
+    "description": "Tooltip text"
+  },
 
 
 

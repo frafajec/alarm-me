@@ -36,6 +36,7 @@ function template (template, data) {
         var container = document.createElement("div");
         container.setAttribute("class", "alarm-container");
         container.setAttribute("state", alarm.active ? "active" : "inactive");
+        container.setAttribute("title", chrome.i18n.getMessage("alarmInactive"));
 
 
             //BODY
@@ -44,8 +45,10 @@ function template (template, data) {
 
                 var dt = displayTime(alarm.time_set);
 
+                // Checks if alarm is set today, hide date then!
+                var set_today = (new Date().toDateString()) === (new Date(alarm.time_set).toDateString());
                 var body_datetime = document.createElement("div");
-                body_datetime.setAttribute("class", "datetime");
+                body_datetime.setAttribute("class", set_today ? "datetime set-today" : "datetime");
 
                     var time = document.createElement("p");
                     time.setAttribute("class", "time");

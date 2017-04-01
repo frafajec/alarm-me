@@ -167,6 +167,10 @@
     "message": "Alarm tarihi",
     "description": "Tooltip text"
   },
+  "alarmInactive": {
+    "message": "Alarm devre dışı",
+    "description": "Tooltip text"
+  },
 
 
 

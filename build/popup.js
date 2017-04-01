@@ -455,7 +455,6 @@ function allCheck () {
 function checkConstraints () {
     var fail = false;
 
-    // CONSTRAINT 1 - alarm in past
     var input_date = document.getElementById("new-date-input").value,
         input_h = document.getElementById("new-time").getElementsByClassName("flatpickr-hour")[0].value,
         input_min = document.getElementById("new-time").getElementsByClassName("flatpickr-minute")[0].value,
@@ -464,6 +463,7 @@ function checkConstraints () {
     var alarm_time = revertTime(input_date, input_h + ":" + input_min + ":00" + (input_pa.length > 0 ? (" " + input_pa[0].innerHTML) : "")),
         now = new Date();
 
+    // CONSTRAINT 1 - alarm in past
     if (alarm_time.getTime() <= now.getTime()) {
         document.getElementById("new-time").notify("02", {  type: "warning" });
 

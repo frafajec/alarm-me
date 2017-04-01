@@ -8,7 +8,7 @@
   "offline_enabled": true,
   
   "default_locale": "en",
-  "description": "Your personal pocket alarm!",
+  "description": "Your personal pocket alarm with tons of options and desktop notifications",
   "icons": {
       "16": "img/icon/icon16.png",
       "19": "img/icon/icon19.png",

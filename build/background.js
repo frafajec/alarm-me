@@ -127,7 +127,7 @@ function updateBadge(changes, area) {
         if (options.countdown && nbr.length > 0) {
             var closest = changes.AM_alarms.newValue.length ? changes.AM_alarms.newValue[0].time_set : 0;
             for (var i = 1; i < changes.AM_alarms.newValue.length; i++) {
-                if (changes.AM_alarms.newValue[i].time_set < closest) {
+                if (changes.AM_alarms.newValue[i].active && changes.AM_alarms.newValue[i].time_set < closest) {
                     closest = changes.AM_alarms.newValue[i].time_set;
                 }
             }
