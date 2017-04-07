@@ -36,6 +36,8 @@ API is entirely on Chrome browser platform, however some additional libraries ar
 
 **1.4.5** Added new format option for date
 
+**1.5.0** Badge countdown, font changed to Lato, notification rework, general UI fixes
+
 ## License
 
 MIT License

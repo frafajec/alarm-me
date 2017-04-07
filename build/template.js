@@ -36,7 +36,7 @@ function template (template, data) {
         var container = document.createElement("div");
         container.setAttribute("class", "alarm-container");
         container.setAttribute("state", alarm.active ? "active" : "inactive");
-        container.setAttribute("title", chrome.i18n.getMessage("alarmInactive"));
+        container.setAttribute("title", alarm.active ? "" : chrome.i18n.getMessage("alarmInactive"));
 
 
             //BODY
@@ -147,8 +147,43 @@ function template (template, data) {
         return html;
     }
 
+    function notifyTemplate(data) {
+
+        var container = document.createElement("div");
+        container.setAttribute("class", "notify " + (data.type ? data.type : ""));
+
+            var stateIcon = document.createElement("div");
+            stateIcon.setAttribute("class", "stateIcon");
+
+                var icon = document.createElement("i");
+                icon.setAttribute("class", "fa " + (data.type === "warning" ? "fa-times" : "fa-check") + " fa-lg");
+                icon.setAttribute("aria-hidden", "true");
+                stateIcon.appendChild(icon);
+
+
+            var stateField = document.createElement("div");
+            stateField.setAttribute("class", "stateField");
+
+                var title = document.createElement("span");
+                title.setAttribute("class", "fieldTitle");
+                title.innerHTML = data.title;
+                stateField.appendChild(title);
+
+                var desc = document.createElement("span");
+                desc.setAttribute("class", "fieldDesc");
+                desc.innerHTML = data.desc;
+                stateField.appendChild(desc);
+
+            container.appendChild(stateIcon);
+            container.appendChild(stateField);
+
+        return container;
+    }
+
     //FORKING
     if (template === 'alarm') { html = alarmTemplate(data.alarm, data.data); }
+    if (template === 'notify') { html = notifyTemplate(data); }
+
 
     return html;
 }

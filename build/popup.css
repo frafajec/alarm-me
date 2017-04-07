@@ -50,6 +50,32 @@ input, p, span, a, textarea, label {
     padding: 0;
     margin: 0;
 }
+
+
+.notify {
+    position: fixed;
+    border-radius: 8px;
+    margin-left: 55px;
+    margin-top: -25px;
+    width: 170px;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 1);
+    color: black;
+
+    opacity: 0;
+    transition: opacity 0.5s ease;
+
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border: 1px solid #4F8A10;
+    height: auto;
+    z-index: 5;
+}
+.notify.visible {
+    opacity: 1;
+}
 .notify:after {
     content: "";
     position: absolute;
@@ -61,39 +87,49 @@ input, p, span, a, textarea, label {
     display: block;
     width: 0;
 }
-@keyframes showNotify {
-    from { background-color: rgba(255, 255, 255, 0); color: transparent; }
-    to { background-color: rgba(255, 255, 255, 1); color: black; }
+.notify div.stateIcon {
+    width: 40px;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #4F8A10;
+    border-bottom-left-radius: 6px;
+    border-top-left-radius: 6px;
+
+    position: absolute; /* only way to have height 100% while parent is height: auto!*/
 }
-.notify {
-    position: fixed;
-    border-radius: 6px;
-    z-index: 1;
-    margin-left: 55px;
-    margin-top: -55px;
-    width: 140px;
-    text-align: left;
-    border: 1px solid #82c310;
-    box-shadow: 0 0 10px #4F8A10;
-    background-color: rgba(255, 255, 255, 1);
-    color: black;
-    animation: showNotify 0.5s ease backwards;
-    animation-fill-mode: forwards;
+.notify div.stateIcon i {
+    color: #FFF;
+    font-size: 28px;
 }
-.notify.warning {
-    border: 2px solid #c94747;
-    box-shadow: 0 0 10px #c94747;
+.notify div.stateField {
+    display: inline-flex;
+    flex: 2;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px;
+
+    margin-left: 40px;
 }
-.notify h6 {
-    margin: 0;
-    border-bottom: 1px solid black;
-    padding: 2px 3px;
+.notify div.stateField span.fieldTitle {
+    font-size: 13px;
+    height: 16px;
+    font-weight: 600;
 }
-.notify p {
-    padding: 0 0 3px 3px;
-    margin: 0;
+.notify div.stateField span.fieldDesc {
+    display: block;
     font-size: 10px;
 }
+
+.notify.warning {
+    border: 1px solid #c94747;
+    width: 185px;
+}
+.notify.warning div.stateIcon {
+    background-color: #c94747;
+}
+
 
 /* FLATPICKR FIX*/
 #new-date .flatpickr-wrapper .flatpickr-calendar {

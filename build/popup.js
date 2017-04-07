@@ -163,22 +163,24 @@ function initNotify () {
      * 03 - warning, alarm not restored because already passed
      */
     Element.prototype.notify = function(code, data) {
+        var parent = this;
+        var notify = createTemplate('notify', {
+            type: data.type,
+            title: chrome.i18n.getMessage("ntf" + code + "Head"),
+            desc: chrome.i18n.getMessage("ntf" + code + "Body") + "" + (data.content ? data.content : "")
+        });
+        parent.insertBefore(notify, parent.firstChild);
+        setTimeout(function () { notify.setAttribute("class", notify.getAttribute("class") + " visible"); }, 25);
 
-        var parent = this,
-            notif = document.createElement("span"),
-            notifHead = document.createElement("h6"),
-            notifBody = document.createElement("p");
+        var hide = function (notify) {
+            var cls = notify.getAttribute("class");
+            var hide = cls.substring(0, cls.indexOf("visible"));
+            notify.setAttribute("class", hide);
+            setTimeout(function () { this.remove(); }.bind(notify), 600);
+        };
 
-        notif.setAttribute("class", "notify " + (data.type ? data.type : "") );
-        notifHead.innerHTML = chrome.i18n.getMessage("ntf" + code + "Head");
-        notifBody.innerHTML = chrome.i18n.getMessage("ntf" + code + "Body") + "" + (data.content ? data.content : "");
-
-        notif.appendChild(notifHead);
-        notif.appendChild(notifBody);
-        parent.insertBefore(notif, parent.firstChild);
-
-        notif.addEventListener('click', function () { this.remove(); });
-        setTimeout(function () { this.remove(); }.bind(notif), 5000);
+        notify.addEventListener('click', function () { hide(this); });
+        setTimeout(function () { hide(this); }.bind(notify), 5000);
     };
 
 }
