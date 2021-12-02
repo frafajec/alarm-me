@@ -38,6 +38,8 @@ API is entirely on Chrome browser platform, however some additional libraries ar
 
 **1.5.0** Badge countdown, font changed to Lato, notification rework, general UI fixes
 
+**2.0.0** Complete rework of the extension
+
 ## License
 
 MIT License
