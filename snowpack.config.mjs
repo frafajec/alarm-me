@@ -12,6 +12,10 @@ export default {
     "@snowpack/plugin-typescript",
     "@snowpack/plugin-postcss",
   ],
+  devOptions: {
+    tailwindConfig: "./tailwind.config.js",
+    open: "none",
+  },
   buildOptions: {
     metaUrlPath: "private/snowpack",
   },
@@ -32,8 +36,5 @@ export default {
   },
   packageOptions: {
     /* ... */
-  },
-  devOptions: {
-    tailwindConfig: "./tailwind.config.js",
   },
 };
