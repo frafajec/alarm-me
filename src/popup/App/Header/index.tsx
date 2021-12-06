@@ -27,6 +27,10 @@ export default function Header() {
     dispatch(actions.setModal({ modalType: ModalType.create }));
   };
 
+  const stopRinging = () => {
+    dispatch(actions.stopRinging());
+  };
+
   return (
     <div className="flex justify-between p-1 pb-2 border-b border-cyan">
       <p className="flex items-center justify-center text-xl mt-1 dark:text-gray-400">
@@ -38,7 +42,7 @@ export default function Header() {
         <div title="Add alarm" className={iconClass} onClick={showCreateModal}>
           <PlusSvg />
         </div>
-        <div title="Cancel ringing" className={iconClass}>
+        <div title="Cancel ringing" className={iconClass} onClick={stopRinging}>
           <BellCancelSvg className="h-5 w-5" />
         </div>
 

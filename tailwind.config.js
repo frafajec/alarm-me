@@ -2,7 +2,7 @@ module.exports = {
   mode: 'jit',
   purge: ['./public/**/*.html', './src/**/*.{ts,tsx,svg}'],
   // specify other options here
-  darkMode: 'media',
+  // darkMode: 'media',
   theme: {
     extend: {
       fontSize: {

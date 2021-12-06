@@ -58,6 +58,7 @@ export default function EditModal({ visible, loading, setLoading }: TProps) {
           repetitive: tab == ModalTab.repetitive,
           repetitionDays,
           disabled: false,
+          state: alarmEdited!.state,
         },
       })
     );

@@ -16,6 +16,12 @@ export interface Storage {
   options: Options;
 }
 
+export enum AlarmState {
+  active = 'Active',
+  disabled = 'Disabled',
+  ringing = 'Ringing',
+}
+
 export interface Alarm {
   readonly id: string;
   readonly name?: string;
@@ -23,6 +29,7 @@ export interface Alarm {
   readonly repetitive: boolean;
   readonly repetitionDays: number[];
   readonly disabled: boolean;
+  readonly state: AlarmState;
 }
 
 export interface Options {}
@@ -76,6 +83,9 @@ export type TEditAlarmPayload = {
 };
 export type TDeleteAlarmPayload = {
   readonly alarmId: string;
+};
+export type TStopAlarmRingingPayload = {
+  readonly alarm: Alarm;
 };
 
 // ---------------------------------------------------------------------------------

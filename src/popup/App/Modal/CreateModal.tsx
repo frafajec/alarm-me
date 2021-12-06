@@ -3,7 +3,7 @@ import actions from '@popup/store/actions';
 import { useAppDispatch } from '@popup/store';
 
 import Button from '@src/components/Button';
-import { ModalTab } from '@src/typings';
+import { AlarmState, ModalTab } from '@src/typings';
 import { generateId, isPast } from '@src/utils';
 import Tabs from './components/Tabs';
 import Time from './components/Time';
@@ -45,6 +45,7 @@ export default function CreateModal({ visible, loading, setLoading }: TProps) {
           repetitive: tab == ModalTab.repetitive,
           repetitionDays,
           disabled: false,
+          state: AlarmState.active,
         },
       })
     );

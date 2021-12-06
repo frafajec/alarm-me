@@ -5,6 +5,7 @@ import {
   TDeleteAlarmPayload,
   TEditAlarmPayload,
   TSetModalPayload,
+  TStopAlarmRingingPayload,
 } from '@src/typings';
 
 // ---------------------------------------------------------------------------------
@@ -42,12 +43,27 @@ function deleteAlarm(payload: TDeleteAlarmPayload): TAction<TDeleteAlarmPayload>
   };
 }
 
+function stopRinging(): TAction<undefined> {
+  return {
+    type: actionTypes.stopRinging,
+  };
+}
+
+function stopAlarmRinging(payload: TStopAlarmRingingPayload): TAction<TStopAlarmRingingPayload> {
+  return {
+    type: actionTypes.stopAlarmRinging,
+    payload,
+  };
+}
+
 const actions = {
   init,
   setModal,
   createAlarm,
   editAlarm,
   deleteAlarm,
+  stopRinging,
+  stopAlarmRinging,
 };
 
 // ---------------------------------------------------------------------------------

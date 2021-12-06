@@ -5,6 +5,7 @@ import {
   TCreateAlarmPayload,
   TEditAlarmPayload,
   TDeleteAlarmPayload,
+  TStopAlarmRingingPayload,
 } from '@src/typings';
 
 // ---------------------------------------------------------------------------------
@@ -63,6 +64,8 @@ const appActions = {
   popupEditAlarmDone: '@popup/edit-alarm-done',
   popupDeleteAlarm: '@popup/delete-alarm',
   popupDeleteAlarmDone: '@popup/delete-alarm-done',
+  popupStopRinging: '@popup/stop-ringing',
+  popupStopAlarmRinging: '@popup/stop-alarm-ringing',
 };
 
 // registrations of listeners
@@ -86,23 +89,29 @@ async function popupInit() {
 // process new alarm and pass it back to popup (so UI gets updated)
 // backend will be updated from onChanged.addListener
 async function popupCreateAlarm(payload: TCreateAlarmPayload) {
-  console.log('popupCreate payload.alarm', payload.alarm);
   const newAlarms = [...storageCache.alarms, payload.alarm];
-  console.log('popupCreate newAlarms', newAlarms);
   await chrome.storage.sync.set({ alarms: newAlarms });
   sendAction({ type: appActions.popupCreateAlarmDone, payload });
 }
+// process alarm that already exists, on which data has been changed
 async function popupEditAlarm(payload: TEditAlarmPayload) {
-  const editedAlarm = payload.alarm;
+  const editedAlarm = { ...payload.alarm };
   const newAlarms = storageCache.alarms.map(a => (a.id == editedAlarm.id ? editedAlarm : a));
   await chrome.storage.sync.set({ alarms: newAlarms });
   sendAction({ type: appActions.popupEditAlarmDone, payload });
 }
+// remove alarm from storage (frontend will do alarm removal in UI)
 async function popupDeleteAlarm(payload: TDeleteAlarmPayload) {
   const newAlarms = storageCache.alarms.filter(a => a.id != payload.alarmId);
   await chrome.storage.sync.set({ alarms: newAlarms });
   sendAction({ type: appActions.popupDeleteAlarmDone, payload });
 }
+// red alert call, when sound is coming from somewhere, force stop it
+// this should also change all the alarms states and call again init method
+async function popupStopRinging() {}
+
+// stop alarm ringing and return to the UI updated alarm
+async function popupStopAlarmRinging(payload: TStopAlarmRingingPayload) {}
 
 // ---------------------------------------------------------------------------------
 // ALARM MANAGEMENT
