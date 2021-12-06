@@ -1,20 +1,12 @@
-import React from "react";
+import React from 'react';
 
 export default function Loader() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      //       xmlns:xlink="http://www.w3.org/1999/xlink"
-      style={{
-        margin: "auto",
-        background: "#fff",
-        display: "block",
-      }}
-      //       style="margin:auto;background:#fff;display:block;"
-      width="75%"
-      height="75%"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
+      className="m-auto w-3/4 h-3/4"
     >
       <g transform="scale(-1,1) translate(-100,0)">
         <g>

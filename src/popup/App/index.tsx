@@ -1,23 +1,26 @@
-import React, { useEffect } from "react";
-import popupActions from "@popup/store/actions";
-import { useAppSelector, useAppDispatch } from "@popup/store";
+import React, { useEffect } from 'react';
+import actions from '@popup/store/actions';
+import { useAppDispatch } from '@popup/store';
 
-import Header from "./Header";
-import Loader from "./Loader";
+import Header from './Header';
+import Content from './Content';
+import Footer from './Footer';
+import Modal from './Modal';
 
+// ---------------------------------------------------------------------------------
 export default function App() {
-  const isInitialized = useAppSelector((s) => s.initialized);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // Your code here
-    dispatch(popupActions.popupInit());
+    dispatch(actions.init());
   }, []);
 
   return (
-    <div className="container">
-      {/* <Header /> */}
-      <Loader />
+    <div className="relative overflow-hidden flex flex-col h-full dark:bg-blackish">
+      <Header />
+      <Content />
+      <Footer />
+      <Modal />
     </div>
   );
 }

@@ -1,14 +1,54 @@
-import actionTypes from "@src/actionTypes";
-import { TAction } from "@src/typings";
+import actionTypes from '@src/popup/store/actionTypes';
+import {
+  TAction,
+  TCreateAlarmPayload,
+  TDeleteAlarmPayload,
+  TEditAlarmPayload,
+  TSetModalPayload,
+} from '@src/typings';
 
-function popupInit(): TAction<undefined> {
+// ---------------------------------------------------------------------------------
+function init(): TAction<undefined> {
   return {
-    type: actionTypes.popupInit,
+    type: actionTypes.init,
   };
 }
 
-const popupActions = {
-  popupInit,
+function setModal(payload: TSetModalPayload): TAction<TSetModalPayload> {
+  return {
+    type: actionTypes.setModal,
+    payload,
+  };
+}
+
+function createAlarm(payload: TCreateAlarmPayload): TAction<TCreateAlarmPayload> {
+  return {
+    type: actionTypes.createAlarm,
+    payload,
+  };
+}
+
+function editAlarm(payload: TEditAlarmPayload): TAction<TEditAlarmPayload> {
+  return {
+    type: actionTypes.editAlarm,
+    payload,
+  };
+}
+
+function deleteAlarm(payload: TDeleteAlarmPayload): TAction<TDeleteAlarmPayload> {
+  return {
+    type: actionTypes.deleteAlarm,
+    payload,
+  };
+}
+
+const actions = {
+  init,
+  setModal,
+  createAlarm,
+  editAlarm,
+  deleteAlarm,
 };
 
-export default popupActions;
+// ---------------------------------------------------------------------------------
+export default actions;
