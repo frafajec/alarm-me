@@ -8,6 +8,7 @@ import {
   TDeleteAlarmPayload,
   TEditAlarmPayload,
   THandler,
+  TOptionsChangePayload,
   TSetModalPayload,
 } from '@src/typings';
 import actionTypes from '@popup/store/actionTypes';
@@ -25,12 +26,18 @@ export type TPopupState = {
 export const defaultState: TPopupState = {
   initialized: false,
   alarms: [],
-  options: {},
+  options: {
+    snooze: 0,
+    stopAfter: 5,
+    tone: 3,
+    timeFormat: 0,
+    dateFormat: 0,
+    countdown: false,
+  }, // MUST match background defaults
 };
 
 // ---------------------------------------------------------------------------------
 function initDone(state: TPopupState, payload: Storage): TPopupState {
-  console.log('init done', payload);
   return {
     ...state,
     initialized: true,
@@ -75,6 +82,14 @@ function deleteAlarmDone(state: TPopupState, payload: TDeleteAlarmPayload): TPop
   };
 }
 
+function optionsChangeDone(state: TPopupState, payload: TOptionsChangePayload): TPopupState {
+  return {
+    ...state,
+    modalType: undefined,
+    options: { ...payload },
+  };
+}
+
 // ---------------------------------------------------------------------------------
 export const handlers = {
   [actionTypes.initDone]: initDone,
@@ -82,6 +97,7 @@ export const handlers = {
   [actionTypes.createAlarmDone]: createAlarmDone,
   [actionTypes.editAlarmDone]: editAlarmDone,
   [actionTypes.deleteAlarmDone]: deleteAlarmDone,
+  [actionTypes.optionsChangeDone]: optionsChangeDone,
 };
 
 export default function app(state: TPopupState = defaultState, action: TAction<any>) {

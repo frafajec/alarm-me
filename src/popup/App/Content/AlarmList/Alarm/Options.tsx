@@ -6,7 +6,7 @@ import { Alarm, AlarmState, ModalType } from '@src/typings';
 import TrashSvg from '@src/icons/trash.svgr.svg';
 import PencilSvg from '@src/icons/pencil.svgr.svg';
 import CogIcon from '@src/icons/cog.svgr.svg';
-import Toggle from '@src/components/Toggle';
+import MiniToggle from '@src/components/MiniToggle';
 
 // ---------------------------------------------------------------------------------
 type TProps = {
@@ -69,7 +69,7 @@ export default function AlarmOptions({ alarm }: TProps) {
         <div className={optionIconStyle} onClick={onAlarmEdit} title="Edit alarm">
           <PencilSvg className="w-5 h-5" />
         </div>
-        <Toggle
+        <MiniToggle
           checked={alarm.state === AlarmState.active ? true : false}
           onChange={onAlarmStateChange}
         />

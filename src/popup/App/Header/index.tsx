@@ -3,6 +3,7 @@ import React from 'react';
 import AlarmSvg from '@src/icons/alarm.svgr.svg';
 import PlusSvg from '@src/icons/plus-circle.svgr.svg';
 import BellCancelSvg from '@src/icons/bell-cancel.svgr.svg';
+import CogSvg from '@src/icons/cog.svgr.svg';
 import { getDateString, getTimeString } from '@src/utils';
 import { useAppDispatch } from '@popup/store';
 import actions from '@src/popup/store/actions';
@@ -19,15 +20,19 @@ export default function Header() {
   React.useEffect(() => {
     const timer = setInterval(() => {
       setNow(new Date());
-    }, 1000);
+    }, 3000);
     return () => clearInterval(timer);
   });
 
-  const showCreateModal = () => {
+  const onCreateModalClick = () => {
     dispatch(actions.setModal({ modalType: ModalType.create }));
   };
 
-  const stopRinging = () => {
+  const onOptionsClick = () => {
+    dispatch(actions.setModal({ modalType: ModalType.options }));
+  };
+
+  const onStopRingingClick = () => {
     dispatch(actions.stopRinging());
   };
 
@@ -39,17 +44,18 @@ export default function Header() {
       </p>
 
       <div className="flex items-center">
-        <div title="Add alarm" className={iconClass} onClick={showCreateModal}>
+        <div title="Add alarm" className={iconClass} onClick={onCreateModalClick}>
           <PlusSvg />
         </div>
-        <div title="Cancel ringing" className={iconClass} onClick={stopRinging}>
+        <div title="Options" className={iconClass} onClick={onOptionsClick}>
+          <CogSvg />
+        </div>
+        <div title="Cancel ringing" className={iconClass} onClick={onStopRingingClick}>
           <BellCancelSvg className="h-5 w-5" />
         </div>
 
         <div className="flex flex-col items-center justify-center ml-2">
-          <p className="font-bold text-sm dark:text-gray-400">
-            {getTimeString(now.toISOString(), false)}
-          </p>
+          <p className="font-bold text-sm dark:text-gray-400">{getTimeString(now.toISOString())}</p>
           <p className="-mt-1 text-xs text-gray-600 dark:text-gray-500">
             {getDateString(now.toISOString())}
           </p>

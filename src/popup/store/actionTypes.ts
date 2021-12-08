@@ -10,4 +10,6 @@ export default {
   deleteAlarmDone: '@popup/delete-alarm-done',
   stopRinging: '@popup/stop-ringing',
   stopAlarmRinging: '@popup/stop-alarm-ringing',
+  optionsChange: '@popup/options-change',
+  optionsChangeDone: '@popup/options-change-done',
 };

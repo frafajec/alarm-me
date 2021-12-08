@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from '@popup/store';
 import { ModalType } from '@src/typings';
 import CreateModal from './CreateModal';
 import EditModal from './EditModal';
+import OptionsModal from './OptionsModal';
 
 // ---------------------------------------------------------------------------------
 export default function Modal() {
@@ -50,6 +51,9 @@ export default function Modal() {
       )}
       {modalRender === ModalType.edit && (
         <EditModal visible={visible} loading={loading} setLoading={setLoading} />
+      )}
+      {modalRender === ModalType.options && (
+        <OptionsModal visible={visible} loading={loading} setLoading={setLoading} />
       )}
     </>
   );

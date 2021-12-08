@@ -6,7 +6,7 @@ html,
 body,
 #root {
   width: 320px;
-  min-height: 280px;
+  min-height: 300px;
   height: 100%;
 }
 
@@ -52,4 +52,8 @@ body,
   animation: ripple 1.5s ease-out infinite;
   top: 0;
   left: 0;
+}
+
+.mx-auto {
+  margin: 0 auto;
 }

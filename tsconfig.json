@@ -14,8 +14,6 @@
       "@src/*": ["./src/*"],
       "@popup": ["./src/popup"],
       "@popup/*": ["./src/popup/*"],
-      "@options": ["./src/options"],
-      "@options/*": ["./src/options/*"],
       "@background": ["./src/background"],
       "@background/*": ["./src/background/*"]
     }

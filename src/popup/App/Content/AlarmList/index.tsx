@@ -3,17 +3,25 @@ import actions from '@popup/store/actions';
 import { useAppSelector, useAppDispatch } from '@popup/store';
 
 import Alarm from './Alarm';
+import Button from '@src/components/Button';
+import { ModalType } from '@src/typings';
 
 // ---------------------------------------------------------------------------------
 export default function AlarmList() {
   const alarms = useAppSelector(s => s.alarms);
   const dispatch = useAppDispatch();
 
+  const onCreateAlarmClick = () => {
+    dispatch(actions.setModal({ modalType: ModalType.create }));
+  };
+
   if (alarms.length == 0) {
     return (
-      <div>
-        <p className="">You don't have an alarm yet, create one!</p>
-        <button>Create alarm</button>
+      <div className="h-full w-full flex flex-col items-center justify-center text-center p-8">
+        <p className="text-lg pb-8 text-gray-600 dark:text-gray-400">
+          You don't have any alarms yet, create one!
+        </p>
+        <Button onClick={onCreateAlarmClick}>Create alarm</Button>
       </div>
     );
   }

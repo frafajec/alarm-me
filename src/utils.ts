@@ -1,4 +1,5 @@
-import { RepetitionDayOrder } from '@src/typings';
+import { useAppSelector } from '@src/popup/store';
+import { dateFormats, RepetitionDayOrder, timeFormats } from '@src/typings';
 
 export function pad(nbr: number): string {
   if (nbr < 10) return `0${nbr}`;
@@ -6,18 +7,58 @@ export function pad(nbr: number): string {
 }
 
 // ---------------------------------------------------------------------------------
-// TODO: config if seconds are shown, time format...
-export function getTimeString(dateString: string, withSeconds: boolean = false): string {
+// Formats the time portion into user wanted format
+export function getTimeString(dateString: string): string {
   const date = new Date(dateString);
-  const base = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
-  return withSeconds ? base + `:${pad(date.getSeconds())}` : base;
+  const timeFormat = useAppSelector(s => s.options.timeFormat);
+  let timeOutput = '';
+
+  switch (timeFormats[timeFormat]) {
+    case '12 (hh:mm AM/PM)':
+      const h = pad(((date.getHours() + 11) % 12) + 1);
+      timeOutput = `${h}:${pad(date.getMinutes())} ${date.getHours() >= 12 ? 'PM' : 'AM'}`;
+      break;
+    default:
+      timeOutput = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  }
+  return timeOutput;
 }
 
 // ---------------------------------------------------------------------------------
-// TODO: config time format...
+// Formats the date portion into user wanted format
 export function getDateString(dateString: string): string {
   const date = new Date(dateString);
-  return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
+  let dateFormat = useAppSelector(s => s.options.dateFormat);
+  let dateOutput = '';
+
+  switch (dateFormats[dateFormat]) {
+    case 'DD.MM.YY':
+      dateOutput =
+        pad(date.getDate()) +
+        '.' +
+        pad(date.getMonth() + 1) +
+        '.' +
+        date.getFullYear().toString().substring(2);
+      break;
+    case 'MM-DD-YYYY':
+      dateOutput =
+        pad(date.getMonth() + 1) + '-' + pad(date.getDate()) + '-' + pad(date.getFullYear());
+      break;
+    case 'DD/MM/YYYY':
+      dateOutput =
+        pad(date.getDate()) + '/' + pad(date.getMonth() + 1) + '/' + pad(date.getFullYear());
+      break;
+    case 'YYYY/MM/DD':
+      dateOutput =
+        pad(date.getFullYear()) + '/' + pad(date.getMonth() + 1) + '/' + pad(date.getDate());
+      break;
+    default:
+      //case "DD.MM.YYYY":
+      dateOutput =
+        pad(date.getDate()) + '.' + pad(date.getMonth() + 1) + '.' + pad(date.getFullYear());
+  }
+
+  return dateOutput;
 }
 
 // ---------------------------------------------------------------------------------

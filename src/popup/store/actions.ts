@@ -6,6 +6,7 @@ import {
   TEditAlarmPayload,
   TSetModalPayload,
   TStopAlarmRingingPayload,
+  TOptionsChangePayload,
 } from '@src/typings';
 
 // ---------------------------------------------------------------------------------
@@ -56,6 +57,13 @@ function stopAlarmRinging(payload: TStopAlarmRingingPayload): TAction<TStopAlarm
   };
 }
 
+function optionsChange(payload: TOptionsChangePayload): TAction<TOptionsChangePayload> {
+  return {
+    type: actionTypes.optionsChange,
+    payload,
+  };
+}
+
 const actions = {
   init,
   setModal,
@@ -64,6 +72,7 @@ const actions = {
   deleteAlarm,
   stopRinging,
   stopAlarmRinging,
+  optionsChange,
 };
 
 // ---------------------------------------------------------------------------------

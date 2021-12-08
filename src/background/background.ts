@@ -6,6 +6,7 @@ import {
   TEditAlarmPayload,
   TDeleteAlarmPayload,
   TStopAlarmRingingPayload,
+  TOptionsChangePayload,
 } from '@src/typings';
 
 // ---------------------------------------------------------------------------------
@@ -14,7 +15,14 @@ import {
 let watcherInterval: NodeJS.Timer | undefined;
 let storageCache: Storage = {
   alarms: [],
-  options: {},
+  options: {
+    snooze: 0,
+    stopAfter: 5,
+    tone: 3,
+    timeFormat: 0,
+    dateFormat: 0,
+    countdown: false,
+  },
 };
 
 // when extension is added/installed, this is triggered
@@ -43,10 +51,13 @@ chrome.runtime.onMessage.addListener(function (request: TAction<any>, sender, se
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === 'sync') {
     console.log('>>> changes', changes);
-    if (changes.alarms.newValue) {
+    if (changes.alarms?.newValue) {
       storageCache.alarms = [...changes.alarms.newValue];
     }
-    // TODO: changes.options
+    if (changes.options?.newValue) {
+      // storageCache.options = [...changes.alarms.newValue];
+      console.log(changes.options.newValue);
+    }
   }
 });
 
@@ -58,22 +69,25 @@ chrome.storage.onChanged.addListener((changes, area) => {
 const appActions = {
   popupInit: '@popup/init',
   popupInitDone: '@popup/init-done',
-  popupCreateAlarm: '@popup/create-alarm',
-  popupCreateAlarmDone: '@popup/create-alarm-done',
-  popupEditAlarm: '@popup/edit-alarm',
-  popupEditAlarmDone: '@popup/edit-alarm-done',
-  popupDeleteAlarm: '@popup/delete-alarm',
-  popupDeleteAlarmDone: '@popup/delete-alarm-done',
-  popupStopRinging: '@popup/stop-ringing',
-  popupStopAlarmRinging: '@popup/stop-alarm-ringing',
+  createAlarm: '@popup/create-alarm',
+  createAlarmDone: '@popup/create-alarm-done',
+  editAlarm: '@popup/edit-alarm',
+  editAlarmDone: '@popup/edit-alarm-done',
+  deleteAlarm: '@popup/delete-alarm',
+  deleteAlarmDone: '@popup/delete-alarm-done',
+  stopRinging: '@popup/stop-ringing',
+  stopAlarmRinging: '@popup/stop-alarm-ringing',
+  optionsChange: '@popup/options-change',
+  optionsChangeDone: '@popup/options-change-done',
 };
 
 // registrations of listeners
 const handlers = {
   [appActions.popupInit]: popupInit,
-  [appActions.popupCreateAlarm]: popupCreateAlarm,
-  [appActions.popupEditAlarm]: popupEditAlarm,
-  [appActions.popupDeleteAlarm]: popupDeleteAlarm,
+  [appActions.createAlarm]: createAlarm,
+  [appActions.editAlarm]: editAlarm,
+  [appActions.deleteAlarm]: deleteAlarm,
+  [appActions.optionsChange]: optionsChange,
 };
 
 // ---------------------------------------------------------------------------------
@@ -82,36 +96,42 @@ const handlers = {
 // called when popup is opened - at this point backend is already running
 async function popupInit() {
   // we retrieve chrome storage or return default values
-  let storage = await chrome.storage.sync.get(storageCache);
-  sendAction({ type: appActions.popupInitDone, payload: storage });
+  // let storage = await chrome.storage.sync.get(storageCache);
+  sendAction({ type: appActions.popupInitDone, payload: storageCache });
 }
 
 // process new alarm and pass it back to popup (so UI gets updated)
 // backend will be updated from onChanged.addListener
-async function popupCreateAlarm(payload: TCreateAlarmPayload) {
+async function createAlarm(payload: TCreateAlarmPayload) {
   const newAlarms = [...storageCache.alarms, payload.alarm];
   await chrome.storage.sync.set({ alarms: newAlarms });
-  sendAction({ type: appActions.popupCreateAlarmDone, payload });
+  sendAction({ type: appActions.createAlarmDone, payload });
 }
 // process alarm that already exists, on which data has been changed
-async function popupEditAlarm(payload: TEditAlarmPayload) {
+async function editAlarm(payload: TEditAlarmPayload) {
   const editedAlarm = { ...payload.alarm };
   const newAlarms = storageCache.alarms.map(a => (a.id == editedAlarm.id ? editedAlarm : a));
   await chrome.storage.sync.set({ alarms: newAlarms });
-  sendAction({ type: appActions.popupEditAlarmDone, payload });
+  sendAction({ type: appActions.editAlarmDone, payload });
 }
 // remove alarm from storage (frontend will do alarm removal in UI)
-async function popupDeleteAlarm(payload: TDeleteAlarmPayload) {
+async function deleteAlarm(payload: TDeleteAlarmPayload) {
   const newAlarms = storageCache.alarms.filter(a => a.id != payload.alarmId);
   await chrome.storage.sync.set({ alarms: newAlarms });
-  sendAction({ type: appActions.popupDeleteAlarmDone, payload });
+  sendAction({ type: appActions.deleteAlarmDone, payload });
 }
 // red alert call, when sound is coming from somewhere, force stop it
 // this should also change all the alarms states and call again init method
-async function popupStopRinging() {}
+async function stopRinging() {}
 
 // stop alarm ringing and return to the UI updated alarm
-async function popupStopAlarmRinging(payload: TStopAlarmRingingPayload) {}
+async function stopAlarmRinging(payload: TStopAlarmRingingPayload) {}
+
+// receive new options, store them and return to popup
+async function optionsChange(payload: TOptionsChangePayload) {
+  await chrome.storage.sync.set({ options: payload });
+  sendAction({ type: appActions.optionsChangeDone, payload });
+}
 
 // ---------------------------------------------------------------------------------
 // ALARM MANAGEMENT

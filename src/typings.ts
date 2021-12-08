@@ -32,13 +32,21 @@ export interface Alarm {
   readonly state: AlarmState;
 }
 
-export interface Options {}
+export interface Options {
+  readonly snooze: number;
+  readonly stopAfter: number;
+  readonly tone: number;
+  readonly timeFormat: number;
+  readonly dateFormat: number;
+  readonly countdown: boolean;
+}
 
 // ---------------------------------------------------------------------------------
 // POPUP
 export enum ModalType {
   create = 'Create',
   edit = 'Edit',
+  options = 'Options',
 }
 
 export enum ModalTab {
@@ -87,6 +95,17 @@ export type TDeleteAlarmPayload = {
 export type TStopAlarmRingingPayload = {
   readonly alarm: Alarm;
 };
+export type TOptionsChangePayload = Options;
 
 // ---------------------------------------------------------------------------------
 // OPTIONS
+export const tones = ['Light', 'Notification', 'One alarm', 'Analog'];
+export const timeFormats = ['24 (HH:mm)', '12 (hh:mm AM/PM)'];
+export const dateFormats = ['DD.MM.YYYY', 'DD.MM.YY', 'MM-DD-YYYY', 'DD/MM/YYYY', 'YYYY/MM/DD'];
+
+export var toneList = [
+  new Audio('./tones/light.mp3'),
+  new Audio('./tones/notification.mp3'),
+  new Audio('./tones/one_alarm.mp3'),
+  new Audio('./tones/analog.mp3'),
+];

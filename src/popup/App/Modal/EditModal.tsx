@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@popup/store';
 
 import Button from '@src/components/Button';
 import { ModalTab } from '@src/typings';
-import { generateId, isPast } from '@src/utils';
+import { isPast } from '@src/utils';
 import Tabs from './components/Tabs';
 import Time from './components/Time';
 import Datum from './components/Datum';

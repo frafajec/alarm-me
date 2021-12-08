@@ -4,7 +4,6 @@ import { useAppDispatch } from '@popup/store';
 
 import Header from './Header';
 import Content from './Content';
-import Footer from './Footer';
 import Modal from './Modal';
 
 // ---------------------------------------------------------------------------------
@@ -19,7 +18,6 @@ export default function App() {
     <div className="relative overflow-hidden flex flex-col h-full dark:bg-blackish">
       <Header />
       <Content />
-      <Footer />
       <Modal />
     </div>
   );

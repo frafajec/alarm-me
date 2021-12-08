@@ -2,9 +2,9 @@
 export default {
   mount: {
     public: { url: '/', static: true },
+    'src/tones': { url: '/tones', static: true },
     'src/background': '/',
     'src/popup': '/',
-    'src/options': '/',
     src: { url: '/dist' },
   },
   plugins: [
@@ -23,7 +23,6 @@ export default {
   alias: {
     '@src': './src',
     '@popup': './src/popup',
-    '@options': './src/options',
     '@background': './src/background',
   },
   routes: [

@@ -5,6 +5,7 @@ import { getDateString, getTimeString, isPast, isToday } from '@src/utils';
 import Description from './Description';
 import Options from './Options';
 import Ringing from './Ringing';
+import { useAppSelector } from '@src/popup/store';
 
 // ---------------------------------------------------------------------------------
 type TProps = {
@@ -14,11 +15,14 @@ type TProps = {
 // ---------------------------------------------------------------------------------
 export default function Alarm({ alarm }: TProps) {
   const showDate = !isToday(alarm.date) || (!alarm.repetitive && isPast(new Date(alarm.date)));
+  const timeFormat = useAppSelector(s => s.options.timeFormat);
 
   return (
     <div className="rounded-md border border-cyan my-2 flex align-center relative overflow-hidden">
       <div className="flex flex-col items-center justify-center w-20 h-11">
-        <p className="font-bold text-lg dark:text-gray-400">{getTimeString(alarm.date)}</p>
+        <p className={`font-bold ${timeFormat === 1 ? '' : 'text-lg'} dark:text-gray-400`}>
+          {getTimeString(alarm.date)}
+        </p>
         {showDate && (
           <p className="-mt-1.5 text-gray-600 dark:text-gray-500">{getDateString(alarm.date)}</p>
         )}

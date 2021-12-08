@@ -30,8 +30,15 @@ export default function Button({
 }: TProps) {
   let cls = outline ? (alt ? outlineStyleAlt : outlineStyle) : alt ? fillStyleAlt : fillStyle;
   if (disabled) cls += disabledStyle;
+
+  const onClickInternal = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onClick();
+  };
+
   return (
-    <button className={cls + ' ' + className} onClick={onClick} disabled={disabled}>
+    <button className={cls + ' ' + className} onClick={onClickInternal} disabled={disabled}>
       {children}
     </button>
   );
