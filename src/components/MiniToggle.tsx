@@ -3,7 +3,7 @@ import React from 'react';
 // ---------------------------------------------------------------------------------
 type TProps = {
   readonly checked: boolean;
-  readonly onChange: (checked: boolean) => void;
+  readonly onChange?: (checked: boolean) => void;
 };
 
 const toggleBaseClass =
@@ -17,7 +17,7 @@ export default function MiniToggle({ checked, onChange }: TProps) {
   const onClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    onChange(!checked);
+    onChange?.(!checked);
   };
 
   return (
@@ -28,7 +28,11 @@ export default function MiniToggle({ checked, onChange }: TProps) {
       title="Disable/Enable alarm"
     >
       <span className="relative">
-        <span className="block w-6 h-4 bg-white dark:bg-black rounded-full shadow-inner" />
+        <span
+          className={`block w-6 h-4 ${
+            !!onChange ? 'bg-white dark:bg-black' : 'bg-gray-400 dark:bg-gray-800'
+          } rounded-full shadow-inner`}
+        />
         <span className={cls}>
           <input id="checked" type="checkbox" className="absolute opacity-0 w-0 h-0" />
         </span>

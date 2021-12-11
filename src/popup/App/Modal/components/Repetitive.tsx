@@ -14,7 +14,10 @@ export default function Repetitive({ visible, repetitionDays, setRepetitionDays,
   const checkedAll = repetitionDays.length === 7;
 
   // handlers
-  const onCheckAll = () => {
+  const onCheckAll = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (checkedAll) {
       setRepetitionDays([]);
     } else {
@@ -22,7 +25,10 @@ export default function Repetitive({ visible, repetitionDays, setRepetitionDays,
     }
   };
 
-  const onDayClick = (key: number) => {
+  const onDayClick = (e: React.MouseEvent, key: number) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     let newDays = [...repetitionDays];
     const index = newDays.indexOf(key);
     // add or remove select day from the array
@@ -31,16 +37,17 @@ export default function Repetitive({ visible, repetitionDays, setRepetitionDays,
     newDays = RepetitionDayOrder.map(orderIndex =>
       newDays.includes(orderIndex) ? orderIndex : undefined
     ).filter(n => n != undefined) as number[];
-    // set nre repetitive days
+    // set repetitive days
     setRepetitionDays(newDays);
   };
 
   const style = {
-    height: visible ? 43 : 0,
+    height: visible ? 32 : 0,
   };
 
   const pillClass = (checked: boolean) => `
-    flex flex-col items-center justify-center py-1 w-8
+    cursor-pointer rounded-2xl
+    flex flex-col items-center justify-center w-8
     border ${
       alt ? 'hover:border-orange focus:border-orange' : 'hover:border-cyan focus:border-cyan'
     }
@@ -48,23 +55,23 @@ export default function Repetitive({ visible, repetitionDays, setRepetitionDays,
     transition-all rounded-xl ${checked ? (alt ? 'border-orange' : 'border-cyan') : ''}
   `;
   const pillInputClass = `
-    cursor-pointer ${alt ? 'text-orange' : 'text-cyan'} rounded-md focus:ring-0 bg-transparent
+    cursor-pointer ${
+      alt ? 'text-orange' : 'text-cyan'
+    } rounded-md focus:ring-0 bg-transparent hidden
   `;
 
   return (
     <div className="flex justify-evenly transition-all overflow-hidden mt-1" style={style}>
-      <div className={pillClass(checkedAll)}>
-        <label htmlFor="repetitive-all" className="cursor-pointer  px-1 rounded-2xl">
-          All
-        </label>
+      <label className={pillClass(checkedAll)}>
+        All
         <input
           id="repetitive-all"
           type="checkbox"
           className={pillInputClass}
-          checked={checkedAll}
+          defaultChecked={checkedAll}
           onClick={onCheckAll}
         />
-      </div>
+      </label>
 
       <div className="w-px bg-gray-600 dark:bg-gray-400" />
 
@@ -73,18 +80,16 @@ export default function Repetitive({ visible, repetitionDays, setRepetitionDays,
         const checked = repetitionDays.includes(key);
 
         return (
-          <div className={pillClass(checked)}>
-            <label key={id} htmlFor={id} className="cursor-pointer  px-1 rounded-2xl">
-              {RepetitionDay[key]}
-            </label>
+          <label className={pillClass(checked)}>
+            {RepetitionDay[key]}
             <input
               id={id}
               type="checkbox"
               className={pillInputClass}
-              checked={checked}
-              onClick={() => onDayClick(key)}
+              defaultChecked={checked}
+              onClick={e => onDayClick(e, key)}
             />
-          </div>
+          </label>
         );
       })}
     </div>

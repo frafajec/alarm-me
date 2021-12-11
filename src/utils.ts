@@ -76,57 +76,57 @@ export const isToday = (someDateString: string, isTomorrow: boolean = false): bo
   );
 };
 
-export const getNextDay = (alarmDate: Date, repetitiveDays: number[]): Date | undefined => {
-  const currentDay: number = alarmDate.getDay();
-  let nextDay: number | undefined = undefined;
-  let orderIndex = RepetitionDayOrder.indexOf(currentDay);
-  let nextDayDate = new Date(alarmDate);
-  let sanityCheck = 0;
-  const sanityCheckStop = 8;
+// VERY SIMILAR to background getNextDate!
+export const getNextDate = (alarmDate: Date, repetitionDays: number[]): Date => {
+  // failsafe
+  if (repetitionDays.length === 0) {
+    return alarmDate;
+  }
 
-  // search when is the start day going to be
+  let nextDate: Date | undefined = undefined;
+
+  // Sat Dec 11 2021 11:00:00 GMT+0100 (Central European Standard Time)
+  // iterated time which we are trying to find
+  let potentialDate = new Date();
+  potentialDate.setMilliseconds(0);
+  potentialDate.setSeconds(0);
+  potentialDate.setMinutes(alarmDate.getMinutes());
+  potentialDate.setHours(alarmDate.getHours());
+
+  // comparison to now, so we don't set alarm in the past
+  const now = new Date();
+
   do {
-    // if we passed the week, reset to beginning of the week
-    if (orderIndex > 6) orderIndex = 0;
+    // 6
+    const currentDay = potentialDate.getDay();
 
-    // if our index matches a selected repetitive day, check its validity
-    if (repetitiveDays.includes(RepetitionDayOrder[orderIndex])) {
-      // set next day as our index
-      nextDay = RepetitionDayOrder[orderIndex];
-      // get the distance in days
-      let dayDistance = Math.abs(orderIndex - RepetitionDayOrder.indexOf(currentDay));
-
-      // set the next date to our distance
-      nextDayDate.setDate(nextDayDate.getDate() + dayDistance);
-      // in case its eg. today, our next date, today, might be already in the past
-      if (isPast(nextDayDate)) {
-        // only one day, means add 7 days (if today is Monday, move to next Monday)
-        if (repetitiveDays.length === 1) {
-          nextDayDate.setDate(nextDayDate.getDate() + 7);
-        } else {
-          // if multiple days, invalidate this day and move to the next
-          nextDay = undefined;
-          nextDayDate = new Date(alarmDate);
-        }
+    // current day is one of the repetition days
+    if (repetitionDays.includes(currentDay)) {
+      // check if alarm is valid (meaning its in the future from now)
+      if (potentialDate > now) {
+        nextDate = potentialDate;
       }
-    } else {
-      // move to the next day
-      orderIndex++;
     }
-    sanityCheck++;
-  } while (nextDay === undefined && sanityCheck < sanityCheckStop);
 
-  return sanityCheck === sanityCheckStop ? undefined : nextDayDate;
+    // add one day and repeat
+    if (!nextDate) {
+      potentialDate.setDate(potentialDate.getDate() + 1);
+    }
+  } while (!nextDate);
+
+  return nextDate;
 };
 
 export const getDayDistance = (dateString: string): string => {
+  const dateStringDefault = getDateString(dateString);
+
   if (isToday(dateString)) {
     return 'today';
   } else if (isToday(dateString, true)) {
     return 'tomorrow';
   }
 
-  return getDateString(dateString);
+  return dateStringDefault;
 };
 
 export const getTimeDistance = (dateString: string, short = false): string => {

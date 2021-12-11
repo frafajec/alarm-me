@@ -18,6 +18,12 @@ export default function Time({ date, setDate }: TProps) {
   const [hours, setHours] = React.useState(date.getHours());
   const [minutes, setMinutes] = React.useState(date.getMinutes());
 
+  // if new date comes, reset
+  React.useEffect(() => {
+    setHours(date.getHours());
+    setMinutes(date.getMinutes());
+  }, [date]);
+
   React.useEffect(() => {
     let dateChange = date.setHours(hours);
     dateChange = new Date(dateChange).setMinutes(minutes);

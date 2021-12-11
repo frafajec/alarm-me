@@ -36,9 +36,9 @@ export default function EditModal({ visible, loading, setLoading }: TProps) {
       setTab(alarmEdited.repetitive ? ModalTab.repetitive : ModalTab.onetime);
       setDate(new Date(alarmEdited.date));
       setName(alarmEdited.name || '');
-      setRepetitionDays(alarmEdited.repetitionDays);
+      setRepetitionDays([...alarmEdited.repetitionDays]);
     }
-  }, [alarmEdited]);
+  }, [alarmEdited, visible]);
 
   // -------------------------
   // actions
@@ -57,7 +57,6 @@ export default function EditModal({ visible, loading, setLoading }: TProps) {
           date: date.toISOString(),
           repetitive: tab == ModalTab.repetitive,
           repetitionDays,
-          disabled: false,
           state: alarmEdited!.state,
         },
       })
@@ -82,8 +81,12 @@ export default function EditModal({ visible, loading, setLoading }: TProps) {
 
         <div className="flex p-1">
           <div className="flex flex-col focus:border focus:border-orange">
-            <Time date={date} setDate={setDate} />
-            <Datum date={date} setDate={setDate} />
+            {alarmEdited && (
+              <>
+                <Time date={date} setDate={setDate} />
+                <Datum date={date} setDate={setDate} />
+              </>
+            )}
           </div>
           <div className="flex flex-col flex-auto pl-3">
             <input

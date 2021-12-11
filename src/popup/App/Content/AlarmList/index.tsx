@@ -2,9 +2,9 @@ import React from 'react';
 import actions from '@popup/store/actions';
 import { useAppSelector, useAppDispatch } from '@popup/store';
 
-import Alarm from './Alarm';
+import AlarmComponent from './Alarm';
 import Button from '@src/components/Button';
-import { ModalType } from '@src/typings';
+import { Alarm, ModalType, AlarmState } from '@src/typings';
 
 // ---------------------------------------------------------------------------------
 export default function AlarmList() {
@@ -13,6 +13,14 @@ export default function AlarmList() {
 
   const onCreateAlarmClick = () => {
     dispatch(actions.setModal({ modalType: ModalType.create }));
+  };
+
+  const sort = (a: Alarm, b: Alarm): number => {
+    const aDisabled = a.state === AlarmState.disabled;
+    const bDisabled = b.state === AlarmState.disabled;
+    if (aDisabled && bDisabled) return 0;
+    if (aDisabled) return 1;
+    return -1;
   };
 
   if (alarms.length == 0) {
@@ -29,7 +37,7 @@ export default function AlarmList() {
   return (
     <div className="alarm-list max-h-80 overflow-auto px-1 pb-32">
       {alarms.map(alarm => (
-        <Alarm key={alarm.id} alarm={alarm} />
+        <AlarmComponent key={alarm.id} alarm={alarm} />
       ))}
     </div>
   );

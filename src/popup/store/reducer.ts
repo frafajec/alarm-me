@@ -10,6 +10,9 @@ import {
   THandler,
   TOptionsChangePayload,
   TSetModalPayload,
+  TStopAlarmPayload,
+  TStopAlarmAllPayload,
+  TUpdateAlarms,
 } from '@src/typings';
 import actionTypes from '@popup/store/actionTypes';
 
@@ -28,8 +31,8 @@ export const defaultState: TPopupState = {
   alarms: [],
   options: {
     snooze: 0,
-    stopAfter: 5,
-    tone: 3,
+    stopAfter: 2,
+    tone: 0,
     timeFormat: 0,
     dateFormat: 0,
     countdown: false,
@@ -82,6 +85,29 @@ function deleteAlarmDone(state: TPopupState, payload: TDeleteAlarmPayload): TPop
   };
 }
 
+function stopAlarmDone(state: TPopupState, payload: TStopAlarmPayload): TPopupState {
+  const stoppedAlarm = { ...payload.alarm };
+  const newAlarms = state.alarms.map(a => (a.id === stoppedAlarm.id ? stoppedAlarm : a));
+  return {
+    ...state,
+    alarms: newAlarms,
+  };
+}
+
+function stopAlarmAllDone(state: TPopupState, payload: TStopAlarmAllPayload): TPopupState {
+  return {
+    ...state,
+    alarms: [...payload.alarms],
+  };
+}
+
+function updateAlarms(state: TPopupState, payload: TUpdateAlarms): TPopupState {
+  return {
+    ...state,
+    alarms: [...payload.alarms],
+  };
+}
+
 function optionsChangeDone(state: TPopupState, payload: TOptionsChangePayload): TPopupState {
   return {
     ...state,
@@ -97,14 +123,20 @@ export const handlers = {
   [actionTypes.createAlarmDone]: createAlarmDone,
   [actionTypes.editAlarmDone]: editAlarmDone,
   [actionTypes.deleteAlarmDone]: deleteAlarmDone,
+  [actionTypes.stopAlarmDone]: stopAlarmDone,
+  [actionTypes.stopAlarmAllDone]: stopAlarmAllDone,
+  [actionTypes.updateAlarms]: updateAlarms,
   [actionTypes.optionsChangeDone]: optionsChangeDone,
 };
 
 export default function app(state: TPopupState = defaultState, action: TAction<any>) {
-  // NOTE: unified place where all sub-app actions are broadcasted
-  chrome.runtime.sendMessage(action);
+  const handler: THandler<TPopupState> = handlers[action.type];
+
+  if (!handler) {
+    // NOTE: unified place where all sub-app actions are broadcasted
+    chrome.runtime.sendMessage(action);
+  }
 
   // trigger sub-app handlers
-  const handler: THandler<TPopupState> = handlers[action.type];
   return handler ? handler(state, action.payload) : state;
 }

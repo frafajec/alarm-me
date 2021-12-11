@@ -44,7 +44,6 @@ export default function CreateModal({ visible, loading, setLoading }: TProps) {
           date: date.toISOString(),
           repetitive: tab == ModalTab.repetitive,
           repetitionDays,
-          disabled: false,
           state: AlarmState.active,
         },
       })

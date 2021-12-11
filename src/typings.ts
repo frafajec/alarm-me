@@ -20,16 +20,22 @@ export enum AlarmState {
   active = 'Active',
   disabled = 'Disabled',
   ringing = 'Ringing',
+  snoozed = 'Snoozed',
 }
 
 export interface Alarm {
   readonly id: string;
   readonly name?: string;
   readonly date: string; // sometimes it gets serialized and Date() is unreliable
+  dateSnooze?: string;
   readonly repetitive: boolean;
   readonly repetitionDays: number[];
-  readonly disabled: boolean;
-  readonly state: AlarmState;
+  state: AlarmState;
+}
+
+export interface ActiveAlarm {
+  readonly id: string;
+  readonly tone: HTMLAudioElement;
 }
 
 export interface Options {
@@ -92,20 +98,31 @@ export type TEditAlarmPayload = {
 export type TDeleteAlarmPayload = {
   readonly alarmId: string;
 };
-export type TStopAlarmRingingPayload = {
+export type TStopAlarmPayload = {
   readonly alarm: Alarm;
+};
+export type TSnoozeAlarmPayload = {
+  readonly alarm: Alarm;
+};
+export type TStopAlarmAllPayload = {
+  readonly alarms: Alarm[];
+};
+export type TUpdateAlarms = {
+  readonly alarms: Alarm[];
 };
 export type TOptionsChangePayload = Options;
 
 // ---------------------------------------------------------------------------------
 // OPTIONS
-export const tones = ['Light', 'Notification', 'One alarm', 'Analog'];
+export const tones = ['Ping 1', 'Ping 2', 'Light', 'Happy day', 'Soft chime', 'Alarm'];
 export const timeFormats = ['24 (HH:mm)', '12 (hh:mm AM/PM)'];
 export const dateFormats = ['DD.MM.YYYY', 'DD.MM.YY', 'MM-DD-YYYY', 'DD/MM/YYYY', 'YYYY/MM/DD'];
 
-export var toneList = [
+export const toneList = [
+  new Audio('./tones/ping1.mp3'),
+  new Audio('./tones/ping2.mp3'),
   new Audio('./tones/light.mp3'),
-  new Audio('./tones/notification.mp3'),
-  new Audio('./tones/one_alarm.mp3'),
-  new Audio('./tones/analog.mp3'),
+  new Audio('./tones/happyday.mp3'),
+  new Audio('./tones/softchime.mp3'),
+  new Audio('./tones/alarm.mp3'),
 ];

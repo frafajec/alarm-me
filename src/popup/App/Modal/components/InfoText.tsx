@@ -1,6 +1,6 @@
 import React from 'react';
-import { ModalTab, RepetitionDayOrder, RepetitionDayString } from '@src/typings';
-import { getDayDistance, getNextDay, getTimeDistance, getTimeString, isPast } from '@src/utils';
+import { ModalTab, RepetitionDayString } from '@src/typings';
+import { getDayDistance, getNextDate, getTimeDistance, getTimeString, isPast } from '@src/utils';
 
 // ---------------------------------------------------------------------------------
 type TProps = {
@@ -9,31 +9,33 @@ type TProps = {
   readonly repetitiveDays: number[];
 };
 
+const baseClass = 'flex-auto p-2 text-gray-600 dark:text-gray-400';
 // ---------------------------------------------------------------------------------
 export default function InfoText({ tab, date, repetitiveDays }: TProps) {
-  const baseClass = 'flex-auto p-2 text-gray-600 dark:text-gray-400';
   const isoDate = date.toISOString();
+  const timeString = getTimeString(isoDate);
+
+  const nextDate = getNextDate(date, repetitiveDays);
+  const dayDistance = getDayDistance(nextDate.toISOString());
 
   const [past, setPast] = React.useState(isPast(date));
   const [timeDistance, setTimeDistance] = React.useState(getTimeDistance(isoDate));
 
   React.useEffect(() => {
+    // change every 5 seconds to update the UI accurately with time
     const interval = setInterval(() => {
       setPast(isPast(date));
       setTimeDistance(getTimeDistance(isoDate));
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
   if (tab == ModalTab.repetitive && repetitiveDays.length > 0) {
-    const nextDate = getNextDay(date, repetitiveDays);
-
     return (
       <div className={baseClass}>
         Alarm will ring <strong>every</strong>{' '}
-        {repetitiveDays.map(dayIndex => RepetitionDayString[dayIndex]).join(', ')} at{' '}
-        {getTimeString(isoDate)}, starting from{' '}
-        <strong>{nextDate ? getDayDistance(nextDate.toISOString()) : '-'}</strong>.
+        {repetitiveDays.map(dayIndex => RepetitionDayString[dayIndex]).join(', ')} at {timeString},
+        starting from <strong>{dayDistance}</strong>.
       </div>
     );
   }

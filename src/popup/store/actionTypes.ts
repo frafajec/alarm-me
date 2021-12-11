@@ -8,8 +8,11 @@ export default {
   editAlarmDone: '@popup/edit-alarm-done',
   deleteAlarm: '@popup/delete-alarm',
   deleteAlarmDone: '@popup/delete-alarm-done',
-  stopRinging: '@popup/stop-ringing',
-  stopAlarmRinging: '@popup/stop-alarm-ringing',
+  stopAlarm: '@popup/stop-alarm',
+  stopAlarmDone: '@popup/stop-alarm-done',
+  stopAlarmAll: '@popup/stop-alarm-all',
+  stopAlarmAllDone: '@popup/stop-alarm-all-done',
+  updateAlarms: '@popup/update-alarms',
   optionsChange: '@popup/options-change',
   optionsChangeDone: '@popup/options-change-done',
 };

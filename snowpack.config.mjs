@@ -2,7 +2,14 @@
 export default {
   mount: {
     public: { url: '/', static: true },
+
+    // solution for when background can't play sounds
+    // 'src/audio': { url: '/', static: true },
+
+    // so its available for background and popup
     'src/tones': { url: '/tones', static: true },
+
+    // apps
     'src/background': '/',
     'src/popup': '/',
     src: { url: '/dist' },

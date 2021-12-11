@@ -7,6 +7,7 @@ import TrashSvg from '@src/icons/trash.svgr.svg';
 import PencilSvg from '@src/icons/pencil.svgr.svg';
 import CogIcon from '@src/icons/cog.svgr.svg';
 import MiniToggle from '@src/components/MiniToggle';
+import { isPast } from '@src/utils';
 
 // ---------------------------------------------------------------------------------
 type TProps = {
@@ -41,6 +42,7 @@ export default function AlarmOptions({ alarm }: TProps) {
     dispatch(actions.setModal({ modalType: ModalType.edit, alarmEdited: alarm }));
   };
 
+  const canToggleState = !isPast(new Date(alarm.date)) || alarm.repetitive;
   const onAlarmStateChange = (checked: boolean) => {
     let editedAlarm = { ...alarm };
     editedAlarm.state = checked ? AlarmState.active : AlarmState.disabled;
@@ -54,6 +56,10 @@ export default function AlarmOptions({ alarm }: TProps) {
   };
   const optionIconStyle =
     'bg-transparent text-white hover:bg-white hover:text-cyan rounded-full transition-all p-1 cursor-pointer mx-px dark:text-black dark:hover:bg-blackish';
+
+  if (alarm.state === AlarmState.ringing) {
+    return null;
+  }
 
   return (
     <div
@@ -71,7 +77,7 @@ export default function AlarmOptions({ alarm }: TProps) {
         </div>
         <MiniToggle
           checked={alarm.state === AlarmState.active ? true : false}
-          onChange={onAlarmStateChange}
+          onChange={canToggleState ? onAlarmStateChange : undefined}
         />
 
         <CogIcon className="absolute top-2/4 -mt-2 right-0.5 w-4 h-4 text-white dark:text-black" />

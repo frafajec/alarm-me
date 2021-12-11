@@ -16,6 +16,7 @@ const iconClass =
 export default function Header() {
   const dispatch = useAppDispatch();
   const [now, setNow] = React.useState(new Date());
+  const dateString = getDateString(now.toISOString());
 
   React.useEffect(() => {
     const timer = setInterval(() => {
@@ -32,8 +33,8 @@ export default function Header() {
     dispatch(actions.setModal({ modalType: ModalType.options }));
   };
 
-  const onStopRingingClick = () => {
-    dispatch(actions.stopRinging());
+  const onStopAlarmsClick = () => {
+    dispatch(actions.stopAlarmAll());
   };
 
   return (
@@ -50,15 +51,13 @@ export default function Header() {
         <div title="Options" className={iconClass} onClick={onOptionsClick}>
           <CogSvg />
         </div>
-        <div title="Cancel ringing" className={iconClass} onClick={onStopRingingClick}>
+        <div title="Cancel ringing" className={iconClass} onClick={onStopAlarmsClick}>
           <BellCancelSvg className="h-5 w-5" />
         </div>
 
         <div className="flex flex-col items-center justify-center ml-2">
           <p className="font-bold text-sm dark:text-gray-400">{getTimeString(now.toISOString())}</p>
-          <p className="-mt-1 text-xs text-gray-600 dark:text-gray-500">
-            {getDateString(now.toISOString())}
-          </p>
+          <p className="-mt-1 text-xs text-gray-600 dark:text-gray-500">{dateString}</p>
         </div>
       </div>
     </div>

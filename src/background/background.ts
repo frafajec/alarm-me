@@ -1,34 +1,56 @@
 import {
-  Alarm,
   Storage,
   TAction,
   TCreateAlarmPayload,
   TEditAlarmPayload,
   TDeleteAlarmPayload,
-  TStopAlarmRingingPayload,
+  TStopAlarmPayload,
   TOptionsChangePayload,
+  ActiveAlarm,
+  Alarm,
+  TSnoozeAlarmPayload,
 } from '@src/typings';
 
 // ---------------------------------------------------------------------------------
 // STATE and LISTENERS
 // ---------------------------------------------------------------------------------
-let watcherInterval: NodeJS.Timer | undefined;
 let storageCache: Storage = {
   alarms: [],
   options: {
     snooze: 0,
-    stopAfter: 5,
-    tone: 3,
+    stopAfter: 2,
+    tone: 0,
     timeFormat: 0,
     dateFormat: 0,
     countdown: false,
   },
 };
+(window as any).storageCache = storageCache;
 
-// when extension is added/installed, this is triggered
-// here we prepare the backend script
-chrome.runtime.onInstalled.addListener(async () => {
-  let storage = (await chrome.storage.sync.get(storageCache)) as Storage;
+let watcherInterval: NodeJS.Timer | undefined;
+let activeAlarm: ActiveAlarm | undefined;
+
+// MUST MATCH typings for Popup (service worker can't use imports)
+const timeFormats = ['24 (HH:mm)', '12 (hh:mm AM/PM)'];
+const dateFormats = ['DD.MM.YYYY', 'DD.MM.YY', 'MM-DD-YYYY', 'DD/MM/YYYY', 'YYYY/MM/DD'];
+const toneList = [
+  new Audio('./tones/ping1.mp3'),
+  new Audio('./tones/ping2.mp3'),
+  new Audio('./tones/light.mp3'),
+  new Audio('./tones/happyday.mp3'),
+  new Audio('./tones/softchime.mp3'),
+  new Audio('./tones/alarm.mp3'),
+];
+enum AlarmState {
+  active = 'Active',
+  disabled = 'Disabled',
+  ringing = 'Ringing',
+  snoozed = 'Snoozed',
+}
+
+window.onload = async () => {
+  // let storage = (await chrome.storage.sync.get(storageCache)) as Storage;
+  let storage = (await storageGet<Storage>(storageCache)) as Storage;
   storageCache = storage;
 
   // to reset storage
@@ -41,6 +63,16 @@ chrome.runtime.onInstalled.addListener(async () => {
     watcherInterval = setInterval(watcher, 60 * 1000);
     watcher();
   }, toExactMinute);
+};
+
+// when extension is installed/updates, this is triggered
+// here we prepare the backend the migration etc.
+chrome.runtime.onInstalled.addListener(async ({ previousVersion, reason }) => {
+  console.log('onInstalled!', reason, previousVersion);
+  if (reason === 'update' && previousVersion === '1.5.0') {
+    // perform migration
+    // TODO: migrate from previous objects and delete them
+  }
 });
 
 // subscriber to receive all messages (internal and sub-apps)
@@ -48,16 +80,38 @@ chrome.runtime.onMessage.addListener(function (request: TAction<any>, sender, se
   handlers[request.type]?.(request.payload);
 });
 
+// any change to storage is reported here
+// so when storage is changed, we update our cache
 chrome.storage.onChanged.addListener((changes, area) => {
   if (area === 'sync') {
-    console.log('>>> changes', changes);
     if (changes.alarms?.newValue) {
       storageCache.alarms = [...changes.alarms.newValue];
     }
     if (changes.options?.newValue) {
-      // storageCache.options = [...changes.alarms.newValue];
-      console.log(changes.options.newValue);
+      storageCache.options = { ...changes.options.newValue };
     }
+  }
+});
+
+chrome.notifications.onClicked.addListener((alarmId: string) => {
+  const notifAlarm = storageCache.alarms.find(a => a.id === alarmId);
+  notifAlarm && stopAlarm({ alarm: notifAlarm });
+});
+
+chrome.notifications.onButtonClicked.addListener((alarmId: string, btnIndex: number) => {
+  const notifAlarm = storageCache.alarms.find(a => a.id === alarmId);
+
+  if (btnIndex === 1) {
+    notifAlarm && snoozeAlarm({ alarm: notifAlarm });
+  } else {
+    notifAlarm && stopAlarm({ alarm: notifAlarm });
+  }
+});
+
+chrome.notifications.onClosed.addListener((alarmId: string, byUser: boolean) => {
+  if (byUser) {
+    const notifAlarm = storageCache.alarms.find(a => a.id === alarmId);
+    notifAlarm && stopAlarm({ alarm: notifAlarm });
   }
 });
 
@@ -75,8 +129,13 @@ const appActions = {
   editAlarmDone: '@popup/edit-alarm-done',
   deleteAlarm: '@popup/delete-alarm',
   deleteAlarmDone: '@popup/delete-alarm-done',
-  stopRinging: '@popup/stop-ringing',
-  stopAlarmRinging: '@popup/stop-alarm-ringing',
+  stopAlarm: '@popup/stop-alarm',
+  stopAlarmDone: '@popup/stop-alarm-done',
+  snoozeAlarm: '@popup/snooze-alarm',
+  snoozeAlarmDone: '@popup/snooze-alarm-done',
+  stopAlarmAll: '@popup/stop-alarm-all',
+  stopAlarmAllDone: '@popup/stop-alarm-all-done',
+  updateAlarms: '@popup/update-alarms',
   optionsChange: '@popup/options-change',
   optionsChangeDone: '@popup/options-change-done',
 };
@@ -87,6 +146,9 @@ const handlers = {
   [appActions.createAlarm]: createAlarm,
   [appActions.editAlarm]: editAlarm,
   [appActions.deleteAlarm]: deleteAlarm,
+  [appActions.stopAlarm]: stopAlarm,
+  [appActions.stopAlarmAll]: stopAlarmAll,
+  [appActions.snoozeAlarm]: snoozeAlarm,
   [appActions.optionsChange]: optionsChange,
 };
 
@@ -104,44 +166,289 @@ async function popupInit() {
 // backend will be updated from onChanged.addListener
 async function createAlarm(payload: TCreateAlarmPayload) {
   const newAlarms = [...storageCache.alarms, payload.alarm];
-  await chrome.storage.sync.set({ alarms: newAlarms });
+  // await chrome.storage.sync.set({ alarms: newAlarms });
+  await storageSet({ alarms: newAlarms });
   sendAction({ type: appActions.createAlarmDone, payload });
 }
+
 // process alarm that already exists, on which data has been changed
 async function editAlarm(payload: TEditAlarmPayload) {
   const editedAlarm = { ...payload.alarm };
+  // alarm could be woken up from disabled state
+  // calculate when it should execute
+  if (editedAlarm.repetitive) {
+    updateAlarm(editedAlarm);
+  }
   const newAlarms = storageCache.alarms.map(a => (a.id == editedAlarm.id ? editedAlarm : a));
-  await chrome.storage.sync.set({ alarms: newAlarms });
+  // await chrome.storage.sync.set({ alarms: newAlarms });
+  await storageSet({ alarms: newAlarms });
   sendAction({ type: appActions.editAlarmDone, payload });
 }
+
 // remove alarm from storage (frontend will do alarm removal in UI)
 async function deleteAlarm(payload: TDeleteAlarmPayload) {
   const newAlarms = storageCache.alarms.filter(a => a.id != payload.alarmId);
-  await chrome.storage.sync.set({ alarms: newAlarms });
+  // await chrome.storage.sync.set({ alarms: newAlarms });
+  await storageSet({ alarms: newAlarms });
   sendAction({ type: appActions.deleteAlarmDone, payload });
 }
-// red alert call, when sound is coming from somewhere, force stop it
-// this should also change all the alarms states and call again init method
-async function stopRinging() {}
 
 // stop alarm ringing and return to the UI updated alarm
-async function stopAlarmRinging(payload: TStopAlarmRingingPayload) {}
+async function stopAlarm(payload: TStopAlarmPayload) {
+  // change the alarm state from ringing to inactive
+  const newAlarm = { ...payload.alarm };
+  updateAlarm(newAlarm);
+
+  // if this is also active alarm, stop the ringing
+  activeAlarmStop(newAlarm);
+
+  const newAlarms = storageCache.alarms.map(a => (a.id == newAlarm.id ? newAlarm : a));
+  await storageSet({ alarms: newAlarms });
+  sendAction({ type: appActions.stopAlarmDone, payload: { alarm: newAlarm } });
+}
+
+async function snoozeAlarm(payload: TSnoozeAlarmPayload) {
+  // change the alarm state from ringing to inactive
+  const newAlarm = { ...payload.alarm };
+
+  // clear the notification since its snoozed!
+  chrome.notifications.clear(newAlarm.id);
+
+  activeAlarmStop(newAlarm);
+
+  const snoozeDuration = storageCache.options.snooze * 60 * 1000;
+  const alarmTime = new Date(newAlarm.date).getTime();
+  newAlarm.state = AlarmState.snoozed;
+  newAlarm.dateSnooze = new Date(alarmTime + snoozeDuration).toISOString();
+
+  const newAlarms = storageCache.alarms.map(a => (a.id == newAlarm.id ? newAlarm : a));
+  await storageSet({ alarms: newAlarms });
+  sendAction({ type: appActions.snoozeAlarmDone, payload: { alarm: newAlarm } });
+}
+
+// red alert call, when sound is coming from somewhere, force stop it
+// this should also change all the alarms states and call again init method
+async function stopAlarmAll() {
+  // stop the ringing
+  activeAlarmStop();
+
+  // no alarm is ringing, don't proceed
+  if (!storageCache.alarms.some(a => a.state === AlarmState.ringing)) {
+    return;
+  }
+
+  const newAlarms = storageCache.alarms.map(a => {
+    if (a.state === AlarmState.ringing) {
+      updateAlarm(a);
+    }
+    return a;
+  });
+
+  // push new alarms to storage
+  await storageSet({ alarms: newAlarms });
+
+  // return to popup checked list
+  sendAction({ type: appActions.stopAlarmAllDone, payload: { alarms: newAlarms } });
+}
 
 // receive new options, store them and return to popup
 async function optionsChange(payload: TOptionsChangePayload) {
-  await chrome.storage.sync.set({ options: payload });
+  await storageSet({ options: payload });
   sendAction({ type: appActions.optionsChangeDone, payload });
 }
+
+// ---------------------------------------------------------------------------------
+// TABS alternative to background sounds
+// ---------------------------------------------------------------------------------
+// once migration to V3 happens, we can't use audio in the background script since its service worker
+// alternative is to open a tab where alarm plays, and control the behavior of the tab...
+// chrome.tabs.onRemoved.addListener(function (tabid, removed) {
+//   alert('tab closed');
+// });
+// chrome.tabs.remove(tabId);
+// let url = chrome.runtime.getURL('audio.html');
+// const tabData = await chrome.tabs.create({
+//   url,
+//   active: false,
+// });
 
 // ---------------------------------------------------------------------------------
 // ALARM MANAGEMENT
 // ---------------------------------------------------------------------------------
 // gets executed every minute to check if alarm needs to be fired
 function watcher() {
-  for (let i = 0; i < storageCache.alarms.length; i++) {
-    const alarm = storageCache.alarms[i];
-    // TODO: check date and options around alarm
+  // reset the time without seconds to match frontend (always without seconds)
+  const nowTime = new Date();
+  nowTime.setSeconds(0);
+  nowTime.setMilliseconds(0);
+  const now = nowTime.getTime();
+
+  // performance optimization, so if nothing happens we don't spam messages
+  let hasChanged = false;
+
+  // evaluation variables
+  const watchedAlarms = [...storageCache.alarms];
+  const snoozeDuration = storageCache.options.snooze * 60 * 1000;
+  const stopDuration = storageCache.options.stopAfter * 60 * 1000;
+
+  watchedAlarms.forEach(alarm => {
+    const alarmTime = new Date(alarm.date).getTime();
+    const timeDiff = now - alarmTime;
+
+    // ------------------------------
+    // alarm is already ringing - check if it should be stopped or snoozed
+    // if stopAfter is 0, alarm rings forever
+    // if stopAfter is > 0 and snooze exists, once stopAfter completes, snooze the alarm
+    if (alarm.state === AlarmState.ringing) {
+      // leave it ring
+      if (!stopDuration) {
+        return;
+      }
+
+      // alarm has been snoozed and is now ringing
+      if (alarm.dateSnooze) {
+        const snoozedTime = new Date(alarm.dateSnooze).getTime();
+        const snoozeDiff = now - snoozedTime;
+
+        // alarm matches snoozed time, disable
+        // NOTE: we only allow one auto-snooze!
+        if (isDiffTolerance(snoozeDiff)) {
+          activeAlarmStop(alarm);
+          updateAlarm(alarm);
+          hasChanged = true;
+          return;
+        }
+      }
+
+      // alarm start time + stop duration is matched, stop the alarm
+      if (isDiffTolerance(timeDiff + stopDuration)) {
+        // if user has snooze enabled, do auto-snooze
+        if (snoozeDuration) {
+          console.log('has snooze, snooze alarm');
+          activeAlarmStop(alarm);
+          alarm.state = AlarmState.snoozed;
+          alarm.dateSnooze = new Date(alarmTime + snoozeDuration).toISOString();
+          hasChanged = true;
+          chrome.notifications.clear(alarm.id);
+          return;
+        }
+
+        // no snooze enabled, and stop after is set and matched - stop the alarm
+        activeAlarmStop();
+        updateAlarm(alarm);
+        hasChanged = true;
+        return;
+      }
+
+      // alarm is ringing, but stopAfter is not matched, continue
+      return;
+    }
+
+    // ------------------------------
+    // alarm was snoozed - check if we need to ring again
+    if (alarm.state === AlarmState.snoozed && alarm.dateSnooze) {
+      // user removed snooze from options, clean the alarm
+      if (!snoozeDuration) {
+        alarm.state = alarm.repetitive ? AlarmState.active : AlarmState.disabled;
+        alarm.dateSnooze = undefined;
+        hasChanged = true;
+        return;
+      }
+
+      const snoozeTime = new Date(alarm.dateSnooze).getTime();
+      const snoozeDiff = Math.abs(snoozeTime - now);
+      // snoozed time is now - ring the alarm
+      if (isDiffTolerance(snoozeDiff)) {
+        activeAlarmStart(alarm);
+        alarm.state = AlarmState.ringing;
+        hasChanged = true;
+        return;
+      }
+
+      // alarm has snooze, snooze is enabled, but time is not now
+      return;
+    }
+
+    // ------------------------------
+    // alarm is active and matches time - ring ring
+    if (alarm.state === AlarmState.active && isDiffTolerance(timeDiff)) {
+      activeAlarmStart(alarm);
+      alarm.state = AlarmState.ringing;
+      hasChanged = true;
+      return;
+    }
+
+    // active alarm that shouldn't ring now
+    return;
+  });
+
+  // optimization - there was a change, update popup and cache
+  if (hasChanged) {
+    storageSet({ alarms: watchedAlarms });
+    sendAction({ type: appActions.updateAlarms, payload: { alarms: watchedAlarms } });
   }
+}
+
+// triggers alarm tone, sets activeAlarm, sends notification to user
+function activeAlarmStart(alarm: Alarm) {
+  activeAlarm = {
+    id: alarm.id,
+    tone: toneList[storageCache.options.tone],
+  };
+  activeAlarm.tone.currentTime = 0;
+  activeAlarm.tone.loop = true;
+  activeAlarm.tone.play();
+
+  sendNotification(alarm);
+}
+
+// stops the alarm by pausing tone and removing active alarm
+function activeAlarmStop(alarm?: Alarm) {
+  const stopAlarm = () => {
+    activeAlarm?.tone.pause();
+    activeAlarm = undefined;
+  };
+
+  if (!alarm) {
+    // if no alarm to match is provided, always kill the active alarm
+    stopAlarm();
+  } else if (alarm?.id === alarm.id) {
+    // conditionally stop the alarm
+    stopAlarm();
+  }
+}
+
+// takes alarm and changes end state
+// this is ONLY for after alarm has completed
+function updateAlarm(alarm: Alarm): Alarm {
+  if (alarm.repetitive) {
+    alarm.state = AlarmState.active;
+    (alarm as any).date = getNextDate(alarm).toISOString();
+  } else {
+    alarm.state = AlarmState.disabled;
+  }
+
+  chrome.notifications.clear(alarm.id);
+  alarm.dateSnooze = undefined;
+  return alarm;
+}
+
+// sends notification to user via chrome
+function sendNotification(alarm: Alarm) {
+  chrome.notifications.create(
+    alarm.id,
+    {
+      iconUrl: chrome.runtime.getURL('icons/icon512.png'),
+      title: alarm.name,
+      type: 'basic',
+      message: alarm.name,
+      buttons: !!storageCache.options.snooze
+        ? [{ title: 'Cancel' }, { title: 'Snooze' }]
+        : [{ title: 'Cancel' }],
+      requireInteraction: true,
+    }
+    // (alarmId: string) => {}
+  );
 }
 
 // ---------------------------------------------------------------------------------
@@ -151,3 +458,75 @@ function watcher() {
 function sendAction(action: TAction<any>) {
   chrome.runtime.sendMessage(action);
 }
+
+// wrapper function, on V3 manifest storage has promises
+async function storageGet<T>(getObject: T): Promise<{ [key: string]: any }> {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.get(getObject, (items: { [key: string]: any }) => {
+      resolve(items);
+    });
+  });
+}
+
+// wrapper function, on V3 manifest storage has promises
+async function storageSet<T>(setObject: T): Promise<void> {
+  return new Promise((resolve, reject) => {
+    chrome.storage.sync.set(setObject, () => {
+      resolve();
+    });
+  });
+}
+
+// evaluate the difference (between now and alarm ring time)
+// 10000 is tolerance in case some seconds slip somewhere
+function isDiffTolerance(diff: number): boolean {
+  // if diff is positive, that means that alarm time is in the past
+  // in this case, we check if alarm time is in the past or 10s in the future
+  return diff > -10000;
+}
+
+// ----------------------------------------
+// calculates the next date of execution for repetitive alarm
+const getNextDate = (alarm: Alarm): Date => {
+  // failsafe
+  if (alarm.repetitionDays.length === 0) {
+    return new Date(alarm.date);
+  }
+
+  let nextDate: Date | undefined = undefined;
+
+  // Sat Dec 11 2021 11:00:00 GMT+0100 (Central European Standard Time)
+  // alarm time to compare it with and take hour/minute
+  const alarmDate = new Date(alarm.date);
+
+  // Sat Dec 11 2021 11:00:00 GMT+0100 (Central European Standard Time)
+  // iterated time which we are trying to find
+  let potentialDate = new Date();
+  potentialDate.setMilliseconds(0);
+  potentialDate.setSeconds(0);
+  potentialDate.setMinutes(alarmDate.getMinutes());
+  potentialDate.setHours(alarmDate.getHours());
+
+  // comparison to now, so we don't set alarm in the past
+  const now = new Date();
+
+  do {
+    // day in the week to compare with repetitionDays of the week
+    const currentDay = potentialDate.getDay();
+
+    // current day is one of the repetition days
+    if (alarm.repetitionDays.includes(currentDay)) {
+      // check if alarm is valid (meaning its in the future from now)
+      if (potentialDate > now) {
+        nextDate = potentialDate;
+      }
+    }
+
+    if (!nextDate) {
+      // add one day and repeat
+      potentialDate.setDate(potentialDate.getDate() + 1);
+    }
+  } while (!nextDate);
+
+  return nextDate;
+};
