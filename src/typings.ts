@@ -44,7 +44,6 @@ export interface Options {
   readonly tone: number;
   readonly timeFormat: number;
   readonly dateFormat: number;
-  readonly countdown: boolean;
 }
 
 // ---------------------------------------------------------------------------------

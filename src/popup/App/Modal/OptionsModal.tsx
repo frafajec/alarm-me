@@ -26,7 +26,6 @@ export default function OptionsModal({ visible, loading, setLoading }: TProps) {
   const [currentTone, setCurrentTone] = React.useState<HTMLAudioElement | undefined>(undefined);
   const [timeFormat, setTimeFormat] = React.useState(options.timeFormat);
   const [dateFormat, setDateFormat] = React.useState(options.dateFormat);
-  const [countdown, setCountdown] = React.useState(options.countdown);
 
   // handlers
   const onCancel = () => {
@@ -74,7 +73,6 @@ export default function OptionsModal({ visible, loading, setLoading }: TProps) {
         tone,
         timeFormat,
         dateFormat,
-        countdown,
       })
     );
   };
@@ -173,9 +171,9 @@ export default function OptionsModal({ visible, loading, setLoading }: TProps) {
 
         <Divider />
 
-        <OptionsRow label="Countdown to alarm" subLabel="Badge shows time to next alarm">
+        {/* <OptionsRow label="Countdown to alarm" subLabel="Badge shows time to next alarm">
           <Toggle checked={countdown} onChange={setCountdown} />
-        </OptionsRow>
+        </OptionsRow> */}
 
         <div className="flex items-center justify-center mb-2" style={{ marginTop: 'auto' }}>
           <Button onClick={onCancel} outline>

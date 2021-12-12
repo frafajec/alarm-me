@@ -22,7 +22,6 @@ let storageCache: Storage = {
     tone: 0,
     timeFormat: 0,
     dateFormat: 0,
-    countdown: false,
   },
 };
 (window as any).storageCache = storageCache;
@@ -30,9 +29,8 @@ let storageCache: Storage = {
 let watcherInterval: NodeJS.Timer | undefined;
 let activeAlarm: ActiveAlarm | undefined;
 
+// --------------------
 // MUST MATCH typings for Popup (service worker can't use imports)
-const timeFormats = ['24 (HH:mm)', '12 (hh:mm AM/PM)'];
-const dateFormats = ['DD.MM.YYYY', 'DD.MM.YY', 'MM-DD-YYYY', 'DD/MM/YYYY', 'YYYY/MM/DD'];
 const toneList = [
   new Audio('./tones/ping1.mp3'),
   new Audio('./tones/ping2.mp3'),
@@ -47,6 +45,7 @@ enum AlarmState {
   ringing = 'Ringing',
   snoozed = 'Snoozed',
 }
+// end imports
 
 window.onload = async () => {
   // let storage = (await chrome.storage.sync.get(storageCache)) as Storage;
@@ -72,6 +71,93 @@ chrome.runtime.onInstalled.addListener(async ({ previousVersion, reason }) => {
   if (reason === 'update' && previousVersion === '1.5.0') {
     // perform migration
     // TODO: migrate from previous objects and delete them
+
+    let newOptions = { ...storageCache.options };
+    const oldStorage = await storageGet({ AM_alarms: [], AM_options: {} });
+    // const oldStorage = {
+    //   AM_alarms: [
+    //     {
+    //       active: true,
+    //       desc: '',
+    //       key: 'a30y7b',
+    //       name: '',
+    //       rep_days: [false, false, false, false, false, false, true],
+    //       repetitive: true,
+    //       ringing: false,
+    //       time_created: 1639344458534,
+    //       time_rep: 1640122080000,
+    //       time_set: 1640122080000,
+    //       time_span: 777621466,
+    //     },
+    //   ],
+    //   AM_options: {
+    //     countdown: false,
+    //     date_format: 0,
+    //     inactive: false,
+    //     snooze: '10',
+    //     stop_after: '10',
+    //     time_format: 0,
+    //     tone: 0,
+    //     type: 'custom',
+    //     volume: '100',
+    //   },
+    // };
+
+    // OLD options migration
+    // countdown: false
+    // date_format: 0
+    // inactive: false
+    // snooze: "10"
+    // stop_after: "10"
+    // time_format: 0
+    // tone: 0
+    // type: "custom"
+    // volume: "100"
+    if (oldStorage.AM_options.date_format !== undefined) {
+      newOptions.dateFormat = oldStorage.AM_options.date_format;
+    }
+    if (oldStorage.AM_options.time_format !== undefined) {
+      newOptions.timeFormat = oldStorage.AM_options.time_format;
+    }
+    if (oldStorage.AM_options.snooze !== undefined) {
+      const newSnooze = parseInt(oldStorage.AM_options.snooze);
+      newOptions.snooze = isNaN(newSnooze) ? newOptions.snooze : newSnooze;
+    }
+    if (oldStorage.AM_options.stop_after !== undefined) {
+      const newStop = parseInt(oldStorage.AM_options.stop_after);
+      newOptions.stopAfter = isNaN(newStop) ? newOptions.stopAfter : newStop;
+    }
+
+    // OLD alarm migration
+    // active: true
+    // desc: ""
+    // key: "el4p79"
+    // name: ""
+    // rep_days: (7) [0, 0, 0, 0, 0, 0, 0]
+    // repetitive: false
+    // ringing: false
+    // time_created: 1638808765368
+    // time_rep: ""
+    // time_set: 1639687380000
+    // time_span: 878614632
+    const newAlarms: Alarm[] = oldStorage.AM_alarms?.map((oldAlarm): Alarm => {
+      const repSunday = oldAlarm.rep_days?.pop() || false;
+      const newRepDays = [
+        repSunday,
+        ...(oldAlarm.rep_days || [false, false, false, false, false, false]),
+      ];
+
+      return {
+        id: oldAlarm.key,
+        name: oldAlarm.name,
+        date: new Date(oldAlarm.time_set).toISOString(),
+        repetitive: oldAlarm.repetitive,
+        repetitionDays: newRepDays.map(d => (d ? 1 : 0)),
+        state: oldAlarm.active ? AlarmState.active : AlarmState.disabled,
+      } as Alarm;
+    });
+
+    storageSet({ alarms: newAlarms, options: newOptions });
   }
 });
 
@@ -86,6 +172,7 @@ chrome.storage.onChanged.addListener((changes, area) => {
   if (area === 'sync') {
     if (changes.alarms?.newValue) {
       storageCache.alarms = [...changes.alarms.newValue];
+      updateBadge();
     }
     if (changes.options?.newValue) {
       storageCache.options = { ...changes.options.newValue };
@@ -278,10 +365,10 @@ async function optionsChange(payload: TOptionsChangePayload) {
 // gets executed every minute to check if alarm needs to be fired
 function watcher() {
   // reset the time without seconds to match frontend (always without seconds)
-  const nowTime = new Date();
-  nowTime.setSeconds(0);
-  nowTime.setMilliseconds(0);
-  const now = nowTime.getTime();
+  const nowDate = new Date();
+  nowDate.setSeconds(0);
+  nowDate.setMilliseconds(0);
+  const now = nowDate.getTime();
 
   // performance optimization, so if nothing happens we don't spam messages
   let hasChanged = false;
@@ -387,6 +474,8 @@ function watcher() {
     storageSet({ alarms: watchedAlarms });
     sendAction({ type: appActions.updateAlarms, payload: { alarms: watchedAlarms } });
   }
+
+  updateBadge();
 }
 
 // triggers alarm tone, sets activeAlarm, sends notification to user
@@ -530,3 +619,12 @@ const getNextDate = (alarm: Alarm): Date => {
 
   return nextDate;
 };
+
+// ----------------------------------------
+// updates the app badge in browser
+function updateBadge() {
+  const activeAlarms = storageCache.alarms.filter(a => a.state !== AlarmState.disabled).length;
+  chrome.browserAction.setBadgeText({
+    text: activeAlarms ? `${activeAlarms}` : '',
+  });
+}

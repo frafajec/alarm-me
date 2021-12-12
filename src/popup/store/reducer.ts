@@ -35,7 +35,6 @@ export const defaultState: TPopupState = {
     tone: 0,
     timeFormat: 0,
     dateFormat: 0,
-    countdown: false,
   }, // MUST match background defaults
 };
 
