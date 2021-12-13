@@ -3,7 +3,7 @@
     "start": "snowpack dev",
     "build": "rm -rf build && snowpack build",
     "watch": "snowpack build --watch",
-    "test": "echo \"This template does not include a test runner by default.\" && exit 1"
+    "zip": "./zip.sh"
   },
   "dependencies": {
     "react": "^17.0.2",

@@ -3,8 +3,8 @@
   "author": "Filip Rafajec",
 
   "version": "2.0.0",
-  "name": "__MSG_extName__",
-  "short_name": "__MSG_extName__",
+  "name": "Alarm Me!",
+  "short_name": "Alarm Me!",
   "description": "Your personal pocket alarm for Chrome with notifications.",
   "offline_enabled": true,
   "permissions": ["alarms", "storage", "notifications"],
@@ -24,19 +24,4 @@
     "scripts": ["background.js"],
     "persistent": true
   }
-
-  // ----------------------------------------
-  // V3 changes
-  // "action": {
-  //   "default_popup": "popup.html",
-  //   "default_icon": {
-  //     "16": "images/icon16.png",
-  //     "19": "images/icon19.png",
-  //     "48": "images/icon48.png",
-  //     "128": "images/icon128.png"
-  //   }
-  // },
-  // "background": {
-  //   "service_worker": "./background.js"
-  // },
 }
