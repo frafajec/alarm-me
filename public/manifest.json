@@ -7,7 +7,7 @@
   "short_name": "Alarm Me!",
   "description": "Your personal pocket alarm for Chrome with notifications.",
   "offline_enabled": true,
-  "permissions": ["alarms", "storage", "notifications"],
+  "permissions": ["storage", "notifications"],
 
   "icons": {
     "16": "icons/icon16.png",
