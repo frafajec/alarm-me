@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  width: 320px;
+  min-height: 300px;
+  height: 100%;
+}
+
+.alarm-list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.alarm-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.alarm-list::-webkit-scrollbar-thumb {
+  background-color: gray;
+}
+
+@keyframes ripple {
+  from {
+    opacity: 1;
+    transform: scale(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
+.ringing {
+  display: block;
+  border-radius: 50%;
+  position: relative;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.ringing::before {
+  /* prettier-ignore */
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  z-index: 0;
+  animation: ripple 1.5s ease-out infinite;
+  top: 0;
+  left: 0;
+}
+
+.mx-auto {
+  margin: 0 auto;
+}

@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+  "author": "Filip Rafajec",
+
+  "version": "2.0.0",
+  "name": "Alarm Me!",
+  "short_name": "Alarm Me!",
+  "description": "Your personal pocket alarm for Chrome with notifications.",
+  "offline_enabled": true,
+  "permissions": ["storage", "notifications"],
+
+  "icons": {
+    "16": "icons/icon16.png",
+    "19": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png",
+    "512": "icons/icon512.png"
+  },
+  "browser_action": {
+    "default_title": "Alarm manager",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  }
+}

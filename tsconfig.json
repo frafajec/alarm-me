@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "es2020",
+    "target": "es2020",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "typeRoots": ["node_modules/@types", "types"],
+    "noImplicitAny": false,
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@popup": ["./src/popup"],
+      "@popup/*": ["./src/popup/*"],
+      "@background": ["./src/background"],
+      "@background/*": ["./src/background/*"]
+    }
+  }
+  // "include": ["src", "types"]
+}
